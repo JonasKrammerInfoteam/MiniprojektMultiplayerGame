@@ -20,8 +20,17 @@ namespace SignalR_POC.Hubs
             await DirectMessage("test");
         }
 
+        public override async Task OnDisconnectedAsync(Exception? exception)
+        {
+            await base.OnDisconnectedAsync(exception);
+        }
+
         [HubMethodName("SendMessageToUser")]
         public async Task DirectMessage(string message)
         => await Clients.Client(gameService.connections[0]).SendAsync("SendMessageToUser", gameService.connections[0]);
+
+        [HubMethodName("BroadcastMessage")]
+        public async Task BroadcastMessage(string user, string message)
+        => await Clients.All.SendAsync("BroadcastMessage", user, message);
     }
 }
