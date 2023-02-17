@@ -13,5 +13,6 @@ namespace _4WinGame.BusinessLogic.Contracts.Interfaces
         FourWinGamePlayer GetWinner();
         void Resign(FourWinGamePlayer p);
         FourWinGamePlayer GetCurrentPlayer();
+        bool isPlayerInGame(string playerID);
     }
 }

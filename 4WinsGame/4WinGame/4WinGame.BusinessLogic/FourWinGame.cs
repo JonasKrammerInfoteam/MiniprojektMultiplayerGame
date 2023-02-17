@@ -58,5 +58,14 @@ namespace _4WinGame.BusinessLogic
             }
             throw new IndexOutOfRangeException();
         }
+
+        public bool IsPlayerInGame(string playerID)
+        {
+            if (Player1.ID == playerID || Player2.ID == playerID)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
