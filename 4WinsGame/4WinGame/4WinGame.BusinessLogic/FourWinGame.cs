@@ -19,7 +19,7 @@ namespace _4WinGame.BusinessLogic
 
         public FourWinGame(FourWinGamePlayer player1, FourWinGamePlayer player2)
         {
-            // set empty board
+            // Set empty board
             Board = new int [BoardHeight][];
             for (int row = 0; row < BoardHeight; row++)
             {
@@ -47,13 +47,13 @@ namespace _4WinGame.BusinessLogic
             {
                 throw new NotYourTurnException();
             }
-            if (Board[BoardHeight-1][column-1] != 0)
-            {
-                throw new BoardColumnIsFullException();
-            }
             if (column < 1 || column > 7)
             {
                 throw new BoardOutOfRangeException();
+            }
+            if (Board[BoardHeight-1][column-1] != 0)
+            {
+                throw new BoardColumnIsFullException();
             }
 
             for (int row = 0; row < BoardHeight; row++)
@@ -88,7 +88,7 @@ namespace _4WinGame.BusinessLogic
                 }
             }
 
-            //Vertical
+            // Vertical
             for (int row = 0; row < BoardHeight - 3; row++)
             {
                 for (int column = 0; column < BoardWidth; column++)
@@ -108,7 +108,7 @@ namespace _4WinGame.BusinessLogic
                 }
             }
 
-            //Diagonal Top Left To Bottom Right
+            // Diagonal Top Left To Bottom Right
             for (int row = 0; row < BoardHeight - 3; row++)
             {
                 for (int column = 0; column < BoardWidth - 3; column++)
@@ -128,7 +128,7 @@ namespace _4WinGame.BusinessLogic
                 }
             }
 
-            //Diagonal Bottom Left To Top Right
+            // Diagonal Bottom Left To Top Right
             for (int row = BoardHeight-1; row > 2; row--)
             {
                 for (int column = 0; column < BoardWidth - 3; column++)
