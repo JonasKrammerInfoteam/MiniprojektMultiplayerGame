@@ -35,7 +35,11 @@ namespace _4WinGame.BusinessLogic
         }
         public void DoMove(int column)
         {
-            throw new NotImplementedException();
+            
+
+
+
+            CurrentPlayer = (CurrentPlayer - 1) * -1 + 2; // Toggle CurrentPlayer
         }
         public FourWinGamePlayer GetWinner()
         {

@@ -9,15 +9,13 @@ namespace _4WinGame.BusinessLogic.Contracts.Interfaces
 {
     public interface IFourWinGamesService
     {
-        List<IFourWinGame> Games { get; set; }
+        List<IFourWinGame> Games { get; }
         List<FourWinGamePlayer> WaitingGames { get; set; }
         EventHandler OnGameStarted { get; set; }
         List<FourWinGamePlayer> AllPlayers { get; set; }
 
         IFourWinGame JoinWaitingGame(FourWinGamePlayer p1, FourWinGamePlayer p2);
         void LeaveActiveGame(FourWinGamePlayer p, string gameID);
-        void AddGame(string id);
-        void AddPlayer(string name, string id);
-        IFourWinGame GetGameByID(string id);
+        IFourWinGame GetGameByID(string gameID);
     }
 }

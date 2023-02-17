@@ -26,17 +26,7 @@ namespace _4WinGame.BusinessLogic
             throw new NotImplementedException();
         }
 
-        public void AddGame(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddPlayer(string name, string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IFourWinGame GetGameByID(string id)
+        public IFourWinGame GetGameByID(string gameID)
         {
             throw new NotImplementedException();
         }
