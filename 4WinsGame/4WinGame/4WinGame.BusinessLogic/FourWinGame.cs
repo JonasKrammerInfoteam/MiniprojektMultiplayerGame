@@ -9,7 +9,7 @@ namespace _4WinGame.BusinessLogic
     {
         public const int BoardWidth = 7;
         public const int BoardHeight = 6;
-        public int[,] Board { get; set; }
+        public int[][] Board { get; set; }
         public FourWinGamePlayer Player1 { get; set; }
         public FourWinGamePlayer Player2 { get; set; }
         public int CurrentPlayer { get; set; }
@@ -20,12 +20,12 @@ namespace _4WinGame.BusinessLogic
         public FourWinGame(FourWinGamePlayer player1, FourWinGamePlayer player2)
         {
             // set empty board
-            Board = new int [BoardHeight, BoardWidth];
+            Board = new int [BoardHeight][];
             for (int row = 0; row < BoardWidth; row++)
             {
                 for (int column = 0; column < BoardHeight; column++)
                 {
-                    Board[row, column] = 0;
+                    Board[row][column] = 0;
                 }
             }
 
@@ -46,7 +46,7 @@ namespace _4WinGame.BusinessLogic
             {
                 throw new NotYourTurnException();
             }
-            if (Board[BoardHeight-1, column-1] != 0)
+            if (Board[BoardHeight-1][column-1] != 0)
             {
                 throw new BoardColumnIsFullException();
             }
@@ -57,9 +57,9 @@ namespace _4WinGame.BusinessLogic
 
             for (int row = 0; row < BoardHeight; row++)
             {
-                if (Board[row, column-1] == 0)
+                if (Board[row][column-1] == 0)
                 {
-                    Board[row, column-1] = CurrentPlayer;
+                    Board[row][column-1] = CurrentPlayer;
                 }
             }
 
