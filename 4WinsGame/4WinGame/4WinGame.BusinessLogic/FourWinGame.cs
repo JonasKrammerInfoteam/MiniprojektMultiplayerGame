@@ -46,7 +46,7 @@ namespace _4WinGame.BusinessLogic
             {
                 throw new NotYourTurnException();
             }
-            if (Board[BoardHeight-1][column-1] != 0)
+            if (Board[BoardHeight-1, column-1] != 0)
             {
                 throw new BoardColumnIsFullException();
             }
@@ -57,9 +57,9 @@ namespace _4WinGame.BusinessLogic
 
             for (int row = 0; row < BoardHeight; row++)
             {
-                if (Board[row][column-1] == 0)
+                if (Board[row, column-1] == 0)
                 {
-                    Board[row][column-1] = CurrentPlayer;
+                    Board[row, column-1] = CurrentPlayer;
                 }
             }
 

@@ -23,7 +23,9 @@ namespace _4WinGame.BusinessLogic
             {
                 throw new PlayerNotInWaitingListException();
             }
-            IFourWinGame game = new IFourWinGame(p1, p2);
+            FourWinGame game = new FourWinGame(p1, p2);
+            Games.Add(game);
+            return game;
         }
 
         public void LeaveActiveGame(FourWinGamePlayer p, string gameID)
