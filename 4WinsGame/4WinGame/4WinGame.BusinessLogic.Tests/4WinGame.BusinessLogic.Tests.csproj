@@ -14,4 +14,9 @@
     <PackageReference Include="coverlet.collector" Version="3.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\4WinGame.BusinessLogic.Contracts\4WinGame.BusinessLogic.Contracts.csproj" />
+    <ProjectReference Include="..\4WinGame.BusinessLogic\4WinGame.BusinessLogic.csproj" />
+  </ItemGroup>
+
 </Project>

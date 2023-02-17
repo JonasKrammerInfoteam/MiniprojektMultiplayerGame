@@ -1,4 +1,5 @@
-﻿using _4WinGame.BusinessLogic.Contracts.Interfaces;
+﻿using _4WinGame.BusinessLogic.Contracts.Exceptions;
+using _4WinGame.BusinessLogic.Contracts.Interfaces;
 using _4WinGame.BusinessLogic.Contracts.Models;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,12 @@ namespace _4WinGame.BusinessLogic
 
         public IFourWinGame JoinWaitingGame(FourWinGamePlayer p1, FourWinGamePlayer p2)
         {
+            if (WaitingGames.Contains(p1))
+            {
+                throw new PlayerNotInWaitingListException();
+            }
+
+
             throw new NotImplementedException();
         }
 
