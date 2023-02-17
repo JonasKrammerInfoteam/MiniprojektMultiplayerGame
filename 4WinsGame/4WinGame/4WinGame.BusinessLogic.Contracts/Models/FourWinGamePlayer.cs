@@ -8,5 +8,12 @@ namespace _4WinGame.BusinessLogic.Contracts.Models
 {
     class FourWinGamePlayer
     {
+        public string Name { get; }
+        public int ID { get; }
+        public FourWinGamePlayer(string name, int id)
+        {
+            Name = name;
+            ID = id;
+        }
     }
 }

@@ -8,6 +8,6 @@ namespace _4WinGame.BusinessLogic.Contracts.Exceptions
 {
     class PlayerNotInWaitingListException : Exception
     {
-        PlayerNotInWaitingListException(): base() { }
+        PlayerNotInWaitingListException(): base("PlayerNotFOund") { }
     }
 }
