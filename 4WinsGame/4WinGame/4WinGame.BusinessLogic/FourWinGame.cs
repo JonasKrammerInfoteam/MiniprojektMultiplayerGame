@@ -34,8 +34,9 @@ namespace _4WinGame.BusinessLogic
             Guid uuid = Guid.NewGuid();
             GameID = uuid.ToString();
         }
-        public void DoMove(int column, string playerID)
+        public void DoMove(int column, FourWinGamePlayer player)
         {
+            string playerID = player.ID;
             if (Player1.ID != playerID && Player2.ID != playerID)
             {
                 throw new PlayerNotInGameException();
@@ -93,6 +94,19 @@ namespace _4WinGame.BusinessLogic
                 return true;
             }
             return false;
+        }
+
+        public FourWinGamePlayer GetOpponent(FourWinGamePlayer player)
+        {
+            if (Player1.ID == player.ID)
+            {
+                return Player2;
+            }
+            if (Player2. ID == player.ID)
+            {
+                return Player1;
+            }
+            throw new PlayerNotInGameException();
         }
     }
 }
