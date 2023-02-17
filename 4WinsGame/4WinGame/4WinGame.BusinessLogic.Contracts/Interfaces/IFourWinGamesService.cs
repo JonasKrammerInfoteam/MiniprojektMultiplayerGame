@@ -14,7 +14,7 @@ namespace _4WinGame.BusinessLogic.Contracts.Interfaces
         List<FourWinGamePlayer> AllPlayers { get; }
 
         IFourWinGame JoinWaitingGame(FourWinGamePlayer p1, FourWinGamePlayer p2);
-        void LeaveActiveGame(FourWinGamePlayer p, int gameID);
-        IFourWinGame GetGameByID(int id);
+        void LeaveActiveGame(FourWinGamePlayer p, string gameID);
+        IFourWinGame GetGameByID(string id);
     }
 }

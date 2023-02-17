@@ -12,7 +12,7 @@ namespace _4WinGame.BusinessLogic
         public int CurrentPlayer { get; }
         public EventHandler OnGameStateChange { get; }
         public EventHandler OnGameFinish { get; }
-        public int ID { get; }
+        public string ID { get; }
 
 
         public void DoMove(int column)
@@ -26,13 +26,20 @@ namespace _4WinGame.BusinessLogic
 
         public void Resign(FourWinGamePlayer p)
         {
-
+            throw new NotImplementedException();
         }
 
-        public void getCurrentPlayer()
+        public FourWinGamePlayer GetCurrentPlayer()
         {
-
+            if (CurrentPlayer == 1)
+            {
+                return Player1;
+            }
+            else if (CurrentPlayer == 2)
+            {
+                return Player2;
+            }
+            throw new IndexOutOfRangeException();
         }
-
     }
 }
