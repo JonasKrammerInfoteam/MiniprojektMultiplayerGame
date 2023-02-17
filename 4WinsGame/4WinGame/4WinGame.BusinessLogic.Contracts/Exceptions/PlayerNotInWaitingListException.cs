@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _4WinGame.BusinessLogic.Contracts.Models
+namespace _4WinGame.BusinessLogic.Contracts.Exceptions
 {
-    class GameStartedEventArgs
+    class PlayerNotInWaitingListException
     {
-        int GameID;
     }
 }
