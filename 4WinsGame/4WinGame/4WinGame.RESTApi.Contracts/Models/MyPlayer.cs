@@ -9,12 +9,11 @@ namespace _4WinGame.RESTApi.Contracts.Models
     public class MyPlayer : Player
     {
 
-        public int PlayerID { get; }
+        public string PlayerID { get; }
         public string RTPConnectionID { get; }
 
-        public MyPlayer(string playerName, string rtpconnectionid, int id) : base(playerName)
+        public MyPlayer(string playerName, string rtpconnectionid, string id) : base(playerName)
         {
-            PlayerName = playerName;
             PlayerID = id;
             RTPConnectionID = rtpconnectionid;
         }

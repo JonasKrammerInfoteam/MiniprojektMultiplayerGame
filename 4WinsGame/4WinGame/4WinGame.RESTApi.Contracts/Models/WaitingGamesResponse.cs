@@ -8,9 +8,9 @@ namespace _4WinGame.RESTApi.Contracts.Models
 {
     public class WaitingGamesResponse
     {
-        public WaitingGame[] WaitingGames { get;}
+        public List<WaitingGame> WaitingGames { get;}
         
-        public WaitingGamesResponse(WaitingGame[] waitingGames) 
+        public WaitingGamesResponse(List<WaitingGame> waitingGames) 
         {
             WaitingGames = waitingGames;
         }
