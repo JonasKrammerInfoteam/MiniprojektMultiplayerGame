@@ -4,12 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _4WinGame.RESTApi.Contracts
+namespace _4WinGame.RESTApi.Contracts.Models
 {
     public class RegisterPlayerResponse
     {
 
         public MyPlayer RegisteredPlayer { get; }
+
+        public RegisterPlayerResponse(MyPlayer myplayer)
+        {
+            RegisteredPlayer = myplayer;
+        }
 
     }
 }
