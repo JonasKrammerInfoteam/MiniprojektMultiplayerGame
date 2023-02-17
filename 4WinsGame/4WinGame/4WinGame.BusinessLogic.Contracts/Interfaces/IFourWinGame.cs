@@ -7,7 +7,7 @@ namespace _4WinGame.BusinessLogic.Contracts.Interfaces
     {
         EventHandler OnGameStateChange { get; set; }
         EventHandler OnGameFinish { get; set; }
-        string ID { get; set; }
+        string GameID { get; set; }
         
         void DoMove(int column);
         FourWinGamePlayer GetWinner();

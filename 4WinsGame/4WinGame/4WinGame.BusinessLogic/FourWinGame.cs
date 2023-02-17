@@ -6,15 +6,32 @@ namespace _4WinGame.BusinessLogic
 {
     public class FourWinGame : IFourWinGame
     {
+        public const int BoardWidth = 7;
+        public const int BoardHeight = 6;
         public int[][] Board { get; set; }
         public FourWinGamePlayer Player1 { get; set; }
         public FourWinGamePlayer Player2 { get; set; }
         public int CurrentPlayer { get; set; }
         public EventHandler OnGameStateChange { get; set; }
-        public EventHandler OnGameFinish { get; set}
-        public string ID { get; set; }
+        public EventHandler OnGameFinish { get; set; }
+        public string GameID { get; set; }
 
+        public FourWinGame(FourWinGamePlayer player1, FourWinGamePlayer player2)
+        {
+            // set empty board
+            for (int row = 0; row < BoardWidth; row++)
+            {
+                for (int column = 0; column < BoardHeight; column++)
+                {
+                    Board[row][column] = 0;
+                }
+            }
 
+            Player1 = player1;
+            Player2 = player2;
+            CurrentPlayer = 1;
+            // GameID = ???
+        }
         public void DoMove(int column)
         {
             throw new NotImplementedException();

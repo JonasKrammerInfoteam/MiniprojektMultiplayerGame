@@ -10,19 +10,17 @@ namespace _4WinGame.BusinessLogic
 {
     class FourWinGamesService : IFourWinGamesService
     {
-        public const int BoardWidth = 7;
-        public const int BoardHeight = 6;
         public List<FourWinGamePlayer> WaitingGames { get; set; }
         public EventHandler OnGameStarted { get; set; }
         public List<FourWinGamePlayer> AllPlayers { get; set; }
 
 
-        public IFourWinGame JoinWaitingGame(FourWinGamePlayer p1, FourWinGamePlayer p2)
+        public IFourWinGame JoinWaitingGame(string player1ID, string player2ID)
         {
             throw new NotImplementedException();
         }
 
-        public void LeaveActiveGame(FourWinGamePlayer p, string gameID)
+        public void LeaveActiveGame(string playerID, string gameID)
         {
             throw new NotImplementedException();
         }
