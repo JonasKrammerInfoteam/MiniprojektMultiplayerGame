@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace _4WinGame.BusinessLogic.Contracts.Exceptions
 {
-    class PlayerNotInWaitingListException : Exception
+    class PlayerNotInGameException : Exception
     {
-        PlayerNotInWaitingListException(): base() { }
+        PlayerNotInGameException() : base() { }
     }
 }
