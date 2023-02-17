@@ -1,4 +1,5 @@
-﻿using _4WinGame.BusinessLogic.Contracts.Interfaces;
+﻿using _4WinGame.BusinessLogic.Contracts.Exceptions;
+using _4WinGame.BusinessLogic.Contracts.Interfaces;
 using _4WinGame.BusinessLogic.Contracts.Models;
 using System;
 
@@ -33,17 +34,32 @@ namespace _4WinGame.BusinessLogic
             Guid uuid = Guid.NewGuid();
             GameID = uuid.ToString();
         }
-        public void DoMove(int column)
+        public void DoMove(int column, string playerID)
         {
-            for (int row = 0; row < BoardHeight; row++)
+            if (Player1.ID != playerID && Player2.ID != playerID)
             {
-                if (Board[row][column] == 0)
-                {
-                    Board[row][column] = CurrentPlayer;
-                }
+                throw new PlayerNotInGameException();
+            }
+            if (Player1.ID == playerID && CurrentPlayer != 1 || Player2.ID == playerID && CurrentPlayer != 2)
+            {
+                throw new NotYourTurnException();
+            }
+            if (Board[BoardHeight-1][column-1] != 0)
+            {
+                throw new BoardColumnIsFullException();
+            }
+            if (column < 1 || column > 7)
+            {
+                throw new BoardOutOfRangeException();
             }
 
-
+            for (int row = 0; row < BoardHeight; row++)
+            {
+                if (Board[row][column-1] == 0)
+                {
+                    Board[row][column-1] = CurrentPlayer;
+                }
+            }
 
             CurrentPlayer = (CurrentPlayer - 1) * -1 + 2; // Toggle CurrentPlayer
         }
