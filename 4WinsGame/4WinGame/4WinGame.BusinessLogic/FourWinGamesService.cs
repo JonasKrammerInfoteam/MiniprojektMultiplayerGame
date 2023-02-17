@@ -16,12 +16,12 @@ namespace _4WinGame.BusinessLogic
         public List<FourWinGamePlayer> AllPlayers { get; set; }
 
 
-        public IFourWinGame JoinWaitingGame(string player1ID, string player2ID)
+        public IFourWinGame JoinWaitingGame(FourWinGamePlayer p1, FourWinGamePlayer p2)
         {
             throw new NotImplementedException();
         }
 
-        public void LeaveActiveGame(string playerID, string gameID)
+        public void LeaveActiveGame(FourWinGamePlayer p, string gameID)
         {
             throw new NotImplementedException();
         }

@@ -14,8 +14,8 @@ namespace _4WinGame.BusinessLogic.Contracts.Interfaces
         EventHandler OnGameStarted { get; set; }
         List<FourWinGamePlayer> AllPlayers { get; set; }
 
-        IFourWinGame JoinWaitingGame(string player1ID, string player2ID);
-        void LeaveActiveGame(string playerID, string gameID);
+        IFourWinGame JoinWaitingGame(FourWinGamePlayer p1, FourWinGamePlayer p2);
+        void LeaveActiveGame(FourWinGamePlayer p, string gameID);
         void AddGame(string id);
         void AddPlayer(string name, string id);
         IFourWinGame GetGameByID(string id);
