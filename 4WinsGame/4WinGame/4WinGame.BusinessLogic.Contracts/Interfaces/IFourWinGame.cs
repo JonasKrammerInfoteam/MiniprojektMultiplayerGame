@@ -5,7 +5,7 @@ namespace _4WinGame.BusinessLogic.Contracts.Interfaces
 {
     public interface IFourWinGame
     {
-        int[,] Board { get; }
+        int[][] Board { get; }
         EventHandler OnGameStateChange { get; set; }
         EventHandler OnGameFinish { get; set; }
         FourWinGamePlayer Player1 { get; }
