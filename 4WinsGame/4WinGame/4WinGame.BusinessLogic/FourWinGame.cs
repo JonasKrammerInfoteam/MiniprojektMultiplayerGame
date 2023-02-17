@@ -15,7 +15,7 @@ namespace _4WinGame.BusinessLogic
         public int CurrentPlayer { get; set; }
         public EventHandler OnGameStateChange { get; set; }
         public EventHandler OnGameFinish { get; set; }
-        public string GameID { get; set; }
+        public string ID { get; set; }
 
         public FourWinGame(FourWinGamePlayer player1, FourWinGamePlayer player2)
         {
@@ -23,6 +23,7 @@ namespace _4WinGame.BusinessLogic
             Board = new int [BoardHeight][];
             for (int row = 0; row < BoardWidth; row++)
             {
+                Board[row] = new int[BoardWidth];
                 for (int column = 0; column < BoardHeight; column++)
                 {
                     Board[row][column] = 0;
@@ -33,7 +34,7 @@ namespace _4WinGame.BusinessLogic
             Player2 = player2;
             CurrentPlayer = 1;
             Guid uuid = Guid.NewGuid();
-            GameID = uuid.ToString();
+            ID = uuid.ToString();
         }
         public void DoMove(int column, FourWinGamePlayer player)
         {
@@ -68,6 +69,15 @@ namespace _4WinGame.BusinessLogic
         public FourWinGamePlayer GetWinner()
         {
             throw new NotImplementedException();
+
+
+            for (int row = 0; row < BoardHeight; row++)
+            {
+                for (int column = 0; column < BoardWidth-3; column++)
+                {
+                    int a = Board[row][column] + Board[row][column] + Board[row][column];
+                }
+            }
         } 
 
         public void Resign(FourWinGamePlayer p)

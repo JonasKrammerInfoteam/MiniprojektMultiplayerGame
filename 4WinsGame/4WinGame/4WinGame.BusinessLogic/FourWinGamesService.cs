@@ -23,7 +23,7 @@ namespace _4WinGame.BusinessLogic
             {
                 throw new PlayerNotInWaitingListException();
             }
-            FourWinGame game = new FourWinGame(p1, p2);
+            IFourWinGame game = new FourWinGame(p1, p2);
             Games.Add(game);
             return game;
         }
@@ -31,11 +31,25 @@ namespace _4WinGame.BusinessLogic
         public void LeaveActiveGame(FourWinGamePlayer p, string gameID)
         {
             throw new NotImplementedException();
+            IFourWinGame game = GetGameByID(gameID);
+            if (game.Player1.ID != p.ID && game.Player2.ID != p.ID)
+            {
+                throw new PlayerNotInGameException();
+            }
+            Games.Remove(game);
+            // Declare Winner?
         }
 
         public IFourWinGame GetGameByID(string gameID)
-        {
-            throw new NotImplementedException();
+        { 
+            foreach (IFourWinGame game in Games)
+            {
+                if (game.ID == gameID)
+                {
+                    return game;
+                }
+            }
+            throw new GameNotFoundException();
         }
     }
 }

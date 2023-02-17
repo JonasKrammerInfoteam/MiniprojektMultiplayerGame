@@ -10,7 +10,7 @@ namespace _4WinGame.BusinessLogic.Contracts.Interfaces
         EventHandler OnGameFinish { get; set; }
         FourWinGamePlayer Player1 { get; }
         FourWinGamePlayer Player2 { get; }
-        string GameID { get; set; }
+        string ID { get; set; }
 
 
         void DoMove(int column, FourWinGamePlayer player);
