@@ -23,5 +23,10 @@ namespace _4WinGame.RESTApi.Services
             ConnectedIDs.Add(connectionID);
         }
 
+        public void LeavePlayer(string playerID)
+        {
+            PlayerIDToConnectionIDlist.Remove(playerID);
+        }
+
     }
 }
