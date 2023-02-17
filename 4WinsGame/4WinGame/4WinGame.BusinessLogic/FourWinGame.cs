@@ -9,21 +9,30 @@ namespace _4WinGame.BusinessLogic
         public int[][] Board { get; }
         public FourWinGamePlayer Player1 { get; }
         public FourWinGamePlayer Player2 { get; }
-
+        public int CurrentPlayer { get; }
+        public EventHandler OnGameStateChange { get; }
+        public EventHandler OnGameFinish { get; }
         public int ID { get; }
 
-        public EventHandler OnCurrentPlayerChange { get; set; }
 
         public void DoMove(int column)
         {
             throw new NotImplementedException();
         }
-
-        FourWinGamePlayer IFourWinGame.GetWinner()
+        public FourWinGamePlayer GetWinner()
         {
             throw new NotImplementedException();
+        } 
+
+        public void Resign(FourWinGamePlayer p)
+        {
+
         }
 
-        public FourWinGamePlayer 
+        public void getCurrentPlayer()
+        {
+
+        }
+
     }
 }

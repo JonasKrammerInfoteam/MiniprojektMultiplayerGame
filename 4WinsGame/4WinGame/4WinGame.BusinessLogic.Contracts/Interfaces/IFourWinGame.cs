@@ -3,12 +3,15 @@ using System;
 
 namespace _4WinGame.BusinessLogic.Contracts.Interfaces
 {
-    interface IFourWinGame
+    public interface IFourWinGame
     {
+        EventHandler OnGameStateChange { get; set; }
+        EventHandler OnGameFinish { get; set; }
         int ID { get; }
-        EventHandler OnCurrentPlayerChange { get; set; }
-
+        
         void DoMove(int column);
         FourWinGamePlayer GetWinner();
+        void Resign(FourWinGamePlayer p);
+        FourWinGamePlayer GetCurrentPlayer();
     }
 }

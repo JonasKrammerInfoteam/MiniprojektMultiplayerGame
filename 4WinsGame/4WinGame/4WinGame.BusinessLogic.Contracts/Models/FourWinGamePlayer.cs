@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace _4WinGame.BusinessLogic.Contracts.Models
 {
-    class FourWinGamePlayer
+    public class FourWinGamePlayer
     {
         public string Name { get; }
         public int ID { get; }
