@@ -10,9 +10,9 @@ namespace _4WinGame.BusinessLogic
 {
     class FourWinGamesService : IFourWinGamesService
     {
-        public List<FourWinGamePlayer> WaitingGames { get; }
-        public EventHandler OnGameStarted { get; }
-        public List<FourWinGamePlayer> AllPlayers { get; }
+        public List<FourWinGamePlayer> WaitingGames { get; set; }
+        public EventHandler OnGameStarted { get; set; }
+        public List<FourWinGamePlayer> AllPlayers { get; set; }
 
 
         public IFourWinGame JoinWaitingGame(FourWinGamePlayer p1, FourWinGamePlayer p2)

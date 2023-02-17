@@ -6,13 +6,13 @@ namespace _4WinGame.BusinessLogic
 {
     public class FourWinGame : IFourWinGame
     {
-        public int[][] Board { get; }
-        public FourWinGamePlayer Player1 { get; }
-        public FourWinGamePlayer Player2 { get; }
-        public int CurrentPlayer { get; }
-        public EventHandler OnGameStateChange { get; }
-        public EventHandler OnGameFinish { get; }
-        public string ID { get; }
+        public int[][] Board { get; set; }
+        public FourWinGamePlayer Player1 { get; set; }
+        public FourWinGamePlayer Player2 { get; set; }
+        public int CurrentPlayer { get; set; }
+        public EventHandler OnGameStateChange { get; set; }
+        public EventHandler OnGameFinish { get; set}
+        public string ID { get; set; }
 
 
         public void DoMove(int column)

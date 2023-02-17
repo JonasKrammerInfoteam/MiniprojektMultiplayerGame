@@ -9,9 +9,9 @@ namespace _4WinGame.BusinessLogic.Contracts.Interfaces
 {
     public interface IFourWinGamesService
     {
-        List<FourWinGamePlayer> WaitingGames { get; }
-        EventHandler OnGameStarted { get; }
-        List<FourWinGamePlayer> AllPlayers { get; }
+        List<FourWinGamePlayer> WaitingGames { get; set; }
+        EventHandler OnGameStarted { get; set; }
+        List<FourWinGamePlayer> AllPlayers { get; set; }
 
         IFourWinGame JoinWaitingGame(FourWinGamePlayer p1, FourWinGamePlayer p2);
         void LeaveActiveGame(FourWinGamePlayer p, string gameID);
