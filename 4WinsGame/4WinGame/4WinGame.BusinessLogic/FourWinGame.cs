@@ -21,10 +21,10 @@ namespace _4WinGame.BusinessLogic
         {
             // set empty board
             Board = new int [BoardHeight][];
-            for (int row = 0; row < BoardWidth; row++)
+            for (int row = 0; row < BoardHeight; row++)
             {
                 Board[row] = new int[BoardWidth];
-                for (int column = 0; column < BoardHeight; column++)
+                for (int column = 0; column < BoardWidth; column++)
                 {
                     Board[row][column] = 0;
                 }
@@ -68,16 +68,86 @@ namespace _4WinGame.BusinessLogic
         }
         public FourWinGamePlayer GetWinner()
         {
-            throw new NotImplementedException();
-
-
+            // Horizontal
             for (int row = 0; row < BoardHeight; row++)
             {
-                for (int column = 0; column < BoardWidth-3; column++)
+                for (int column = 0; column < BoardWidth - 3; column++)
                 {
-                    int a = Board[row][column] + Board[row][column] + Board[row][column];
+                    int winner = Board[row][column] + Board[row][column + 1] + Board[row][column + 2] + Board[row][column + 3] / 4;
+                    if (Board[row][column] + Board[row][column + 1] + Board[row][column + 2] + Board[row][column + 3] % 4 == 0 && Board[row][column] == Board[row][column + 1] && Board[row][column] == Board[row][column + 2])
+                    {
+                        if (winner == 1)
+                        {
+                            return Player1;
+                        }
+                        if (winner == 2)
+                        {
+                            return Player2;
+                        }
+                    }
                 }
             }
+
+            //Vertical
+            for (int row = 0; row < BoardHeight - 3; row++)
+            {
+                for (int column = 0; column < BoardWidth; column++)
+                {
+                    int winner = Board[row][column] + Board[row + 1][column] + Board[row + 2][column] + Board[row + 3][column] / 4;
+                    if (Board[row][column] + Board[row + 1][column] + Board[row + 2][column] + Board[row + 3][column] % 4 == 0 && Board[row][column] == Board[row + 1][column] && Board[row][column] == Board[row + 2][column])
+                    {
+                        if (winner == 1)
+                        {
+                            return Player1;
+                        }
+                        if (winner == 2)
+                        {
+                            return Player2;
+                        }
+                    }
+                }
+            }
+
+            //Diagonal Top Left To Bottom Right
+            for (int row = 0; row < BoardHeight - 3; row++)
+            {
+                for (int column = 0; column < BoardWidth - 3; column++)
+                {
+                    int winner = Board[row][column] + Board[row + 1][column + 1] + Board[row + 2][column + 2] + Board[row + 3][column + 3] / 4;
+                    if (Board[row][column] + Board[row + 1][column + 1] + Board[row + 2][column + 2] + Board[row + 3][column + 3] % 4 == 0 && Board[row][column] == Board[row + 1][column + 1] && Board[row][column] == Board[row + 2][column + 2])
+                    {
+                        if (winner == 1)
+                        {
+                            return Player1;
+                        }
+                        if (winner == 2)
+                        {
+                            return Player2;
+                        }
+                    }
+                }
+            }
+
+            //Diagonal Bottom Left To Top Right
+            for (int row = BoardHeight-1; row > 2; row--)
+            {
+                for (int column = 0; column < BoardWidth - 3; column++)
+                {
+                    int winner = Board[row][column] + Board[row][column] + Board[row - 1][column + 1] + Board[row - 2][column + 2] + Board[row - 3][column + 3] / 4;
+                    if (Board[row][column] + Board[row - 1][column + 1] + Board[row - 2][column + 2] + Board[row - 3][column + 3] % 4 == 0 && Board[row][column] == Board[row - 1][column + 1] && Board[row][column] == Board[row - 2][column + 2])
+                    {
+                        if (winner == 1)
+                        {
+                            return Player1;
+                        }
+                        if (winner == 2)
+                        {
+                            return Player2;
+                        }
+                    }
+                }
+            }
+            return null;
         } 
 
         public void Resign(FourWinGamePlayer p)
