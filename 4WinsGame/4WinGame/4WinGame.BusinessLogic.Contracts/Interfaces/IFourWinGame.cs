@@ -13,7 +13,7 @@ namespace _4WinGame.BusinessLogic.Contracts.Interfaces
         string GameID { get; set; }
 
 
-        void DoMove(int column, FourWinGamePlayer);
+        void DoMove(int column, FourWinGamePlayer player);
         FourWinGamePlayer GetWinner();
         void Resign(FourWinGamePlayer p);
         FourWinGamePlayer GetCurrentPlayer();
