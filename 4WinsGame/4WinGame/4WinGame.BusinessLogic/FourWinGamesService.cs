@@ -10,6 +10,7 @@ namespace _4WinGame.BusinessLogic
 {
     class FourWinGamesService : IFourWinGamesService
     {
+        public List<IFourWinGame> Games { get; set; }
         public List<FourWinGamePlayer> WaitingGames { get; set; }
         public EventHandler OnGameStarted { get; set; }
         public List<FourWinGamePlayer> AllPlayers { get; set; }

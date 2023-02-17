@@ -30,7 +30,8 @@ namespace _4WinGame.BusinessLogic
             Player1 = player1;
             Player2 = player2;
             CurrentPlayer = 1;
-            // GameID = ???
+            Guid uuid = Guid.NewGuid();
+            GameID = uuid.ToString();
         }
         public void DoMove(int column)
         {
