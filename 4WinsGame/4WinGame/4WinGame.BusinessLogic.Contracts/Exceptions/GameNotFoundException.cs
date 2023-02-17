@@ -8,6 +8,6 @@ namespace _4WinGame.BusinessLogic.Contracts.Exceptions
 {
     class GameNotFoundException : Exception
     {
-        GameNotFoundException() : base() { }
+        GameNotFoundException() : base("This game does not exist") { }
     }
 }

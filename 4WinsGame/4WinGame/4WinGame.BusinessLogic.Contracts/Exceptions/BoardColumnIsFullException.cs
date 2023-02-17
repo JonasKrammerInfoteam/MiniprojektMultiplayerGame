@@ -8,6 +8,6 @@ namespace _4WinGame.BusinessLogic.Contracts.Exceptions
 {
     class BoardColumnIsFullException : Exception
     {
-        BoardColumnIsFullException() : base() { }
+        BoardColumnIsFullException() : base("This board column is full. Please select another one") { }
     }
 }

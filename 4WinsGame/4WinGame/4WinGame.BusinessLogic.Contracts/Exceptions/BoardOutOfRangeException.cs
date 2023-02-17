@@ -8,6 +8,6 @@ namespace _4WinGame.BusinessLogic.Contracts.Exceptions
 {
     class BoardOutOfRangeException : Exception
     {
-        BoardOutOfRangeException() : base() { }
+        BoardOutOfRangeException() : base("This board column does not exist. Please select another one") { }
     }
 }
