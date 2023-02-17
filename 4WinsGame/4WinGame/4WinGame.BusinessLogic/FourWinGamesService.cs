@@ -10,8 +10,7 @@ namespace _4WinGame.BusinessLogic
 {
     class FourWinGamesService : IFourWinGamesService
     {
-        public const int BoardWidth = 7;
-        public const int BoardHeight = 6;
+        public List<IFourWinGame> Games { get; set; }
         public List<FourWinGamePlayer> WaitingGames { get; set; }
         public EventHandler OnGameStarted { get; set; }
         public List<FourWinGamePlayer> AllPlayers { get; set; }
@@ -27,17 +26,7 @@ namespace _4WinGame.BusinessLogic
             throw new NotImplementedException();
         }
 
-        public void AddGame(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddPlayer(string name, string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IFourWinGame GetGameByID(string id)
+        public IFourWinGame GetGameByID(string gameID)
         {
             throw new NotImplementedException();
         }

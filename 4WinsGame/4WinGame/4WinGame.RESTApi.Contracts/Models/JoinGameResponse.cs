@@ -9,9 +9,9 @@ namespace _4WinGame.RESTApi.Contracts.Models
     public class JoinGameResponse
     {
 
-        public int GameID { get; }
+        public string GameID { get; }
 
-        public JoinGameResponse(int gameid)
+        public JoinGameResponse(string gameid)
         {
             GameID = gameid;
         }
