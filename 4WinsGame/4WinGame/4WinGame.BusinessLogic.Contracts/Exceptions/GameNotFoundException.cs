@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace _4WinGame.BusinessLogic.Contracts.Exceptions
 {
-    class GameNotFoundException : Exception
+    public class GameNotFoundException : Exception
     {
-        GameNotFoundException() : base("This game does not exist") { }
+        public GameNotFoundException() : base("This game does not exist") { }
     }
 }

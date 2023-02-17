@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace _4WinGame.BusinessLogic.Contracts.Exceptions
 {
-    class PlayerNotInGameException : Exception
+    public class PlayerNotInGameException : Exception
     {
-        PlayerNotInGameException() : base("This player is not in this game") { }
+        public PlayerNotInGameException() : base("This player is not in this game") { }
     }
 }

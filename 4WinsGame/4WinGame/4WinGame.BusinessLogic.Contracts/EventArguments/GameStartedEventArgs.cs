@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace _4WinGame.BusinessLogic.Contracts.EventArguments
 {
-    class GameStartedEventArgs : EventArgs
+    public class GameStartedEventArgs : EventArgs
     {
         string GameID;
         public GameStartedEventArgs(string id)

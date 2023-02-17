@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace _4WinGame.BusinessLogic.Contracts.Exceptions
 {
-    class BoardOutOfRangeException : Exception
+    public class BoardOutOfRangeException : Exception
     {
-        BoardOutOfRangeException() : base("This board column does not exist. Please select another one") { }
+        public BoardOutOfRangeException() : base("This board column does not exist. Please select another one") { }
     }
 }
