@@ -35,7 +35,13 @@ namespace _4WinGame.BusinessLogic
         }
         public void DoMove(int column)
         {
-            
+            for (int row = 0; row < BoardHeight; row++)
+            {
+                if (Board[row][column] == 0)
+                {
+                    Board[row][column] = CurrentPlayer;
+                }
+            }
 
 
 

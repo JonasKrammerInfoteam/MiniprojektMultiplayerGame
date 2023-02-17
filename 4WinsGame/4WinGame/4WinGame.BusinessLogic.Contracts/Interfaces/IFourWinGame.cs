@@ -5,14 +5,18 @@ namespace _4WinGame.BusinessLogic.Contracts.Interfaces
 {
     public interface IFourWinGame
     {
+        int[][] Board { get; }
         EventHandler OnGameStateChange { get; set; }
         EventHandler OnGameFinish { get; set; }
+        FourWinGamePlayer Player1 { get; }
+        FourWinGamePlayer Player2 { get; }
         string GameID { get; set; }
-        
+
+
         void DoMove(int column);
         FourWinGamePlayer GetWinner();
         void Resign(FourWinGamePlayer p);
         FourWinGamePlayer GetCurrentPlayer();
-        bool isPlayerInGame(string playerID);
+        bool IsPlayerInGame(string playerID);
     }
 }
