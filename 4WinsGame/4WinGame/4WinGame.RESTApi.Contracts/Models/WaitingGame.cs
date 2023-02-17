@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _4WinGame.RESTApi.Contracts
+namespace _4WinGame.RESTApi.Contracts.Models
 {
-    public class GameInfo
+    public class WaitingGame
     {
 
         public string PlayerName { get; }
 
-        public GameInfo(Player player)
+        public WaitingGame(string playername)
         {
-            PlayerName = player.PlayerName;
+            PlayerName = playername;
         }
 
     }
