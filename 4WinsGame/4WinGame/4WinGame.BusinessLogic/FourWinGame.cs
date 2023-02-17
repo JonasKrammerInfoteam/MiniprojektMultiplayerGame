@@ -9,7 +9,7 @@ namespace _4WinGame.BusinessLogic
     {
         public const int BoardWidth = 7;
         public const int BoardHeight = 6;
-        public int[][] Board { get; set; }
+        public int[,] Board { get; set; }
         public FourWinGamePlayer Player1 { get; set; }
         public FourWinGamePlayer Player2 { get; set; }
         public int CurrentPlayer { get; set; }
@@ -20,11 +20,12 @@ namespace _4WinGame.BusinessLogic
         public FourWinGame(FourWinGamePlayer player1, FourWinGamePlayer player2)
         {
             // set empty board
+            Board = new int [BoardHeight, BoardWidth];
             for (int row = 0; row < BoardWidth; row++)
             {
                 for (int column = 0; column < BoardHeight; column++)
                 {
-                    Board[row][column] = 0;
+                    Board[row, column] = 0;
                 }
             }
 
