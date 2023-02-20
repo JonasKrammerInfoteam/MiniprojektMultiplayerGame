@@ -51,16 +51,17 @@ namespace _4WinGame.BusinessLogic
             {
                 throw new BoardOutOfRangeException();
             }
-            if (Board[BoardHeight-1][column-1] != 0)
+            if (Board[0][column-1] != 0)
             {
                 throw new BoardColumnIsFullException();
             }
 
-            for (int row = 0; row < BoardHeight; row++)
+            for (int row = BoardHeight - 1; row > -1; row--)
             {
                 if (Board[row][column-1] == 0)
                 {
                     Board[row][column-1] = CurrentPlayer;
+                    break;
                 }
             }
 
