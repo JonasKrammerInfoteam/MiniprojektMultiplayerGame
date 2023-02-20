@@ -1,4 +1,5 @@
-﻿using _4WinGame.BusinessLogic.Contracts.Exceptions;
+﻿using _4WinGame.BusinessLogic.Contracts.EventArguments;
+using _4WinGame.BusinessLogic.Contracts.Exceptions;
 using _4WinGame.BusinessLogic.Contracts.Interfaces;
 using _4WinGame.BusinessLogic.Contracts.Models;
 using System;
@@ -23,8 +24,10 @@ namespace _4WinGame.BusinessLogic
             {
                 throw new PlayerNotInWaitingListException();
             }
+            WaitingGames.Remove(p1);
             IFourWinGame game = new FourWinGame(p1, p2);
             Games.Add(game);
+            OnGameStarted.Invoke(this, new GameStartedEventArgs(game.ID));
             return game;
         }
 
@@ -35,8 +38,8 @@ namespace _4WinGame.BusinessLogic
             {
                 throw new PlayerNotInGameException();
             }
+            game.Resign(p);
             Games.Remove(game);
-            // Declare Winner?
         }
 
         public IFourWinGame GetGameByID(string gameID)
