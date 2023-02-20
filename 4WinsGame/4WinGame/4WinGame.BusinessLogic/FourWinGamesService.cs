@@ -26,7 +26,7 @@ namespace _4WinGame.BusinessLogic
 
         public IFourWinGame JoinWaitingGame(FourWinGamePlayer playerFromWaitingList, FourWinGamePlayer playerJoining)
         {
-            if (WaitingGames.Contains(playerFromWaitingList))
+            if (WaitingGames.Any(player => player.Equals(playerFromWaitingList)))
             {
                 throw new PlayerNotInWaitingListException();
             }
