@@ -20,8 +20,8 @@ namespace _4WinGame.BusinessLogic
 
         public FourWinGamesService()
         {
-            List<FourWinGamePlayer> AllPlayers = new List<FourWinGamePlayer>();
-            List<FourWinGamePlayer> WaitingGames = new List<FourWinGamePlayer>();
+            AllPlayers = new List<FourWinGamePlayer>();
+            WaitingGames = new List<FourWinGamePlayer>();
         }
 
         public IFourWinGame JoinWaitingGame(FourWinGamePlayer playerFromWaitingList, FourWinGamePlayer playerJoining)
