@@ -17,13 +17,11 @@ namespace _4WinGame.RESTApi.Controllers
     public class FourWinGameController : ControllerBase
     {
 
-        private List<string> gameIDList;
         private ConnectionService connectionService;
         private IFourWinGamesService fourWinGameService;
 
         public FourWinGameController(ConnectionService connectionService, IFourWinGamesService fourWinGames)
         {
-            this.gameIDList = new List<string>();
             this.connectionService = connectionService;
             this.fourWinGameService = fourWinGames;
         }
@@ -37,6 +35,8 @@ namespace _4WinGame.RESTApi.Controllers
                 throw new ConnectionIDNotFoundException();
             }
             connectionService.AddPlayer(player.PlayerID, RTPconnectionID);
+            FourWinGamePlayer fourWinGamePlayer = new FourWinGamePlayer(player.PlayerName, player.PlayerID);
+            fourWinGameService.AllPlayers.Add(fourWinGamePlayer);
             return Ok( new RegisterPlayerResponse(player));
         }
 
@@ -48,9 +48,7 @@ namespace _4WinGame.RESTApi.Controllers
             {
                 throw new PlayerNotFoundException();
             }
-            FourWinGamePlayer fourWinGamePlayer = new FourWinGamePlayer(player.PlayerName, player.PlayerID);
-            fourWinGameService.AllPlayers.Add(fourWinGamePlayer);
-            fourWinGameService.WaitingGames.Add(fourWinGamePlayer);
+            fourWinGameService.WaitingGames.Add(found);
             return Ok();
         }
 
@@ -72,23 +70,24 @@ namespace _4WinGame.RESTApi.Controllers
         [HttpPost("DoMove")]
         public IActionResult DoMove([FromQuery] int column, [FromQuery] string gameID, [FromBody] MyPlayer player)
         {
-            if(!gameIDList.Contains(gameID))
+            IFourWinGame fourWinGame;
+            try
+            {
+                fourWinGame = fourWinGameService.GetGameByID(gameID);
+            }
+            catch (_4WinGame.BusinessLogic.Contracts.Exceptions.GameNotFoundException)
             {
                 throw new _4WinGame.RESTApi.Contracts.Exceptions.GameNotFoundException();
             }
+                      
             FourWinGamePlayer found = fourWinGameService.AllPlayers.Where(p => p.ID == player.PlayerID).FirstOrDefault();
             if (found==null) {
                 throw new _4WinGame.RESTApi.Contracts.Exceptions.PlayerNotFoundException();
             } 
-            if(fourWinGameService.GetGameByID(gameID).Player1.ID != player.PlayerID ||
-                fourWinGameService.GetGameByID(gameID).Player2.ID != player.PlayerID)
-            {
-                throw new _4WinGame.RESTApi.Contracts.Exceptions.PlayerNotInGameException();
-            }
-
+            
             try
             {
-                fourWinGameService.GetGameByID(gameID).DoMove(column, found);
+                fourWinGame.DoMove(column, found);
             }
             catch (BoardColumnIsFullException e)
             {
@@ -99,13 +98,26 @@ namespace _4WinGame.RESTApi.Controllers
             {
                 throw new DoMoveException("The column is out of range!", e);
             }
+            catch (NotYourTurnException e)
+            {
+                throw new DoMoveException("It is not your move!", e);
+            }
+            catch (_4WinGame.BusinessLogic.Contracts.Exceptions.PlayerNotInGameException e)
+            {
+                throw new DoMoveException("The searched player is not in the game", e);
+            }
             return Ok();
         }
 
         [HttpPost("LeaveGame")]
         public IActionResult LeaveGame([FromBody] MyPlayer player, [FromQuery] string gameID)
         {
-            if (!gameIDList.Contains(gameID))
+            IFourWinGame fourWinGame;
+            try
+            {
+                fourWinGame = fourWinGameService.GetGameByID(gameID);
+            }
+            catch (_4WinGame.BusinessLogic.Contracts.Exceptions.GameNotFoundException)
             {
                 throw new _4WinGame.RESTApi.Contracts.Exceptions.GameNotFoundException();
             }
@@ -135,7 +147,12 @@ namespace _4WinGame.RESTApi.Controllers
         [HttpGet("GetGameInfo")]
         public IActionResult GetGameInfo([FromQuery] string gameID, [FromQuery] string playerID)
         {
-            if (!gameIDList.Contains(gameID))
+            IFourWinGame fourWinGame;
+            try
+            {
+                fourWinGame = fourWinGameService.GetGameByID(gameID);
+            }
+            catch (_4WinGame.BusinessLogic.Contracts.Exceptions.GameNotFoundException)
             {
                 throw new _4WinGame.RESTApi.Contracts.Exceptions.GameNotFoundException();
             }
@@ -144,8 +161,7 @@ namespace _4WinGame.RESTApi.Controllers
             {
                 throw new _4WinGame.RESTApi.Contracts.Exceptions.PlayerNotFoundException();
             }
-            IFourWinGame fourWinGame = fourWinGameService.GetGameByID(gameID);
-            if(fourWinGame.Player1.ID != playerID ||
+            if(fourWinGame.Player1.ID != playerID &&
                 fourWinGame.Player2.ID != playerID)
             {
                 throw new _4WinGame.RESTApi.Contracts.Exceptions.PlayerNotInGameException();
