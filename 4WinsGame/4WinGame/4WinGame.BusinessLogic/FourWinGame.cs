@@ -1,4 +1,5 @@
-﻿using _4WinGame.BusinessLogic.Contracts.Exceptions;
+﻿using _4WinGame.BusinessLogic.Contracts.EventArguments;
+using _4WinGame.BusinessLogic.Contracts.Exceptions;
 using _4WinGame.BusinessLogic.Contracts.Interfaces;
 using _4WinGame.BusinessLogic.Contracts.Models;
 using System;
@@ -51,21 +52,42 @@ namespace _4WinGame.BusinessLogic
             {
                 throw new BoardOutOfRangeException();
             }
-            if (Board[BoardHeight-1][column-1] != 0)
+            if (Board[0][column-1] != 0)
             {
                 throw new BoardColumnIsFullException();
             }
 
-            for (int row = 0; row < BoardHeight; row++)
+            for (int row = BoardHeight - 1; row > -1; row--)
             {
                 if (Board[row][column-1] == 0)
                 {
                     Board[row][column-1] = CurrentPlayer;
+                    break;
                 }
             }
 
+            OnGameStateChange?.Invoke(this, new EventArgs());
             CurrentPlayer = (CurrentPlayer - 1) * -1 + 2; // Toggle CurrentPlayer
+
+            if (isBoardFull() || GetWinner() != null)
+            {
+                InvokeGameFinished();
+            }
         }
+
+        private bool isBoardFull()
+        {
+            for (int row = 0; row < BoardHeight; row++)
+            {
+                for (int column = 0; column < BoardWidth; column++)
+                {
+                    if (Board[row][column] == 0)
+                        return false;
+                }
+            }
+            return true;
+        }
+
         public FourWinGamePlayer GetWinner()
         {
             // Horizontal
@@ -73,17 +95,10 @@ namespace _4WinGame.BusinessLogic
             {
                 for (int column = 0; column < BoardWidth - 3; column++)
                 {
-                    int winner = Board[row][column] + Board[row][column + 1] + Board[row][column + 2] + Board[row][column + 3] / 4;
-                    if (Board[row][column] + Board[row][column + 1] + Board[row][column + 2] + Board[row][column + 3] % 4 == 0 && Board[row][column] == Board[row][column + 1] && Board[row][column] == Board[row][column + 2])
+                    int winner = (Board[row][column] + Board[row][column + 1] + Board[row][column + 2] + Board[row][column + 3]) / 4;
+                    if ((Board[row][column] + Board[row][column + 1] + Board[row][column + 2] + Board[row][column + 3]) % 4 == 0 && Board[row][column] == Board[row][column + 1] && Board[row][column] == Board[row][column + 2] && winner != 0)
                     {
-                        if (winner == 1)
-                        {
-                            return Player1;
-                        }
-                        if (winner == 2)
-                        {
-                            return Player2;
-                        }
+                        return GetPlayerFromPlayerIndex((int)winner);
                     }
                 }
             }
@@ -93,17 +108,10 @@ namespace _4WinGame.BusinessLogic
             {
                 for (int column = 0; column < BoardWidth; column++)
                 {
-                    int winner = Board[row][column] + Board[row + 1][column] + Board[row + 2][column] + Board[row + 3][column] / 4;
-                    if (Board[row][column] + Board[row + 1][column] + Board[row + 2][column] + Board[row + 3][column] % 4 == 0 && Board[row][column] == Board[row + 1][column] && Board[row][column] == Board[row + 2][column])
+                    int winner = (Board[row][column] + Board[row + 1][column] + Board[row + 2][column] + Board[row + 3][column]) / 4;
+                    if ((Board[row][column] + Board[row + 1][column] + Board[row + 2][column] + Board[row + 3][column]) % 4 == 0 && Board[row][column] == Board[row + 1][column] && Board[row][column] == Board[row + 2][column] && winner != 0)
                     {
-                        if (winner == 1)
-                        {
-                            return Player1;
-                        }
-                        if (winner == 2)
-                        {
-                            return Player2;
-                        }
+                        return GetPlayerFromPlayerIndex((int)winner);
                     }
                 }
             }
@@ -113,17 +121,10 @@ namespace _4WinGame.BusinessLogic
             {
                 for (int column = 0; column < BoardWidth - 3; column++)
                 {
-                    int winner = Board[row][column] + Board[row + 1][column + 1] + Board[row + 2][column + 2] + Board[row + 3][column + 3] / 4;
-                    if (Board[row][column] + Board[row + 1][column + 1] + Board[row + 2][column + 2] + Board[row + 3][column + 3] % 4 == 0 && Board[row][column] == Board[row + 1][column + 1] && Board[row][column] == Board[row + 2][column + 2])
+                    int winner = (Board[row][column] + Board[row + 1][column + 1] + Board[row + 2][column + 2] + Board[row + 3][column + 3]) / 4;
+                    if ((Board[row][column] + Board[row + 1][column + 1] + Board[row + 2][column + 2] + Board[row + 3][column + 3]) % 4 == 0 && Board[row][column] == Board[row + 1][column + 1] && Board[row][column] == Board[row + 2][column + 2] && winner != 0)
                     {
-                        if (winner == 1)
-                        {
-                            return Player1;
-                        }
-                        if (winner == 2)
-                        {
-                            return Player2;
-                        }
+                        return GetPlayerFromPlayerIndex((int)winner);
                     }
                 }
             }
@@ -133,26 +134,42 @@ namespace _4WinGame.BusinessLogic
             {
                 for (int column = 0; column < BoardWidth - 3; column++)
                 {
-                    int winner = Board[row][column] + Board[row][column] + Board[row - 1][column + 1] + Board[row - 2][column + 2] + Board[row - 3][column + 3] / 4;
-                    if (Board[row][column] + Board[row - 1][column + 1] + Board[row - 2][column + 2] + Board[row - 3][column + 3] % 4 == 0 && Board[row][column] == Board[row - 1][column + 1] && Board[row][column] == Board[row - 2][column + 2])
+                    int winner = (Board[row][column] + Board[row][column] + Board[row - 1][column + 1] + Board[row - 2][column + 2] + Board[row - 3][column + 3]) / 4;
+                    if ((Board[row][column] + Board[row - 1][column + 1] + Board[row - 2][column + 2] + Board[row - 3][column + 3]) % 4 == 0 && Board[row][column] == Board[row - 1][column + 1] && Board[row][column] == Board[row - 2][column + 2] && winner != 0)
                     {
-                        if (winner == 1)
-                        {
-                            return Player1;
-                        }
-                        if (winner == 2)
-                        {
-                            return Player2;
-                        }
+                        return GetPlayerFromPlayerIndex((int)winner);
                     }
                 }
             }
             return null;
-        } 
+        }
+
+        private FourWinGamePlayer GetPlayerFromPlayerIndex(int winner)
+        {
+            if (winner == 1)
+            {
+                return Player1;
+            }
+            if (winner == 2)
+            {
+                return Player2;
+            }
+            throw new IndexOutOfRangeException();
+        }
 
         public void Resign(FourWinGamePlayer p)
         {
-            throw new NotImplementedException();
+            if (Player1.ID != p.ID && Player2.ID != p.ID)
+            {
+                throw new PlayerNotInGameException();
+            }
+            InvokeGameFinished();
+        }
+
+        private void InvokeGameFinished()
+        {
+            FourWinGamePlayer winner = GetWinner();
+            OnGameFinish?.Invoke(this, new GameWinnerEventArgs(winner));
         }
 
         public FourWinGamePlayer GetCurrentPlayer()

@@ -1,4 +1,5 @@
-﻿using _4WinGame.BusinessLogic.Contracts.Exceptions;
+﻿using _4WinGame.BusinessLogic.Contracts.EventArguments;
+using _4WinGame.BusinessLogic.Contracts.Exceptions;
 using _4WinGame.BusinessLogic.Contracts.Interfaces;
 using _4WinGame.BusinessLogic.Contracts.Models;
 using System;
@@ -17,27 +18,34 @@ namespace _4WinGame.BusinessLogic
         public List<FourWinGamePlayer> AllPlayers { get; set; }
 
 
-        public IFourWinGame JoinWaitingGame(FourWinGamePlayer p1, FourWinGamePlayer p2)
+        public FourWinGamesService()
         {
-            if (WaitingGames.Contains(p1))
+            List<FourWinGamePlayer> AllPlayers = new List<FourWinGamePlayer>();
+            List<FourWinGamePlayer> WaitingGames = new List<FourWinGamePlayer>();
+        }
+
+        public IFourWinGame JoinWaitingGame(FourWinGamePlayer playerFromWaitingList, FourWinGamePlayer playerJoining)
+        {
+            if (WaitingGames.Contains(playerFromWaitingList))
             {
                 throw new PlayerNotInWaitingListException();
             }
-            IFourWinGame game = new FourWinGame(p1, p2);
+            WaitingGames.Remove(playerFromWaitingList);
+            IFourWinGame game = new FourWinGame(playerFromWaitingList, playerJoining);
             Games.Add(game);
+            OnGameStarted?.Invoke(this, new GameStartedEventArgs(game.ID));
             return game;
         }
 
         public void LeaveActiveGame(FourWinGamePlayer p, string gameID)
         {
-            throw new NotImplementedException();
             IFourWinGame game = GetGameByID(gameID);
             if (game.Player1.ID != p.ID && game.Player2.ID != p.ID)
             {
                 throw new PlayerNotInGameException();
             }
+            game.Resign(p);
             Games.Remove(game);
-            // Declare Winner?
         }
 
         public IFourWinGame GetGameByID(string gameID)
