@@ -18,14 +18,14 @@ namespace _4WinGame.BusinessLogic
         public List<FourWinGamePlayer> AllPlayers { get; set; }
 
 
-        public IFourWinGame JoinWaitingGame(FourWinGamePlayer p1, FourWinGamePlayer p2)
+        public IFourWinGame JoinWaitingGame(FourWinGamePlayer playerFromWaitingList, FourWinGamePlayer playerJoining)
         {
-            if (WaitingGames.Contains(p1))
+            if (WaitingGames.Contains(playerFromWaitingList))
             {
                 throw new PlayerNotInWaitingListException();
             }
-            WaitingGames.Remove(p1);
-            IFourWinGame game = new FourWinGame(p1, p2);
+            WaitingGames.Remove(playerFromWaitingList);
+            IFourWinGame game = new FourWinGame(playerFromWaitingList, playerJoining);
             Games.Add(game);
             OnGameStarted.Invoke(this, new GameStartedEventArgs(game.ID));
             return game;
