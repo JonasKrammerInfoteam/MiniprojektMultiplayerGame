@@ -30,7 +30,6 @@ namespace _4WinGame.BusinessLogic
 
         public void LeaveActiveGame(FourWinGamePlayer p, string gameID)
         {
-            throw new NotImplementedException();
             IFourWinGame game = GetGameByID(gameID);
             if (game.Player1.ID != p.ID && game.Player2.ID != p.ID)
             {
