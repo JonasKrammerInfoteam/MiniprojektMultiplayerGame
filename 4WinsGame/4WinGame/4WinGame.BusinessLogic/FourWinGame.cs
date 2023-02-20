@@ -69,10 +69,25 @@ namespace _4WinGame.BusinessLogic
             OnGameStateChange(this, new EventArgs());
             CurrentPlayer = (CurrentPlayer - 1) * -1 + 2; // Toggle CurrentPlayer
 
-            //get winner
-
-            //is full
+            if (isBoardFull() || GetWinner() != null)
+            {
+                InvokeGameFinished();
+            }
         }
+
+        private bool isBoardFull()
+        {
+            for (int row = 0; row < BoardHeight; row++)
+            {
+                for (int column = 0; column < BoardWidth; column++)
+                {
+                    if (Board[row][column] == 0)
+                        return false;
+                }
+            }
+            return true;
+        }
+
         public FourWinGamePlayer GetWinner()
         {
             // Horizontal
