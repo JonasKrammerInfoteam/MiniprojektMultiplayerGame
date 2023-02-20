@@ -9,12 +9,15 @@ namespace _4WinGame.RESTApi.Contracts.Models
     public class RegisterPlayerResponse
     {
 
-        public MyPlayer RegisteredPlayer { get; }
+        public MyPlayer RegisteredPlayer { get; set; }
 
         public RegisterPlayerResponse(MyPlayer myplayer)
         {
             RegisteredPlayer = myplayer;
         }
+        public RegisterPlayerResponse()
+        {
 
+        }
     }
 }

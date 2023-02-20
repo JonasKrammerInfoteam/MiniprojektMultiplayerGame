@@ -20,7 +20,6 @@ namespace _4WinGame.RESTApi.Services
         public void AddPlayer(string playerID, string connectionID)
         {
             PlayerIDToConnectionIDlist.Add(playerID, connectionID);
-            ConnectedIDs.Add(connectionID);
         }
 
         public void LeavePlayer(string playerID)
