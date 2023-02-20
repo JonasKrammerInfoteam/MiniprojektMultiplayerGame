@@ -205,8 +205,8 @@ namespace _4WinGame.BusinessLogic.Tests
                 new int[]{2,2,1,2,0,0,0},
                 new int[]{2,2,2,1,2,0,2},
          };
-            FourWinGamePlayer winner3 = fourWinGame.GetWinner();
-            Assert.AreEqual(winner2, p1);
+            FourWinGamePlayer winner = fourWinGame.GetWinner();
+            Assert.AreEqual(winner, p1);
         }
         [TestMethod]
         public void GetWinner_DiagonalBottomLeftToTopRight_WinnerPlayer2()
@@ -232,7 +232,7 @@ namespace _4WinGame.BusinessLogic.Tests
                 new int[]{0,0,1,2,2,1,1},
                 new int[]{1,1,1,2,1,1,1},
          };
-            FourWinGamePlayer winner4 = fourWinGame.GetWinner();
+            FourWinGamePlayer winner = fourWinGame.GetWinner();
             Assert.AreEqual(winner, p2);
         }
 
