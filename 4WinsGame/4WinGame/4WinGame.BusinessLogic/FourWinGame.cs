@@ -75,10 +75,10 @@ namespace _4WinGame.BusinessLogic
             {
                 for (int column = 0; column < BoardWidth - 3; column++)
                 {
-                    int winner = Board[row][column] + Board[row][column + 1] + Board[row][column + 2] + Board[row][column + 3] / 4;
-                    if (Board[row][column] + Board[row][column + 1] + Board[row][column + 2] + Board[row][column + 3] % 4 == 0 && Board[row][column] == Board[row][column + 1] && Board[row][column] == Board[row][column + 2])
+                    int winner = (Board[row][column] + Board[row][column + 1] + Board[row][column + 2] + Board[row][column + 3]) / 4;
+                    if ((Board[row][column] + Board[row][column + 1] + Board[row][column + 2] + Board[row][column + 3]) % 4 == 0 && Board[row][column] == Board[row][column + 1] && Board[row][column] == Board[row][column + 2] && winner != 0)
                     {
-                        return GetPlayerFromPlayerIndex(winner);
+                        return GetPlayerFromPlayerIndex((int)winner);
                     }
                 }
             }
@@ -88,10 +88,10 @@ namespace _4WinGame.BusinessLogic
             {
                 for (int column = 0; column < BoardWidth; column++)
                 {
-                    int winner = Board[row][column] + Board[row + 1][column] + Board[row + 2][column] + Board[row + 3][column] / 4;
-                    if (Board[row][column] + Board[row + 1][column] + Board[row + 2][column] + Board[row + 3][column] % 4 == 0 && Board[row][column] == Board[row + 1][column] && Board[row][column] == Board[row + 2][column])
+                    int winner = (Board[row][column] + Board[row + 1][column] + Board[row + 2][column] + Board[row + 3][column]) / 4;
+                    if ((Board[row][column] + Board[row + 1][column] + Board[row + 2][column] + Board[row + 3][column]) % 4 == 0 && Board[row][column] == Board[row + 1][column] && Board[row][column] == Board[row + 2][column] && winner != 0)
                     {
-                        return GetPlayerFromPlayerIndex(winner);
+                        return GetPlayerFromPlayerIndex((int)winner);
                     }
                 }
             }
@@ -101,10 +101,10 @@ namespace _4WinGame.BusinessLogic
             {
                 for (int column = 0; column < BoardWidth - 3; column++)
                 {
-                    int winner = Board[row][column] + Board[row + 1][column + 1] + Board[row + 2][column + 2] + Board[row + 3][column + 3] / 4;
-                    if (Board[row][column] + Board[row + 1][column + 1] + Board[row + 2][column + 2] + Board[row + 3][column + 3] % 4 == 0 && Board[row][column] == Board[row + 1][column + 1] && Board[row][column] == Board[row + 2][column + 2])
+                    int winner = (Board[row][column] + Board[row + 1][column + 1] + Board[row + 2][column + 2] + Board[row + 3][column + 3]) / 4;
+                    if ((Board[row][column] + Board[row + 1][column + 1] + Board[row + 2][column + 2] + Board[row + 3][column + 3]) % 4 == 0 && Board[row][column] == Board[row + 1][column + 1] && Board[row][column] == Board[row + 2][column + 2] && winner != 0)
                     {
-                        return GetPlayerFromPlayerIndex(winner);
+                        return GetPlayerFromPlayerIndex((int)winner);
                     }
                 }
             }
@@ -114,10 +114,10 @@ namespace _4WinGame.BusinessLogic
             {
                 for (int column = 0; column < BoardWidth - 3; column++)
                 {
-                    int winner = Board[row][column] + Board[row][column] + Board[row - 1][column + 1] + Board[row - 2][column + 2] + Board[row - 3][column + 3] / 4;
-                    if (Board[row][column] + Board[row - 1][column + 1] + Board[row - 2][column + 2] + Board[row - 3][column + 3] % 4 == 0 && Board[row][column] == Board[row - 1][column + 1] && Board[row][column] == Board[row - 2][column + 2])
+                    int winner = (Board[row][column] + Board[row][column] + Board[row - 1][column + 1] + Board[row - 2][column + 2] + Board[row - 3][column + 3]) / 4;
+                    if ((Board[row][column] + Board[row - 1][column + 1] + Board[row - 2][column + 2] + Board[row - 3][column + 3]) % 4 == 0 && Board[row][column] == Board[row - 1][column + 1] && Board[row][column] == Board[row - 2][column + 2] && winner != 0)
                     {
-                        return GetPlayerFromPlayerIndex(winner);
+                        return GetPlayerFromPlayerIndex((int)winner);
                     }
                 }
             }
