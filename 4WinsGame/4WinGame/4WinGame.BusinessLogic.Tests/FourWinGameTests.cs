@@ -141,7 +141,17 @@ namespace _4WinGame.BusinessLogic.Tests
             FourWinGamePlayer winner = fourWinGame.GetWinner();
             Assert.AreEqual(winner, p1);
 
-
+            fourWinGame.Board = new int[][]
+            {
+                new int[]{0,0,0,0,0,0,0},
+                new int[]{0,0,0,0,0,0,0},
+                new int[]{2,0,0,0,0,0,0},
+                new int[]{2,2,2,2,0,0,0},
+                new int[]{2,1,2,2,1,0,0},
+                new int[]{1,1,2,1,2,0,0},
+             };
+            FourWinGamePlayer winner2 = fourWinGame.GetWinner();
+            Assert.AreEqual(winner2, p1);
         }
         [TestMethod]
         public void GetWinner_Vertical_WinnerPlayer2()
@@ -158,6 +168,18 @@ namespace _4WinGame.BusinessLogic.Tests
             FourWinGamePlayer winner = fourWinGame.GetWinner();
             Assert.AreEqual(winner, p2);
 
+            fourWinGame.Board = new int[][]
+        {
+                new int[]{0,0,0,0,0,2,0},
+                new int[]{0,0,0,1,0,2,0},
+                new int[]{0,0,0,1,0,2,0},
+                new int[]{1,0,0,1,0,2,0},
+                new int[]{2,0,0,1,1,1,0},
+                new int[]{1,2,0,1,2,1,0},
+        };
+            FourWinGamePlayer winner2 = fourWinGame.GetWinner();
+            Assert.AreEqual(winner2, p2);
+
         }
         [TestMethod]
         public void GetWinner_DiagonalTopLeftToBottomRight_WinnerPlayer1()
@@ -165,14 +187,26 @@ namespace _4WinGame.BusinessLogic.Tests
             fourWinGame.Board = new int[][]
          {
                 new int[]{0,0,0,0,0,0,0},
-                new int[]{0,1,0,0,0,0,0},
-                new int[]{0,0,1,0,0,0,0},
-                new int[]{0,0,0,1,0,0,0},
-                new int[]{0,0,0,0,1,0,0},
-                new int[]{2,2,2,0,0,0,0},
+                new int[]{2,1,0,0,0,0,0},
+                new int[]{1,2,1,0,0,0,0},
+                new int[]{1,2,2,1,0,0,0},
+                new int[]{2,1,1,2,1,0,0},
+                new int[]{2,2,2,0,2,0,0},
          };
             FourWinGamePlayer winner = fourWinGame.GetWinner();
             Assert.AreEqual(winner, p1);
+
+            fourWinGame.Board = new int[][]
+         {
+                new int[]{1,0,0,0,0,0,0},
+                new int[]{1,1,0,0,0,0,0},
+                new int[]{2,1,1,0,0,0,0},
+                new int[]{1,1,2,1,0,0,0},
+                new int[]{2,2,1,2,0,0,0},
+                new int[]{2,2,2,1,2,0,2},
+         };
+            FourWinGamePlayer winner3 = fourWinGame.GetWinner();
+            Assert.AreEqual(winner2, p1);
         }
         [TestMethod]
         public void GetWinner_DiagonalBottomLeftToTopRight_WinnerPlayer2()
@@ -181,14 +215,25 @@ namespace _4WinGame.BusinessLogic.Tests
          {
                 new int[]{0,0,0,0,0,0,0},
                 new int[]{0,0,0,0,2,0,0},
-                new int[]{0,0,0,2,0,0,0},
-                new int[]{0,0,2,0,0,0,1},
-                new int[]{0,2,0,0,0,0,1},
-                new int[]{0,1,0,0,0,0,1},
+                new int[]{0,0,0,2,1,0,0},
+                new int[]{0,0,2,1,1,0,1},
+                new int[]{0,2,2,2,2,0,1},
+                new int[]{0,1,1,1,2,0,1},
          };
             FourWinGamePlayer winner = fourWinGame.GetWinner();
             Assert.AreEqual(winner, p2);
 
+            fourWinGame.Board = new int[][]
+         {
+                new int[]{0,0,0,0,0,2,0},
+                new int[]{0,0,0,0,2,1,0},
+                new int[]{0,0,0,2,1,1,0},
+                new int[]{0,0,2,1,2,2,1},
+                new int[]{0,0,1,2,2,1,1},
+                new int[]{1,1,1,2,1,1,1},
+         };
+            FourWinGamePlayer winner4 = fourWinGame.GetWinner();
+            Assert.AreEqual(winner, p2);
         }
 
     }
