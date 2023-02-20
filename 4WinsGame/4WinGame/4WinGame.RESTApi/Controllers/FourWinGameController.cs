@@ -29,6 +29,11 @@ namespace _4WinGame.RESTApi.Controllers
         [HttpPost("RegisterPlayer")]
         public IActionResult RegisterPlayer([FromQuery] string name, [FromQuery] string RTPconnectionID)
         {
+            if(connectionService.ConnectedIDs.Contains(RTPconnectionID))
+            {
+                throw new ConnectionIDNotUniqueException("You are already logged in with an other account!");
+            }
+
             MyPlayer player = new MyPlayer(name, RTPconnectionID, Guid.NewGuid().ToString());
             if(!connectionService.ConnectedIDs.Contains(RTPconnectionID))
             {
