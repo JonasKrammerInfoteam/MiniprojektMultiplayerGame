@@ -62,9 +62,9 @@ namespace _4WinGame.BusinessLogic.Tests
             Assert.ThrowsException<PlayerNotInGameException>(() => fourWinGame.DoMove(1, testplayer));
         }
         [TestMethod]
-        [DataRow(1, 0, 2)]
+        [DataRow(1, 0, 3)]
         [DataRow(2, 1, 0)]
-        [DataRow(3, 3, 1)]
+        [DataRow(3, 2, 1)]
         [DataRow(4, 3, 4)]
         [DataRow(5, 4, 2)]
         [DataRow(6, 5, 1)]
@@ -78,10 +78,10 @@ namespace _4WinGame.BusinessLogic.Tests
                 new int[]{0,2,2,0,0,2,0},
                 new int[]{0,1,2,0,2,1,0},
                 new int[]{1,1,1,0,1,2,0},
-                new int[]{1,2,2,1,2,0,0},
+                new int[]{1,2,2,1,2,1,0},
             };
             fourWinGame.DoMove(insertcolumm, p1);
-            Assert.AreEqual(1, fourWinGame.Board[expectedx][expectedy]);
+            Assert.AreEqual(1, fourWinGame.Board[expectedy][expectedx]);
         }
         [TestMethod]
         public void ReSign_PlayerNotInGame()
