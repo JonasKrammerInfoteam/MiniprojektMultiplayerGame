@@ -1,4 +1,5 @@
-﻿using _4WinGame.BusinessLogic.Contracts.Exceptions;
+﻿using _4WinGame.BusinessLogic.Contracts.EventArguments;
+using _4WinGame.BusinessLogic.Contracts.Exceptions;
 using _4WinGame.BusinessLogic.Contracts.Interfaces;
 using _4WinGame.BusinessLogic.Contracts.Models;
 using System;
@@ -77,14 +78,7 @@ namespace _4WinGame.BusinessLogic
                     int winner = Board[row][column] + Board[row][column + 1] + Board[row][column + 2] + Board[row][column + 3] / 4;
                     if (Board[row][column] + Board[row][column + 1] + Board[row][column + 2] + Board[row][column + 3] % 4 == 0 && Board[row][column] == Board[row][column + 1] && Board[row][column] == Board[row][column + 2])
                     {
-                        if (winner == 1)
-                        {
-                            return Player1;
-                        }
-                        if (winner == 2)
-                        {
-                            return Player2;
-                        }
+                        return GetPlayerFromPlayerIndex(winner);
                     }
                 }
             }
@@ -97,14 +91,7 @@ namespace _4WinGame.BusinessLogic
                     int winner = Board[row][column] + Board[row + 1][column] + Board[row + 2][column] + Board[row + 3][column] / 4;
                     if (Board[row][column] + Board[row + 1][column] + Board[row + 2][column] + Board[row + 3][column] % 4 == 0 && Board[row][column] == Board[row + 1][column] && Board[row][column] == Board[row + 2][column])
                     {
-                        if (winner == 1)
-                        {
-                            return Player1;
-                        }
-                        if (winner == 2)
-                        {
-                            return Player2;
-                        }
+                        return GetPlayerFromPlayerIndex(winner);
                     }
                 }
             }
@@ -117,14 +104,7 @@ namespace _4WinGame.BusinessLogic
                     int winner = Board[row][column] + Board[row + 1][column + 1] + Board[row + 2][column + 2] + Board[row + 3][column + 3] / 4;
                     if (Board[row][column] + Board[row + 1][column + 1] + Board[row + 2][column + 2] + Board[row + 3][column + 3] % 4 == 0 && Board[row][column] == Board[row + 1][column + 1] && Board[row][column] == Board[row + 2][column + 2])
                     {
-                        if (winner == 1)
-                        {
-                            return Player1;
-                        }
-                        if (winner == 2)
-                        {
-                            return Player2;
-                        }
+                        return GetPlayerFromPlayerIndex(winner);
                     }
                 }
             }
@@ -137,23 +117,34 @@ namespace _4WinGame.BusinessLogic
                     int winner = Board[row][column] + Board[row][column] + Board[row - 1][column + 1] + Board[row - 2][column + 2] + Board[row - 3][column + 3] / 4;
                     if (Board[row][column] + Board[row - 1][column + 1] + Board[row - 2][column + 2] + Board[row - 3][column + 3] % 4 == 0 && Board[row][column] == Board[row - 1][column + 1] && Board[row][column] == Board[row - 2][column + 2])
                     {
-                        if (winner == 1)
-                        {
-                            return Player1;
-                        }
-                        if (winner == 2)
-                        {
-                            return Player2;
-                        }
+                        return GetPlayerFromPlayerIndex(winner);
                     }
                 }
             }
             return null;
-        } 
+        }
+
+        private FourWinGamePlayer GetPlayerFromPlayerIndex(int winner)
+        {
+            if (winner == 1)
+            {
+                return Player1;
+            }
+            if (winner == 2)
+            {
+                return Player2;
+            }
+            throw new IndexOutOfRangeException();
+        }
 
         public void Resign(FourWinGamePlayer p)
         {
-            throw new NotImplementedException();
+            if (Player1.ID != p.ID && Player2.ID != p.ID)
+            {
+                throw new PlayerNotInGameException();
+            }
+            OnGameStateChange.Invoke(this, new EventArgs());
+            OnGameFinish.Invoke(this, new EventArgs());
         }
 
         public FourWinGamePlayer GetCurrentPlayer()
