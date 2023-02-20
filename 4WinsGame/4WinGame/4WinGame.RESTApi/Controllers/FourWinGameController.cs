@@ -4,6 +4,7 @@ using _4WinGame.BusinessLogic.Contracts.Models;
 using _4WinGame.RESTApi.Contracts.Exceptions;
 using _4WinGame.RESTApi.Contracts.Models;
 using _4WinGame.RESTApi.Services;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,9 @@ using System.Threading.Tasks;
 
 namespace _4WinGame.RESTApi.Controllers
 {
-    public class FourWinGameController
+    [ApiController]
+    [Route("[controller]")]
+    public class FourWinGameController : ControllerBase
     {
 
         private List<string> gameIDList;
@@ -25,24 +28,34 @@ namespace _4WinGame.RESTApi.Controllers
             this.fourWinGameService = fourWinGames;
         }
 
-        public RegisterPlayerResponse RegisterPlayer(string name, string RTPconnectionID)
+        [HttpPost("RegisterPlayer")]
+        public IActionResult RegisterPlayer([FromQuery] string name, [FromQuery] string RTPconnectionID)
         {
-            MyPlayer player = new MyPlayer(name, RTPconnectionID, new Guid().ToString());
+            MyPlayer player = new MyPlayer(name, RTPconnectionID, Guid.NewGuid().ToString());
+            if(!connectionService.ConnectedIDs.Contains(RTPconnectionID))
+            {
+                throw new ConnectionIDNotFoundException();
+            }
             connectionService.AddPlayer(player.PlayerID, RTPconnectionID);
-            return new RegisterPlayerResponse(player);
+            return Ok( new RegisterPlayerResponse(player));
         }
 
-        public void CreateGame(MyPlayer player)
+        [HttpPost("CreateGame")]
+        public IActionResult CreateGame([FromBody] MyPlayer player)
         {
             FourWinGamePlayer found = fourWinGameService.AllPlayers.Where(p => p.ID == player.PlayerID).FirstOrDefault();
             if (found==null)
             {
                 throw new PlayerNotFoundException();
             }
-            fourWinGameService.AllPlayers.Add(new FourWinGamePlayer(player.PlayerName, player.PlayerID));
+            FourWinGamePlayer fourWinGamePlayer = new FourWinGamePlayer(player.PlayerName, player.PlayerID);
+            fourWinGameService.AllPlayers.Add(fourWinGamePlayer);
+            fourWinGameService.WaitingGames.Add(fourWinGamePlayer);
+            return Ok();
         }
 
-        public JoinGameResponse JoinGame(MyPlayer p1, int waitingGameListIndex)
+        [HttpPost("JoinGame")]
+        public IActionResult JoinGame([FromBody] MyPlayer p1, [FromQuery] int waitingGameListIndex)
         {
             FourWinGamePlayer found = fourWinGameService.AllPlayers.Where(player => player.ID == p1.PlayerID).FirstOrDefault();
             if (found==null) {
@@ -53,10 +66,11 @@ namespace _4WinGame.RESTApi.Controllers
                 throw new WaitingListEntryNotFoundException();
             }
             IFourWinGame fourWinGame = fourWinGameService.JoinWaitingGame(fourWinGameService.WaitingGames.ElementAt(waitingGameListIndex), found);
-            return new JoinGameResponse(fourWinGame.GameID);
+            return Ok(new JoinGameResponse(fourWinGame.ID));
         }
 
-        public void DoMove(int column, string gameID, MyPlayer player)
+        [HttpPost("DoMove")]
+        public IActionResult DoMove([FromQuery] int column, [FromQuery] string gameID, [FromBody] MyPlayer player)
         {
             if(!gameIDList.Contains(gameID))
             {
@@ -74,7 +88,7 @@ namespace _4WinGame.RESTApi.Controllers
 
             try
             {
-                fourWinGameService.GetGameByID(gameID).DoMove(column);
+                fourWinGameService.GetGameByID(gameID).DoMove(column, found);
             }
             catch (BoardColumnIsFullException e)
             {
@@ -85,9 +99,11 @@ namespace _4WinGame.RESTApi.Controllers
             {
                 throw new DoMoveException("The column is out of range!", e);
             }
+            return Ok();
         }
 
-        public void LeaveGame(MyPlayer player, string gameID)
+        [HttpPost("LeaveGame")]
+        public IActionResult LeaveGame([FromBody] MyPlayer player, [FromQuery] string gameID)
         {
             if (!gameIDList.Contains(gameID))
             {
@@ -107,14 +123,17 @@ namespace _4WinGame.RESTApi.Controllers
             {
                 throw new _4WinGame.RESTApi.Contracts.Exceptions.PlayerNotInGameException();
             }
+            return Ok();
         }
 
-        public WaitingGamesResponse GetWaitingGames()
+        [HttpGet("GetWaitingGames")]
+        public IActionResult GetWaitingGames()
         {
-            return new WaitingGamesResponse(fourWinGameService.WaitingGames.Select(player => new WaitingGame(player.Name)).ToList());
+            return Ok(new WaitingGamesResponse(fourWinGameService.WaitingGames.Select(player => new WaitingGame(player.Name)).ToList()));
         }
 
-        public GameInfoResponse GetGameInfo(string gameID, string playerID)
+        [HttpGet("GetGameInfo")]
+        public IActionResult GetGameInfo([FromQuery] string gameID, [FromQuery] string playerID)
         {
             if (!gameIDList.Contains(gameID))
             {
@@ -132,11 +151,8 @@ namespace _4WinGame.RESTApi.Controllers
                 throw new _4WinGame.RESTApi.Contracts.Exceptions.PlayerNotInGameException();
             }
             bool yourmove = (playerID==fourWinGame.GetCurrentPlayer().ID) ? true : false;
-            ///string playerName = (playerID == fourWinGame.GetCurrentPlayer().ID) ? "Andere Spieler" : found.Name;
-            return new GameInfoResponse(new GameInfo(fourWinGame.Board, new Player(playerName), yourmove));
-        }
-
-
-
+            Player opponent = new Player(fourWinGame.GetOpponent(found).Name);
+            return Ok(new GameInfoResponse(new GameInfo(fourWinGame.Board, opponent, yourmove)));
+        }        
     }
 }

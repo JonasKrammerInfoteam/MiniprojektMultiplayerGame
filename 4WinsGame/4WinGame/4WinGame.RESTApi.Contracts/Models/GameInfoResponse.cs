@@ -8,11 +8,16 @@ namespace _4WinGame.RESTApi.Contracts.Models
 {
     public class GameInfoResponse
     {
-        public GameInfo GameInfo {get;}
+        public GameInfo GameInfo {get; set; }
 
         public GameInfoResponse(GameInfo gameinfo)
         {
             GameInfo = gameinfo;
+        }
+
+        public GameInfoResponse()
+        {
+
         }
 
     }

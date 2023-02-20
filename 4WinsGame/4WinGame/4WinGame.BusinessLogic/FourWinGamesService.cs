@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace _4WinGame.BusinessLogic
 {
-    class FourWinGamesService : IFourWinGamesService
+    public class FourWinGamesService : IFourWinGamesService
     {
         public List<IFourWinGame> Games { get; set; }
         public List<FourWinGamePlayer> WaitingGames { get; set; }

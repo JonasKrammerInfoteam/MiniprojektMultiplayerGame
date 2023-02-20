@@ -1,3 +1,7 @@
+using _4WinGame.BusinessLogic;
+using _4WinGame.BusinessLogic.Contracts.Interfaces;
+using _4WinGame.RESTApi.Hubs;
+using _4WinGame.RESTApi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,8 +30,11 @@ namespace _4WinGame.RESTApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
+            services.AddSingleton(new ConnectionService());
+            services.AddSingleton<IFourWinGamesService>(new FourWinGamesService());
+            services.AddSignalR();
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "_4WinGame.RESTApi", Version = "v1" });
@@ -52,6 +59,7 @@ namespace _4WinGame.RESTApi
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<RTPHub>("/fourwingamehub");
                 endpoints.MapControllers();
             });
         }
