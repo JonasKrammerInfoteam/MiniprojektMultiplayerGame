@@ -66,7 +66,7 @@ namespace _4WinGame.BusinessLogic
                 }
             }
 
-            OnGameStateChange.Invoke(this, new EventArgs());
+            OnGameStateChange?.Invoke(this, new EventArgs());
             CurrentPlayer = (CurrentPlayer - 1) * -1 + 2; // Toggle CurrentPlayer
 
             if (isBoardFull() || GetWinner() != null)
@@ -169,7 +169,7 @@ namespace _4WinGame.BusinessLogic
         private void InvokeGameFinished()
         {
             FourWinGamePlayer winner = GetWinner();
-            OnGameFinish.Invoke(this, new GameWinnerEventArgs(winner));
+            OnGameFinish?.Invoke(this, new GameWinnerEventArgs(winner));
         }
 
         public FourWinGamePlayer GetCurrentPlayer()

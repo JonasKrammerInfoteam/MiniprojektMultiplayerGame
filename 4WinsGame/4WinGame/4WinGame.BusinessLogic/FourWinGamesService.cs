@@ -27,7 +27,7 @@ namespace _4WinGame.BusinessLogic
             WaitingGames.Remove(playerFromWaitingList);
             IFourWinGame game = new FourWinGame(playerFromWaitingList, playerJoining);
             Games.Add(game);
-            OnGameStarted.Invoke(this, new GameStartedEventArgs(game.ID));
+            OnGameStarted?.Invoke(this, new GameStartedEventArgs(game.ID));
             return game;
         }
 
