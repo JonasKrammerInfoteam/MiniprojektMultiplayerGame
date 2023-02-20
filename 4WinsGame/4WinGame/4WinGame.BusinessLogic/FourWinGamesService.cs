@@ -22,11 +22,12 @@ namespace _4WinGame.BusinessLogic
         {
             AllPlayers = new List<FourWinGamePlayer>();
             WaitingGames = new List<FourWinGamePlayer>();
+            Games = new List<IFourWinGame>();
         }
 
         public IFourWinGame JoinWaitingGame(FourWinGamePlayer playerFromWaitingList, FourWinGamePlayer playerJoining)
         {
-            if (WaitingGames.Any(player => player.Equals(playerFromWaitingList)))
+            if (!WaitingGames.Any(player => player.Equals(playerFromWaitingList)))
             {
                 throw new PlayerNotInWaitingListException();
             }
