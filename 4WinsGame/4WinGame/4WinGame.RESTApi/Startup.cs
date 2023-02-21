@@ -45,6 +45,15 @@ namespace _4WinGame.RESTApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "_4WinGame.RESTApi", Version = "v1" });
             });
+            services.AddCors(options => options.AddPolicy("CorsPolicy",
+                builder =>
+                {
+                    builder.AllowAnyHeader()
+                           .AllowAnyMethod()
+                           .SetIsOriginAllowed((host) => true)
+                           .AllowCredentials();
+                }));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +65,8 @@ namespace _4WinGame.RESTApi
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "_4WinGame.RESTApi v1"));
             }
+
+            app.UseCors("CorsPolicy");
 
             app.UseHttpsRedirection();
 

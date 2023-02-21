@@ -3,9 +3,8 @@
   <div class="input-container">
     <mat-form-field class="example-full-width">
       <mat-label>Name</mat-label>
-      <input matInput placeholder="Your Name" value="">
+      <input matInput [(ngModel)]="RegisterName" placeholder="Your Name">
     </mat-form-field> 
-    <button mat-stroked-button color="primary" id="button-submit">Submit</button>
+    <button mat-stroked-button color="primary" (click)="RegisterPlayer()" id="button-submit">Register</button>
   </div>
 </mat-card>
-<button mat-stroked-button (click)="SnackBar()">Show snack-bar</button>

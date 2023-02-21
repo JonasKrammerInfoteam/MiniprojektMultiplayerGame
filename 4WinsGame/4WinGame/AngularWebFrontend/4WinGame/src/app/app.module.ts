@@ -14,6 +14,7 @@ import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from  
     '@angular/platform-browser/animations'; 
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatTableModule,
     MatSnackBarModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [MatSnackBar],
   bootstrap: [AppComponent]

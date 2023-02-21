@@ -19,11 +19,12 @@ export class JoinGameComponent implements OnInit{
     this.fourWinGameAPIInterface.GetWaitingGames().subscribe({
       next: (response: any) => {
         let res: WaitingGamesResponse = response as WaitingGamesResponse;
-        this.dataSource = res.WaitingGames;
+        this.dataSource = res.waitingGames;
+        
       },
       error: (error: any) => {
         console.error(error);
-        this.snackBar.openSnackBar(error.message, "Close");
+        this.snackBar.openSnackBar(error.message);
       },
       complete: () => {
 

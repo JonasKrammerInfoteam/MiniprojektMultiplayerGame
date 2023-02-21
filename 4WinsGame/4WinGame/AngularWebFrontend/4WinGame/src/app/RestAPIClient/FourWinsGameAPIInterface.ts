@@ -46,7 +46,7 @@ export class FourWinsGameAPIInterface implements IFourWinsGameAPIInterface {
         new Map()
         .set("column", column)
         .set("gameid", gameID)
-        .set("playerid", p.PlayerID)
+        .set("playerid", p.playerID)
         ));
     }
 

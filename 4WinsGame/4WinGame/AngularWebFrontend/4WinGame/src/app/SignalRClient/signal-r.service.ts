@@ -9,15 +9,17 @@ import * as signalR from '@microsoft/signalr';
 
 export class SignalRService {
   public connected: boolean = false
-  public hubProxy: any;
+  private hubProxy: any;
   public hubUrl: string;
+  public connectionId : string;
 
 
   constructor() {
-    this.hubUrl = window.location.origin;
+    this.hubUrl = "https://localhost:44362";
+    this.connectionId = "";
     console.log(['hub url: ', this.hubUrl]);
     this.hubProxy = new signalR.HubConnectionBuilder()
-    .withUrl(this.hubUrl + "/signalr")
+    .withUrl(this.hubUrl + "/fourwingamehub")
     .withAutomaticReconnect()
     .build();
 
@@ -25,8 +27,8 @@ export class SignalRService {
 
   public startConnection = () => {
     console.log("Hier ist startConnection.")
-    this.hubProxy.on("ReceiveMessage", (message: String) => {
-      console.log("Message: "+ message)
+    this.hubProxy.on("GameStart ", (gameID: String) => {
+      console.log("GameStarted: "+ gameID)
 
     });
 
@@ -34,8 +36,9 @@ export class SignalRService {
       this.hubProxy
         .start()
         .then(() => {
-          console.log('Now connected, connection ID=' + this.hubProxy.id);
+          console.log('Now connected, connection ID=' + this.hubProxy.connection.connectionId);
           this.connected = true;
+          this.connectionId = this.hubProxy.connection.connectionId;
         })
     } catch (err) {
       console.error('Could not connect');
@@ -48,12 +51,6 @@ export class SignalRService {
     }
   }
 
-  SendMessage() {
-    try{
-      this.hubProxy.invoke("SendMessage");
-    } catch (err) {
-      console.warn(`$SendMessage failed to invoke.`);
-    }
-  }
+  
 }
 

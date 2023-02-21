@@ -1,21 +1,21 @@
 export class Player
 {
-    PlayerName: string;
+    playerName: string;
     constructor(playerName: string)
     {
-        this.PlayerName = playerName;
+        this.playerName = playerName;
     }
 }
 
 export class MyPlayer extends Player
 {
-    PlayerID: string;
-    RTPConnectionID: string;
+    playerID: string;
+    rtpConnectionID: string;
     constructor(playerID: string, rtpConnectionID: string, playerName: string)
     {
         super(playerName);
-        this.PlayerID = playerID;
-        this.RTPConnectionID = rtpConnectionID;
+        this.playerID = playerID;
+        this.rtpConnectionID = rtpConnectionID;
     }
 }
 
@@ -34,19 +34,19 @@ export class GameInfo
 
 export class RegisterPlayerResponse
 {
-    RegisteredPlayer: MyPlayer;
+    registeredPlayer: MyPlayer;
     constructor(registeredPlayer: MyPlayer)
     {
-        this.RegisteredPlayer = registeredPlayer;
+        this.registeredPlayer = registeredPlayer;
     }
 }
 
 export class WaitingGamesResponse
 {
-    WaitingGames: WaitingGame[];
+    waitingGames: WaitingGame[];
     constructor(waitingGames: WaitingGame[])
     {
-        this.WaitingGames = waitingGames;
+        this.waitingGames = waitingGames;
     }
 }
 
@@ -61,10 +61,10 @@ export class JoinGameResponse
 
 export class WaitingGame
 {
-    PlayerName: string;
+    playerName: string;
     constructor(playerName: string)
     {
-        this.PlayerName = playerName;
+        this.playerName = playerName;
     }
 }
 
