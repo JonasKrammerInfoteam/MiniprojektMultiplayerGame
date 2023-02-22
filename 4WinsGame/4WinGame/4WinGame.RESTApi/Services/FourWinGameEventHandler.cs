@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace _4WinGame.RESTApi.Services
@@ -31,7 +32,7 @@ namespace _4WinGame.RESTApi.Services
                 int maxcounter = 100;
                 do
                 {
-                    await Task.Delay(3000);
+                    Thread.Sleep(3000);
                     trycounter++;
                     hubConnection = new HubConnectionBuilder()
                         .WithUrl(serverAddress)
@@ -47,6 +48,7 @@ namespace _4WinGame.RESTApi.Services
                         Console.WriteLine($"Exception {exception}");
                     }
                 } while (hubConnection.State != HubConnectionState.Connected || trycounter < maxcounter);
+                Console.WriteLine("Connected");
             });
             initalizeTask.Start();
         }

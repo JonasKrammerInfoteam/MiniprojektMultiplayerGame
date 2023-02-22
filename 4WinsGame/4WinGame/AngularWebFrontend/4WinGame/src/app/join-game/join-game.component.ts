@@ -4,6 +4,7 @@ import { FourWinsGameAPIInterface } from '../RestAPIClient/FourWinsGameAPIInterf
 import { LoginHolder } from '../Services/loginHolder';
 import { snackBarComponent } from '../Services/snackBar';
 import { SignalRService } from '../SignalRClient/signal-r.service';
+import { Router } from '@angular/router';
 
 const data: WaitingGame[] = [];
 
@@ -15,7 +16,7 @@ const data: WaitingGame[] = [];
 export class JoinGameComponent implements OnInit{
   displayedColumns: string[] = ["PlayerName"];
   dataSource = data;
-  constructor(private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBarComponent, public loginHolder : LoginHolder, private signalRService: SignalRService) { }
+  constructor(private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBarComponent, public loginHolder : LoginHolder, private signalRService: SignalRService, private router: Router) { }
 
   ngOnInit(): void {
     if(!this.loginHolder.isLoggedIn) {
@@ -25,7 +26,7 @@ export class JoinGameComponent implements OnInit{
     this.signalRService.notifyGameStart.subscribe({
       next: (gameid: string) => {
         console.log("GameID: " + gameid);
-        
+        //this.router.navigate(['/play?gameid=' + gameid]);
       },
       error: (error: any) => {
         console.error(error);

@@ -1,5 +1,6 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
+import { Player } from '../RestAPIClient/Contracts/RestAPI.Contracts';
 
 @Injectable({
   providedIn: 'root'
@@ -27,10 +28,7 @@ export class SignalRService {
 
   public startConnection = () => {
     console.log("Hier ist startConnection.")
-    this.hubProxy.on("GameStart ", (gameID: string) => {
-      console.log("GameStarted: "+ gameID)
-      this.notifyGameStart.emit(gameID);
-    });
+    
 
     try {
       this.hubProxy
@@ -43,11 +41,28 @@ export class SignalRService {
     } catch (err) {
       console.error('Could not connect');
     }
+    this.hubProxy.on("GameStart ", (gameID: any) => {
+      console.log("GameStarted: "+ gameID)
+      this.notifyGameStart.emit(gameID);
+    });
+    this.hubProxy.on("WaitingListUpdated ", () => {
+      console.log("WaitingListUpdated")
+      //this.notifyGameStart.emit(gameID);
+    });
+    this.hubProxy.on("GameUpdated ", (gameid: string) => {
+      console.log("GameUpdated: " + gameid)
+      //this.notifyGameStart.emit(gameID);
+    });
+    this.hubProxy.on("GameFinished ", (winner: Player) => {
+      console.log("GameFinished: " + winner.playerName)
+      //this.notifyGameStart.emit(gameID);
+    });
   }
 
   ngOnDestroy() {
     if (this.hubProxy) {
       this.hubProxy.stop();
+      console.log("SignalR disconnected")
     }
   }
 

@@ -73,3 +73,24 @@
 .square-blue {
     background-color: #0561AF;
 }
+
+.button-leave {
+    font-size: 20px;
+    box-sizing: content-box;
+    margin: 7px;
+    padding: 5px;
+    width: 140px;
+    height: 60px;
+    text-align: center;
+    display: inline-block;
+    border-radius: 10px;
+    cursor: pointer;
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    background-color: #db0a0a;
+}
+
+.button-leave:hover {
+    background-color: #a10404;
+}

@@ -1,7 +1,5 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { LoginModel } from "../Models/LoginModel";
-import { UserReturnModel } from "../Models/UserReturnModel";
 import { APIUriBuilder } from "./Services/APIUriBuilder";
 import { APIHttpRequest } from "./Services/HttpRequest";
 import { IFourWinsGameAPIInterface } from "./Interfaces/IFourWinsGameAPIInterface";

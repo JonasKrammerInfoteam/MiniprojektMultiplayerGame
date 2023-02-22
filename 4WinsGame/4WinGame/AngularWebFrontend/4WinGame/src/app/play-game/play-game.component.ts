@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GameInfo, GameInfoResponse, MyPlayer, Player, WaitingGamesResponse } from '../RestAPIClient/Contracts/RestAPI.Contracts';
 import { FourWinsGameAPIInterface } from '../RestAPIClient/FourWinsGameAPIInterface';
 import { LoginHolder } from '../Services/loginHolder';
@@ -14,8 +14,8 @@ import { snackBarComponent } from '../Services/snackBar';
   styleUrls: ['./play-game.component.css']
 })
 export class PlayGameComponent implements OnInit {
-  constructor(private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBarComponent, private route: ActivatedRoute, private loginHolder: LoginHolder) { }
-  
+  constructor(private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBarComponent, private route: ActivatedRoute, private loginHolder: LoginHolder, private router: Router) { }
+
   gameData: GameInfo | undefined;
   gameID: string = "";
   board: Number[][] = [
@@ -41,6 +41,12 @@ export class PlayGameComponent implements OnInit {
   public DoMove(column: number): void {
     console.log("Placed in column: " + column);
     this.fourWinGameAPIInterface.DoMove(column, this.gameID, this.myPlayer);
+  }
+
+  public LeaveGame(): void {
+    console.log("LeaveGame() called");
+    this.router.navigate(['/lobby']);
+    this.fourWinGameAPIInterface.LeaveGame(this.myPlayer, this.gameID);
   }
 
   ngOnInit(): void {
