@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class SignalRService {
   private hubProxy: any;
   public hubUrl: string;
   public connectionId : string;
-
+  @Output() public notifyGameStart: EventEmitter<string> = new EventEmitter();
 
   constructor() {
     this.hubUrl = "https://localhost:44362";
@@ -27,9 +27,9 @@ export class SignalRService {
 
   public startConnection = () => {
     console.log("Hier ist startConnection.")
-    this.hubProxy.on("GameStart ", (gameID: String) => {
+    this.hubProxy.on("GameStart ", (gameID: string) => {
       console.log("GameStarted: "+ gameID)
-
+      this.notifyGameStart.emit(gameID);
     });
 
     try {

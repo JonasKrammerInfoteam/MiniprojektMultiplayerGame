@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { GameInfo, GameInfoResponse, MyPlayer, WaitingGamesResponse } from '../RestAPIClient/Contracts/RestAPI.Contracts';
+import { GameInfo, GameInfoResponse, MyPlayer, Player, WaitingGamesResponse } from '../RestAPIClient/Contracts/RestAPI.Contracts';
 import { FourWinsGameAPIInterface } from '../RestAPIClient/FourWinsGameAPIInterface';
 import { LoginHolder } from '../Services/loginHolder';
 import { snackBarComponent } from '../Services/snackBar';
@@ -13,29 +14,33 @@ import { snackBarComponent } from '../Services/snackBar';
   styleUrls: ['./play-game.component.css']
 })
 export class PlayGameComponent implements OnInit {
+  constructor(private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBarComponent, private route: ActivatedRoute, private loginHolder: LoginHolder) { }
+  
   gameData: GameInfo | undefined;
   gameID: string = "";
-
-  constructor(private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBarComponent, private route: ActivatedRoute, private loginHolder: LoginHolder) { }
-
-  public floorDivision(n: number, divider: number): number
-  {
-    return (n - n % divider) / divider as number;
-  }
-
   board: Number[][] = [
     [0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0],
-    [0,2,2,1,2,0,0],
-    [1,1,2,1,1,0,0]
+    [0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0]
   ];
+  opponent: Player | undefined;
+  yourMove: Boolean = false;
+  opponentTest: string = "Gegner";
+  myPlayerTest: string = "Spieler";
+
+  myPlayer: MyPlayer = this.loginHolder.loggedInPlayer as MyPlayer;
+
+  public FloorDivision(n: number, divider: number): number
+  {
+    return (n - n % divider) / divider as number;
+  }  
 
   public DoMove(column: number): void {
     console.log("Placed in column: " + column);
-    // get saved Player p
-    this.fourWinGameAPIInterface.DoMove(column, this.gameID, this.loginHolder.loggedInPlayer as MyPlayer);
+    this.fourWinGameAPIInterface.DoMove(column, this.gameID, this.myPlayer);
   }
 
   ngOnInit(): void {
@@ -46,20 +51,22 @@ export class PlayGameComponent implements OnInit {
       }
     );
   
-    // this.fourWinGameAPIInterface.GetGameInfo(this.gameID, (this.loginHolder.loggedInPlayer as MyPlayer).playerID).subscribe({
-    //   next: (response: any) => {
-    //     let res: GameInfoResponse = response as GameInfoResponse;
-    //     this.dataSource = res.GameInfo;
-        
-    //   },
-    //   error: (error: any) => {
-    //     console.error(error);
-    //     this.snackBar.openSnackBar(error.message);
-    //   },
-    //   complete: () => {
+    this.fourWinGameAPIInterface.GetGameInfo(this.gameID, this.myPlayer.playerID).subscribe({
+      next: (response: any) => {
+        let res: GameInfoResponse = response as GameInfoResponse;
+        this.gameData = res.gameInfo;
+        this.board = this.gameData.board;
+        this.opponent = this.gameData.opponent;
+        this.yourMove = this.gameData.yourMove;        
+      },
+      error: (error: any) => {
+        console.error(error);
+        this.snackBar.openSnackBar(error.message);
+      },
+      complete: () => {
 
-    //   }
-    // });
+      }
+    });
     
   }
 }

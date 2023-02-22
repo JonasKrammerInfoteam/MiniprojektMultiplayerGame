@@ -21,14 +21,14 @@ export class MyPlayer extends Player
 
 export class GameInfo
 {
-    Board: number[][];
-    Opponent: Player;
-    YourMove: Boolean;
+    board: number[][];
+    opponent: Player;
+    yourMove: Boolean;
     constructor(board: number[][], opponent: Player, yourMove: Boolean)
     {
-        this.Board = board;
-        this.Opponent = opponent;
-        this.YourMove = yourMove;
+        this.board = board;
+        this.opponent = opponent;
+        this.yourMove = yourMove;
     }
 }
 
@@ -70,9 +70,9 @@ export class WaitingGame
 
 export class GameInfoResponse
 {
-    GameInfo: GameInfo;
+    gameInfo: GameInfo;
     constructor(gameInfo: GameInfo)
     {
-        this.GameInfo = gameInfo;
+        this.gameInfo = gameInfo;
     }
 }
