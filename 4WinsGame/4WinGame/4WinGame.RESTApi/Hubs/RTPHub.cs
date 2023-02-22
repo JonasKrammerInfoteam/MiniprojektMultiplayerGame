@@ -29,8 +29,21 @@ namespace _4WinGame.RESTApi.Hubs
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
+            string foundID;
+            connectionService.PlayerIDToConnectionIDlist.TryGetValue(Context.ConnectionId, out foundID);
+            if(foundID!=null)
+            {
+                IFourWinGame fourWinGame = fourWinGamesService.Games.Where(g => g.Player1.ID == foundID || g.Player2.ID == foundID).FirstOrDefault();
+                BusinessLogic.Contracts.Models.FourWinGamePlayer leftPlayer = fourWinGamesService.AllPlayers.Where(p=>p.ID==foundID).FirstOrDefault();
+                if(leftPlayer != null && fourWinGame != null)
+                {
+                    fourWinGamesService.LeaveActiveGame(leftPlayer, fourWinGame.ID);
+                }
+            }
             connectionService.ConnectedIDs.Remove(Context.ConnectionId);
             await base.OnDisconnectedAsync(exception); 
+            // prüfen, ob Connection ID gerade im Spiel
+            // wenn ja, dann leave Game
         }
 
         [HubMethodName("GameStart")]
