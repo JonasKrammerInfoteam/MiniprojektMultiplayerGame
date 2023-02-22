@@ -13,6 +13,11 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.hubService.startConnection();
     //this.router.navigate(['/login']);
+    if(this.loginHolder.isLoggedIn) {
+      this.router.navigate(['/lobby']);
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
   title = '4WinGame';
 }
