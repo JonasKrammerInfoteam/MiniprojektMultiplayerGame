@@ -57,6 +57,10 @@ namespace _4WinGame.RESTApi.Controllers
             {
                 throw new PlayerNotFoundException();
             }
+            if (fourWinGameService.WaitingGames.Where(p => p.ID == player.PlayerID).FirstOrDefault() != null)
+            {
+                throw new PlayerAlreadyCreatedWaitingGame();
+            }
             fourWinGameService.WaitingGames.Add(found);
             return Ok();
         }
