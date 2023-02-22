@@ -27,9 +27,12 @@ namespace _4WinGame.RESTApi.Services
             string serverAddress = eventHandlerHubAddress;
             Task initalizeTask = new Task(async() =>
             {
+                int trycounter = 0;
+                int maxcounter = 100;
                 do
                 {
                     await Task.Delay(3000);
+                    trycounter++;
                     hubConnection = new HubConnectionBuilder()
                         .WithUrl(serverAddress)
                         .WithAutomaticReconnect()
@@ -43,7 +46,7 @@ namespace _4WinGame.RESTApi.Services
                     {
                         Console.WriteLine($"Exception {exception}");
                     }
-                } while (hubConnection.State != HubConnectionState.Connected);
+                } while (hubConnection.State != HubConnectionState.Connected || trycounter < maxcounter);
             });
             initalizeTask.Start();
         }
