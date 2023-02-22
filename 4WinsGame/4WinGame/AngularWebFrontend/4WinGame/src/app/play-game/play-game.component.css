@@ -1,3 +1,6 @@
+.board-container {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
 
 .Board{
     background-color : #2B3945;
@@ -31,7 +34,11 @@
     text-align: center;
     display: inline-block;
     border-radius: 10px;
-  
+    cursor: pointer;
+}
+
+.ColumnButton:hover {
+    background-color: #c6c7c7;
 }
 
 .button-list {
@@ -53,4 +60,16 @@
     color: #FFF;
     font-size : 30px;
     font-family : Verdana;
+}
+
+.square-empty {
+    background-color: #161D23;
+}
+
+.square-orange {
+    background-color: #E57A00;
+}
+
+.square-blue {
+    background-color: #0561AF;
 }

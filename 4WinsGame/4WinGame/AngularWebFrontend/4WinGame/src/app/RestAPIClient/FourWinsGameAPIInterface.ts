@@ -28,7 +28,7 @@ export class FourWinsGameAPIInterface implements IFourWinsGameAPIInterface {
 
     public CreateGame(p: MyPlayer): Observable<any>
     {
-        return this.apiHttpRequest.Post(p, this._apiUriBuilder.GetAPIUri("CreatePlayer",
+        return this.apiHttpRequest.Post(p, this._apiUriBuilder.GetAPIUri("CreateGame",
         new Map()));
     }
 
