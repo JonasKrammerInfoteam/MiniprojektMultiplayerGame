@@ -52,10 +52,10 @@ export class WaitingGamesResponse
 
 export class JoinGameResponse
 {
-    GameID: string;
+    gameID: string;
     constructor(gameID: string)
     {
-        this.GameID = gameID; 
+        this.gameID = gameID; 
     }
 }
 

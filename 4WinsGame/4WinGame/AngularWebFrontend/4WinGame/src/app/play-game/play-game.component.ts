@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GameInfo, GameInfoResponse, MyPlayer, Player, WaitingGamesResponse } from '../RestAPIClient/Contracts/RestAPI.Contracts';
 import { FourWinsGameAPIInterface } from '../RestAPIClient/FourWinsGameAPIInterface';
 import { LoginHolder } from '../Services/loginHolder';
 import { snackBarComponent } from '../Services/snackBar';
+import { SignalRService } from '../SignalRClient/signal-r.service';
 
 
 
@@ -13,8 +14,11 @@ import { snackBarComponent } from '../Services/snackBar';
   templateUrl: './play-game.component.html',
   styleUrls: ['./play-game.component.css']
 })
-export class PlayGameComponent implements OnInit {
-  constructor(private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBarComponent, private route: ActivatedRoute, private loginHolder: LoginHolder, private router: Router) { }
+export class PlayGameComponent implements OnInit, AfterViewInit {
+  constructor(private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBarComponent, private route: ActivatedRoute, private loginHolder: LoginHolder, private router: Router, private signalRService:SignalRService) { }
+  ngAfterViewInit(): void {
+    this.GetGameInfo();
+  }
 
   gameData: GameInfo | undefined;
   gameID: string = "";
@@ -30,23 +34,49 @@ export class PlayGameComponent implements OnInit {
   yourMove: Boolean = false;
   opponentTest: string = "Gegner";
   myPlayerTest: string = "Spieler";
-
   myPlayer: MyPlayer = this.loginHolder.loggedInPlayer as MyPlayer;
+  isGameOver: boolean = false;
 
   public FloorDivision(n: number, divider: number): number
   {
     return (n - n % divider) / divider as number;
-  }  
+  }
 
   public DoMove(column: number): void {
-    console.log("Placed in column: " + column);
-    this.fourWinGameAPIInterface.DoMove(column, this.gameID, this.myPlayer);
+   
+    if (!this.isGameOver)
+    {
+      this.fourWinGameAPIInterface.DoMove(column, this.gameID, this.myPlayer).subscribe({
+        next: (response: any) => {
+          console.log("Placed in column: " + column);
+        },
+        error: (error: any) => {
+          console.error(error);
+          this.snackBar.openSnackBar(error.message);
+        },
+        complete: () => {
+  
+        }
+      });
+    }
   }
 
   public LeaveGame(): void {
     console.log("LeaveGame() called");
     this.router.navigate(['/lobby']);
-    this.fourWinGameAPIInterface.LeaveGame(this.myPlayer, this.gameID);
+    if (!this.isGameOver)
+    {
+      this.fourWinGameAPIInterface.LeaveGame(this.myPlayer, this.gameID).subscribe({
+        next: (response: any) => {
+          console.log("Game leave");
+        },
+        error: (error: any) => {
+          console.error(error);
+          this.snackBar.openSnackBar(error.message);
+        },
+        complete: () => { }
+      });
+    }
   }
 
   ngOnInit(): void {
@@ -56,7 +86,27 @@ export class PlayGameComponent implements OnInit {
         console.log(this.gameID);
       }
     );
+    this.signalRService.notifyGameFinished.subscribe({
+      next: (winner: any) => {
+        let res: Player = winner as Player
+        this.snackBar.openSnackBar("Winner: " + winner.playerName);
+        this.isGameOver = true;
+        
+        //this.router.navigate(['/lobby']);
+      },
+      error: (error: any) => {
+        console.error(error);
+        this.snackBar.openSnackBar(error.message);
+      },
+      complete: () => {}
+    });
+
+    this.signalRService.notifyGameUpdated.subscribe(() => { console.log("Game Updated..."); this.GetGameInfo()});
   
+    
+    
+  }
+  GetGameInfo():void{
     this.fourWinGameAPIInterface.GetGameInfo(this.gameID, this.myPlayer.playerID).subscribe({
       next: (response: any) => {
         let res: GameInfoResponse = response as GameInfoResponse;
@@ -73,6 +123,5 @@ export class PlayGameComponent implements OnInit {
 
       }
     });
-    
   }
 }

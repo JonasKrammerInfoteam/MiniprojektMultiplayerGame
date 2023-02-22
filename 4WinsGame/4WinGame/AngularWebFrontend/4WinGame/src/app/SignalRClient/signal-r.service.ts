@@ -10,10 +10,13 @@ import { Player } from '../RestAPIClient/Contracts/RestAPI.Contracts';
 
 export class SignalRService {
   public connected: boolean = false
-  private hubProxy: any;
+  public hubProxy: any;
   public hubUrl: string;
   public connectionId : string;
-  @Output() public notifyGameStart: EventEmitter<string> = new EventEmitter();
+  public notifyGameStart: EventEmitter<string> = new EventEmitter();
+  public notifyGameUpdated: EventEmitter<string> = new EventEmitter();
+  public notifyWaitingListUpdated: EventEmitter<any> = new EventEmitter();
+  public notifyGameFinished: EventEmitter<Player> = new EventEmitter();
 
   constructor() {
     this.hubUrl = "https://localhost:44362";
@@ -27,8 +30,24 @@ export class SignalRService {
   }
 
   public startConnection = () => {
-    console.log("Hier ist startConnection.")
-    
+    console.log("Hier ist startConnection.");
+
+    this.hubProxy.on("GameStart", (gameID: any) => {
+      console.log("GameStarted: "+ gameID);
+      this.notifyGameStart.emit(gameID);
+    });
+    this.hubProxy.on("WaitingListUpdated", () => {
+      console.log("WaitingListUpdated");
+      this.notifyWaitingListUpdated.emit();
+    });
+    this.hubProxy.on("GameUpdated", (gameid: any) => {
+      console.log("GameUpdated: " + gameid);
+      this.notifyGameUpdated.emit(gameid);
+    });
+    this.hubProxy.on("GameFinished", (winner: any) => {
+      console.log("GameFinished: " + winner.playerName);
+      this.notifyGameFinished.emit(winner);
+    });
 
     try {
       this.hubProxy
@@ -41,22 +60,7 @@ export class SignalRService {
     } catch (err) {
       console.error('Could not connect');
     }
-    this.hubProxy.on("GameStart ", (gameID: any) => {
-      console.log("GameStarted: "+ gameID)
-      this.notifyGameStart.emit(gameID);
-    });
-    this.hubProxy.on("WaitingListUpdated ", () => {
-      console.log("WaitingListUpdated")
-      //this.notifyGameStart.emit(gameID);
-    });
-    this.hubProxy.on("GameUpdated ", (gameid: string) => {
-      console.log("GameUpdated: " + gameid)
-      //this.notifyGameStart.emit(gameID);
-    });
-    this.hubProxy.on("GameFinished ", (winner: Player) => {
-      console.log("GameFinished: " + winner.playerName)
-      //this.notifyGameStart.emit(gameID);
-    });
+ 
   }
 
   ngOnDestroy() {
