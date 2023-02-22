@@ -1,18 +1,21 @@
 
 <div *ngIf="gameID!=''&&gameID!=undefined" class="board-container">
     <h2>4WinGame</h2>
-    <span>Player 1: </span>
-    <span style="margin-left: 100px;">Player 2:</span>
+    <!-- Test-Names
+    <span *ngIf="true" [style.color]="(yourMove) ? '#4BD800' : '#000000'" [style.font-weight]="(yourMove) ? 'bold' : 'normal'">Player 1: {{myPlayerTest}}</span>
+    <span *ngIf="true" style="margin-left: 100px;" [style.color]="(!yourMove) ? '#4BD800' : '#000000'" [style.font-weight]="(!yourMove) ? 'bold' : 'normal'">Player 2: {{opponentTest}}</span>
+    -->
+    <span *ngIf="myPlayer!=undefined" [style.color]="(yourMove) ? '#4BD800' : '#000000'" [style.font-weight]="(yourMove) ? 'bold' : 'normal'">Player 1: {{myPlayer.playerName}}</span>
+    <span *ngIf="opponent!=undefined" style="margin-left: 100px;" [style.color]="(!yourMove) ? '#4BD800' : '#000000'" [style.font-weight]="(!yourMove) ? 'bold' : 'normal'">Player 2: {{opponent.playerName}}</span>
     <mat-grid-list class="button-list" cols="7" rowHeight="1:1">
-        <!-- <button type="button" class="ColumnButton" (click)="SendDoMove(1)">Drop here</button> -->
-        <button *ngFor="let var of [].constructor(7); let i = index" (click)="DoMove(i+1)" type="button" class="ColumnButton">Drop here</button>
+        <button [disabled]="!yourMove" *ngFor="let var of [].constructor(7); let i = index" (click)="DoMove(i+1)" type="button" class="ColumnButton">Drop here</button>
     </mat-grid-list>
     
     <mat-grid-list class="board-list" cols="7" rowHeight="1:1">
         <mat-grid-tile *ngFor="let var of [].constructor(42); let i = index" class="tile">
-            <div *ngIf="board[floorDivision(i,7)][i%7]==0"class="SquareElement square-empty"></div>
-            <div *ngIf="board[floorDivision(i,7)][i%7]==1"class="SquareElement square-orange"></div>
-            <div *ngIf="board[floorDivision(i,7)][i%7]==2"class="SquareElement square-blue"></div>
+            <div *ngIf="board[FloorDivision(i,7)][i%7]==0"class="SquareElement square-empty"></div>
+            <div *ngIf="board[FloorDivision(i,7)][i%7]==1"class="SquareElement square-orange"></div>
+            <div *ngIf="board[FloorDivision(i,7)][i%7]==2"class="SquareElement square-blue"></div>
         </mat-grid-tile>
     </mat-grid-list>
     
