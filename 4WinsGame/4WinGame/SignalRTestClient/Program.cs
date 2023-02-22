@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR.Client;
+﻿using _4WinGame.RESTApi.Contracts.Models;
+using Microsoft.AspNetCore.SignalR.Client;
 using System;
 using System.Threading.Tasks;
 
@@ -33,6 +34,20 @@ namespace SignalRTestClient
 
             Console.WriteLine("Connection to hub was successful");
             Console.WriteLine($"Connection-ID: {hubConnection.ConnectionId}");
+
+            hubConnection.On<string>("GameUpdated", (gameid) => {
+                Console.WriteLine("Game updated: ");
+                Console.WriteLine(gameid); 
+            });
+            hubConnection.On<string>("GameStart", (gameid) => {
+                Console.WriteLine("Game started: ");
+                Console.WriteLine(gameid);
+            });
+            hubConnection.On<Player>("GameFinished", (winner) => {
+                Console.WriteLine("Game finished with winner: ");
+                Console.WriteLine(winner.PlayerName);
+            });
+
             Console.ReadLine();
         }
 

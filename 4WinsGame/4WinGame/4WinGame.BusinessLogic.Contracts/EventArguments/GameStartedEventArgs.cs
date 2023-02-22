@@ -8,7 +8,7 @@ namespace _4WinGame.BusinessLogic.Contracts.EventArguments
 {
     public class GameStartedEventArgs : EventArgs
     {
-        string GameID;
+        public string GameID;
         public GameStartedEventArgs(string id)
         {
             GameID = id;

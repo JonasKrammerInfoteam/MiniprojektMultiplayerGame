@@ -1,4 +1,6 @@
-﻿using _4WinGame.RESTApi.Services;
+﻿using _4WinGame.BusinessLogic.Contracts.Interfaces;
+using _4WinGame.RESTApi.Contracts.Models;
+using _4WinGame.RESTApi.Services;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
@@ -11,10 +13,12 @@ namespace _4WinGame.RESTApi.Hubs
     {
 
         private readonly ConnectionService connectionService;
+        private readonly IFourWinGamesService fourWinGamesService;
 
-        public RTPHub(ConnectionService connectionService)
+        public RTPHub(ConnectionService connectionService, IFourWinGamesService fourWinGamesService)
         {
             this.connectionService = connectionService;
+            this.fourWinGamesService = fourWinGamesService;
         }
 
         public override async Task OnConnectedAsync()
@@ -27,6 +31,42 @@ namespace _4WinGame.RESTApi.Hubs
         {
             connectionService.ConnectedIDs.Remove(Context.ConnectionId);
             await base.OnDisconnectedAsync(exception); 
+        }
+
+        [HubMethodName("GameStart")]
+        public async Task GameStart(string gameID)
+        {
+            await SendMessage(gameID, "GameStart", gameID);
+        }
+
+        [HubMethodName("GameUpdated")]
+        public async Task GameUpdated(string gameID)
+        {
+            await SendMessage(gameID, "GameUpdated", gameID);
+        }
+
+        [HubMethodName ("GameFinished")]
+        public async Task GameFinished(Player winner, string gameID)
+        {
+            await SendMessage(gameID, "GameFinished", winner);
+        }
+
+        private async Task SendMessage(string gameID, string message, object data)
+        {
+            IFourWinGame targetGame = fourWinGamesService.GetGameByID(gameID);
+            string connectionIDPlayer1;
+            string connectionIDPlayer2;
+            connectionService.PlayerIDToConnectionIDlist.TryGetValue(targetGame.Player1.ID, out connectionIDPlayer1);
+            connectionService.PlayerIDToConnectionIDlist.TryGetValue(targetGame.Player2.ID, out connectionIDPlayer2);
+
+            if (connectionIDPlayer1 != null)
+            {
+                await Clients.Client(connectionIDPlayer1).SendAsync(message, data);
+            }
+            if (connectionIDPlayer2 != null)
+            {
+                await Clients.Client(connectionIDPlayer2).SendAsync(message, data);
+            }
         }
 
     }

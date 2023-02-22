@@ -31,18 +31,33 @@ namespace _4WinGame.RESTApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton(new ConnectionService());
-            services.AddSingleton<IFourWinGamesService>(new FourWinGamesService());
+            ConnectionService connectionService = new ConnectionService();
+            services.AddSingleton(connectionService);
+            IFourWinGamesService fourWinGamesService = new FourWinGamesService();
+            FourWinGameEventHandler fourWinGameEventHandler = new FourWinGameEventHandler("https://localhost:44362/fourwingamehub", connectionService);
+            fourWinGamesService.OnGameStarted += fourWinGameEventHandler.OnGameStarted;
+            services.AddSingleton(fourWinGamesService);
+            services.AddSingleton(fourWinGameEventHandler);
+            
             services.AddSignalR();
             
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "_4WinGame.RESTApi", Version = "v1" });
             });
+            services.AddCors(options => options.AddPolicy("CorsPolicy",
+                builder =>
+                {
+                    builder.AllowAnyHeader()
+                           .AllowAnyMethod()
+                           .SetIsOriginAllowed((host) => true)
+                           .AllowCredentials();
+                }));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -50,6 +65,8 @@ namespace _4WinGame.RESTApi
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "_4WinGame.RESTApi v1"));
             }
+
+            app.UseCors("CorsPolicy");
 
             app.UseHttpsRedirection();
 
@@ -62,6 +79,9 @@ namespace _4WinGame.RESTApi
                 endpoints.MapHub<RTPHub>("/fourwingamehub");
                 endpoints.MapControllers();
             });
+
+            serviceProvider.GetService<FourWinGameEventHandler>().EventHandlerInitalize();
+
         }
     }
 }

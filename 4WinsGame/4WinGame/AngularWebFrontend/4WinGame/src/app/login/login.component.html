@@ -1,0 +1,10 @@
+
+<mat-card>
+  <div class="input-container">
+    <mat-form-field class="example-full-width">
+      <mat-label>Name</mat-label>
+      <input matInput [(ngModel)]="RegisterName" placeholder="Your Name">
+    </mat-form-field> 
+    <button mat-stroked-button color="primary" (click)="RegisterPlayer()" id="button-submit">Register</button>
+  </div>
+</mat-card>

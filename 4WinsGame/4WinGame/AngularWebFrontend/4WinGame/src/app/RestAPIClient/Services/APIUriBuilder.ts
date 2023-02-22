@@ -1,12 +1,14 @@
 import { Component, Injectable } from "@angular/core";
 
-@Injectable()
+@Injectable({
+	providedIn: 'root'
+  })
 export class APIUriBuilder {
     constructor(apiController:String) {
         this.APIController = apiController;
-        this.TargetServerURL = window.location.origin + "/api/";//environment.apiEndpoint;
+        this.TargetServerURL = "https://localhost:44362/";//environment.apiEndpoint;
     }
-    APIController:String;   
+    APIController:String;
 
     TargetServerURL:String;
 
@@ -26,7 +28,7 @@ export class APIUriBuilder {
         return resApiRes;
     }
 
+    ngOnInit(): void {
+
+    }
 }
-
-
-

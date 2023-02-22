@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Current board of FourWinsGame">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Four Wins - Board</title>
+    <link rel="shortcut icon" type="image/x-icon" href="Pictures/Icon.png">
+    <link rel="stylesheet" href="play-game.component.css">
+</head>
+<header>
+    <h2>4WinGame</h2>
+    <span>Player 1: </span>
+    <span style="margin-left: 100px;">Player 2:</span>
+
+</header>
+
+<div class="board-container">
+    <mat-grid-list class="button-list" cols="7" rowHeight="1:1">
+        <button type="button" class="ColumnButton">Drop here</button>
+        <button type="button" class="ColumnButton">Drop here</button>
+        <button type="button" class="ColumnButton">Drop here</button>
+        <button type="button" class="ColumnButton">Drop here</button>
+        <button type="button" class="ColumnButton">Drop here</button>
+        <button type="button" class="ColumnButton">Drop here</button>
+        <button type="button" class="ColumnButton">Drop here</button>
+    </mat-grid-list>
+    
+    <mat-grid-list class="board-list" cols="7" rowHeight="1:1">
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square1_6"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square2_6"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square3_6"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square4_6"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square5_6"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square6_6"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square7_6"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square1_5"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square2_5"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square3_5"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square4_5"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square5_5"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square6_5"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square7_5"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square1_4"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square2_4"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square3_4"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square4_4"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square5_4"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square6_4"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square7_4"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square1_3"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square2_3"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square3_3"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square4_3"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square5_3"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square6_3"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square7_3"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square1_2"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square2_2"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square3_2"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square4_2"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square5_2"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square6_2"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square7_2"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square1_1"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square2_1"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square3_1"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square4_1"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square5_1"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square6_1"></div></mat-grid-tile>
+        <mat-grid-tile class="tile"><div class="SquareElement" id="Square7_1"></div></mat-grid-tile>
+    </mat-grid-list>
+    
+    <mat-grid-list class="number-list" cols="7" rowHeight="1:1">
+        <mat-grid-tile><p>1</p></mat-grid-tile>
+        <mat-grid-tile><p>2</p></mat-grid-tile>
+        <mat-grid-tile><p>3</p></mat-grid-tile>
+        <mat-grid-tile><p>4</p></mat-grid-tile>
+        <mat-grid-tile>5</mat-grid-tile>
+        <mat-grid-tile>6</mat-grid-tile>
+        <mat-grid-tile>7</mat-grid-tile>
+    </mat-grid-list>
+</div>
