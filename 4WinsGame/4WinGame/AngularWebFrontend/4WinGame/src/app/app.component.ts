@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginHolder } from './Services/loginHolder';
 import { SignalRService } from './SignalRClient/signal-r.service';
 
 @Component({
@@ -7,7 +8,7 @@ import { SignalRService } from './SignalRClient/signal-r.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private hubService:SignalRService){}
+  constructor(private hubService:SignalRService, public loginHolder:LoginHolder){}
   ngOnInit(): void {
     this.hubService.startConnection();
   }

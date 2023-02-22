@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WaitingGame, WaitingGamesResponse } from '../RestAPIClient/Contracts/RestAPI.Contracts';
 import { FourWinsGameAPIInterface } from '../RestAPIClient/FourWinsGameAPIInterface';
+import { LoginHolder } from '../Services/loginHolder';
 import { snackBarComponent } from '../Services/snackBar';
 
 const data: WaitingGame[] = [];
@@ -13,9 +14,13 @@ const data: WaitingGame[] = [];
 export class JoinGameComponent implements OnInit{
   displayedColumns: string[] = ["PlayerName"];
   dataSource = data;
-  constructor(private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBarComponent) { }
+  constructor(private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBarComponent, public loginHolder : LoginHolder) { }
 
   ngOnInit(): void {
+    if(!this.loginHolder.isLoggedIn) {
+      this.snackBar.openSnackBar("You are not logged in!");
+      return;
+    }
     this.fourWinGameAPIInterface.GetWaitingGames().subscribe({
       next: (response: any) => {
         let res: WaitingGamesResponse = response as WaitingGamesResponse;
@@ -30,6 +35,10 @@ export class JoinGameComponent implements OnInit{
 
       }
     });
+  }
+
+  CreateGame(): void {
+
   }
 
 }

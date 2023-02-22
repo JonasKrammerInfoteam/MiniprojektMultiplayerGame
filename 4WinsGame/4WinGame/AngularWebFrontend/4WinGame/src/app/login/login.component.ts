@@ -3,6 +3,7 @@ import { RegisterPlayerResponse } from '../RestAPIClient/Contracts/RestAPI.Contr
 import { FourWinsGameAPIInterface } from '../RestAPIClient/FourWinsGameAPIInterface';
 import { snackBarComponent } from '../Services/snackBar';
 import { SignalRService } from '../SignalRClient/signal-r.service';
+import { LoginHolder } from '../Services/loginHolder';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { SignalRService } from '../SignalRClient/signal-r.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  constructor(private fourWinGameApiInterface:FourWinsGameAPIInterface, private signalRService:SignalRService, private snackBarService: snackBarComponent) {}
+  constructor(private fourWinGameApiInterface:FourWinsGameAPIInterface, private signalRService:SignalRService, private snackBarService: snackBarComponent, private loginHolder: LoginHolder) {}
   
   public RegisterName: string = "";
 
@@ -20,6 +21,7 @@ export class LoginComponent {
         console.log(response);
         let res: RegisterPlayerResponse = response as RegisterPlayerResponse;
         this.snackBarService.openSnackBar("Welcome:" + res.registeredPlayer.playerName);
+        this.loginHolder.Login(res.registeredPlayer);
         
       },
       error: (error: any) => {
