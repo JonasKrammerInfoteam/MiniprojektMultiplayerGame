@@ -12,9 +12,10 @@ namespace _4WinGame.BusinessLogic
 {
     public class FourWinGamesService : IFourWinGamesService
     {
-        public List<IFourWinGame> Games { get; set; }
+        public List<IFourWinGame> Games { get; set; }  
         public List<FourWinGamePlayer> WaitingGames { get; set; }
         public EventHandler OnGameStarted { get; set; }
+        public EventHandler OnWaitingListUpdated { get; set; }
         public List<FourWinGamePlayer> AllPlayers { get; set; }
 
 
@@ -32,6 +33,7 @@ namespace _4WinGame.BusinessLogic
                 throw new PlayerNotInWaitingListException();
             }
             WaitingGames.Remove(playerFromWaitingList);
+            OnWaitingListUpdated.Invoke(this, EventArgs.Empty);
             IFourWinGame game = new FourWinGame(playerFromWaitingList, playerJoining);
             Games.Add(game);
             OnGameStarted?.Invoke(this, new GameStartedEventArgs(game.ID));

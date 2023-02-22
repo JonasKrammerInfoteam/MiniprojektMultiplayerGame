@@ -45,11 +45,23 @@ namespace _4WinGame.RESTApi.Hubs
             await SendMessage(gameID, "GameUpdated", gameID);
         }
 
+        [HubMethodName("WaitingListUpdated")]
+        public async Task WaitingListUpdated()
+        {
+            await BroadcastMessage("WaitingListUpdated");
+        }
+
         [HubMethodName ("GameFinished")]
         public async Task GameFinished(Player winner, string gameID)
         {
             await SendMessage(gameID, "GameFinished", winner);
         }
+
+        private async Task BroadcastMessage(string message)
+        {
+           await Clients.All.SendAsync(message);
+        }
+
 
         private async Task SendMessage(string gameID, string message, object data)
         {

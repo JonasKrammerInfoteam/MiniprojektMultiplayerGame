@@ -206,5 +206,6 @@ namespace _4WinGame.BusinessLogic
             }
             throw new PlayerNotInGameException();
         }
+
     }
 }
