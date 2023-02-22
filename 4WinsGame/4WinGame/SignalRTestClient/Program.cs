@@ -47,6 +47,7 @@ namespace SignalRTestClient
                 Console.WriteLine("Game finished with winner: ");
                 Console.WriteLine(winner.PlayerName);
             });
+            hubConnection.On("WaitingListUpdated",() => Console.WriteLine("List updated"));
 
             Console.ReadLine();
         }

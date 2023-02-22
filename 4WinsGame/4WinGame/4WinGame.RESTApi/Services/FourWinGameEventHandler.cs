@@ -51,6 +51,12 @@ namespace _4WinGame.RESTApi.Services
             initalizeTask.Start();
         }
 
+        public void OnWaitingListUpdated(object sender, EventArgs e)
+        {
+            Task sendTask = new Task(async () => await hubConnection.SendAsync("WaitingListUpdated"));
+            sendTask.Start();
+        }
+
         public void OnGameStarted(object sender, EventArgs e)
         {
             GameStartedEventArgs gameStarted = (GameStartedEventArgs)e;

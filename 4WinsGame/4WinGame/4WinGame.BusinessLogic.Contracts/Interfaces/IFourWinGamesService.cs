@@ -13,6 +13,7 @@ namespace _4WinGame.BusinessLogic.Contracts.Interfaces
         List<FourWinGamePlayer> WaitingGames { get; set; }
         EventHandler OnGameStarted { get; set; }
         List<FourWinGamePlayer> AllPlayers { get; set; }
+        EventHandler OnWaitingListUpdated { get; set; }
 
         IFourWinGame JoinWaitingGame(FourWinGamePlayer p1, FourWinGamePlayer p2);
         void LeaveActiveGame(FourWinGamePlayer p, string gameID);

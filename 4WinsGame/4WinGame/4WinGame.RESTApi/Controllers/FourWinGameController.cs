@@ -1,4 +1,5 @@
-﻿using _4WinGame.BusinessLogic.Contracts.Exceptions;
+﻿using _4WinGame.BusinessLogic.Contracts.EventArguments;
+using _4WinGame.BusinessLogic.Contracts.Exceptions;
 using _4WinGame.BusinessLogic.Contracts.Interfaces;
 using _4WinGame.BusinessLogic.Contracts.Models;
 using _4WinGame.RESTApi.Contracts.Exceptions;
@@ -62,6 +63,7 @@ namespace _4WinGame.RESTApi.Controllers
                 throw new PlayerAlreadyCreatedWaitingGame();
             }
             fourWinGameService.WaitingGames.Add(found);
+            fourWinGameService.OnWaitingListUpdated.Invoke(found, EventArgs.Empty);
             return Ok();
         }
 
