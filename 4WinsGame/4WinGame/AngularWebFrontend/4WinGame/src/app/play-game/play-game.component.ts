@@ -36,6 +36,7 @@ export class PlayGameComponent implements OnInit, AfterViewInit {
   myPlayerTest: string = "Spieler";
   myPlayer: MyPlayer = this.loginHolder.loggedInPlayer as MyPlayer;
   isGameOver: boolean = false;
+  winnerName: string | undefined;
 
   public FloorDivision(n: number, divider: number): number
   {
@@ -89,6 +90,7 @@ export class PlayGameComponent implements OnInit, AfterViewInit {
     this.signalRService.notifyGameFinished.subscribe({
       next: (winner: any) => {
         let res: Player = winner as Player
+        this.winnerName = winner.playerName;
         this.snackBar.openSnackBar("Winner: " + winner.playerName);
         this.isGameOver = true;
       },
