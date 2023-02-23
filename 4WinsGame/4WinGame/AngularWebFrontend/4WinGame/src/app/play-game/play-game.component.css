@@ -37,8 +37,12 @@
     cursor: pointer;
 }
 
-.ColumnButton:hover {
+.ColumnButton:hover:enabled {
     background-color: #c6c7c7;
+}
+
+.ColumnButton:disabled {
+    cursor: not-allowed;
 }
 
 .button-list {

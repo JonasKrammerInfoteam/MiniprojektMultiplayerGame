@@ -5,10 +5,10 @@
     <span *ngIf="true" [style.color]="(yourMove) ? '#4BD800' : '#000000'" [style.font-weight]="(yourMove) ? 'bold' : 'normal'">Player 1: {{myPlayerTest}}</span>
     <span *ngIf="true" style="margin-left: 100px;" [style.color]="(!yourMove) ? '#4BD800' : '#000000'" [style.font-weight]="(!yourMove) ? 'bold' : 'normal'">Player 2: {{opponentTest}}</span>
     -->
-    <span *ngIf="myPlayer!=undefined" [style.color]="(yourMove) ? '#4BD800' : '#000000'" [style.font-weight]="(yourMove) ? 'bold' : 'normal'">Player 1: {{myPlayer.playerName}}</span>
-    <span *ngIf="opponent!=undefined" style="margin-left: 100px;" [style.color]="(!yourMove) ? '#4BD800' : '#000000'" [style.font-weight]="(!yourMove) ? 'bold' : 'normal'">Player 2: {{opponent.playerName}}</span>
+    <span *ngIf="myPlayer!=undefined" [style.color]="(yourMove) ? '#4BD800' : '#FFFFFF'" [style.font-weight]="(yourMove) ? 'bold' : 'normal'">Player 1: {{myPlayer.playerName}}</span>
+    <span *ngIf="opponent!=undefined" style="margin-left: 100px;" [style.color]="(!yourMove) ? '#4BD800' : '#FFFFFF'" [style.font-weight]="(!yourMove) ? 'bold' : 'normal'">Player 2: {{opponent.playerName}}</span>
     <mat-grid-list class="button-list" cols="7" rowHeight="1:1">
-        <button [disabled]="!yourMove||isGameOver" *ngFor="let var of [].constructor(7); let i = index" (click)="DoMove(i+1)" type="button" class="ColumnButton">Drop here</button>
+        <button *ngFor="let var of [].constructor(7); let i = index" [disabled]="!yourMove||isGameOver||board[0][i]!=0" (click)="DoMove(i+1)" type="button" class="ColumnButton">Drop here</button>
     </mat-grid-list>
     
     <mat-grid-list class="board-list" cols="7" rowHeight="1:1">

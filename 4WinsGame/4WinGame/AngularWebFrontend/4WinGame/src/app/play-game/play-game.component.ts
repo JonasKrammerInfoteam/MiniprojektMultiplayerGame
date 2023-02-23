@@ -91,8 +91,6 @@ export class PlayGameComponent implements OnInit, AfterViewInit {
         let res: Player = winner as Player
         this.snackBar.openSnackBar("Winner: " + winner.playerName);
         this.isGameOver = true;
-        
-        //this.router.navigate(['/lobby']);
       },
       error: (error: any) => {
         console.error(error);
@@ -101,11 +99,10 @@ export class PlayGameComponent implements OnInit, AfterViewInit {
       complete: () => {}
     });
 
-    this.signalRService.notifyGameUpdated.subscribe(() => { console.log("Game Updated..."); this.GetGameInfo()});
-  
-    
-    
+    this.signalRService.notifyGameUpdated.subscribe(() => { console.log("Game Updated..."); this.GetGameInfo(); });
+
   }
+
   GetGameInfo():void{
     this.fourWinGameAPIInterface.GetGameInfo(this.gameID, this.myPlayer.playerID).subscribe({
       next: (response: any) => {
@@ -113,7 +110,25 @@ export class PlayGameComponent implements OnInit, AfterViewInit {
         this.gameData = res.gameInfo;
         this.board = this.gameData.board;
         this.opponent = this.gameData.opponent;
-        this.yourMove = this.gameData.yourMove;        
+        this.yourMove = this.gameData.yourMove;    
+        
+        let isDraw = true;
+        for (let row = 0; row < 6; row++) {
+          for (let column = 0; column < 7; column++)
+          {
+            if (this.board[row][column] == 0)
+            {
+              isDraw = false;
+              break;
+            }
+          }
+        }
+        if (isDraw)
+        {
+          this.isGameOver = true;
+          this.snackBar.openSnackBar("Draw");
+        }
+
       },
       error: (error: any) => {
         console.error(error);

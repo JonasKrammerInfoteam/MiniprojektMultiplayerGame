@@ -77,9 +77,18 @@ namespace _4WinGame.RESTApi.Services
         {
             GameWinnerEventArgs gameWinnerEvent = (GameWinnerEventArgs)e;
             IFourWinGame fourWinGame = (IFourWinGame)sender;
-            MyPlayer player = connectionService.AllPlayers.Where(p => p.PlayerID == fourWinGame.GetWinner().ID).FirstOrDefault();
-            Task sendTask = new Task(async () => await hubConnection.SendAsync("GameFinished", (Player)player, fourWinGame.ID));
-            sendTask.Start();
+            if(fourWinGame.GetWinner() == null)
+            {
+                Task sendTask = new Task(async () => await hubConnection.SendAsync("GameFinished", null, fourWinGame.ID));
+                sendTask.Start();
+            }
+            else
+            {
+                MyPlayer player = connectionService.AllPlayers.Where(p => p.PlayerID == fourWinGame.GetWinner().ID).FirstOrDefault();
+                Task sendTask = new Task(async () => await hubConnection.SendAsync("GameFinished", (Player)player, fourWinGame.ID));
+                sendTask.Start();
+            }
+            
         }
 
     }
