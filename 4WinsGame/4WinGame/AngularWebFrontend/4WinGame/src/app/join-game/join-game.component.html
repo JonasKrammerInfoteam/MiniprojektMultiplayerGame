@@ -1,5 +1,5 @@
 <div *ngIf="loginHolder?.isLoggedIn">
- Hallo: {{loginHolder?.loggedInPlayer?.playerName ?? ""}}
+  Hallo: {{loginHolder.loggedInPlayer?.playerName ?? ""}}
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <!--- Note that these columns can be defined in any order.

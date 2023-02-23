@@ -34,7 +34,15 @@ namespace _4WinGame.RESTApi
             ConnectionService connectionService = new ConnectionService();
             services.AddSingleton(connectionService);
             IFourWinGamesService fourWinGamesService = new FourWinGamesService();
-            FourWinGameEventHandler fourWinGameEventHandler = new FourWinGameEventHandler("https://localhost:44362/fourwingamehub", connectionService);
+<<<<<<< HEAD
+<<<<<<< HEAD
+            FourWinGameEventHandler fourWinGameEventHandler = new FourWinGameEventHandler("https://localhost:90/fourwingamehub", connectionService);
+=======
+            FourWinGameEventHandler fourWinGameEventHandler = new FourWinGameEventHandler(connectionService);
+>>>>>>> d84240b7f3a2b69f02c6c92fb0898765b6ba4f15
+=======
+            FourWinGameEventHandler fourWinGameEventHandler = new FourWinGameEventHandler(connectionService);
+>>>>>>> d84240b7f3a2b69f02c6c92fb0898765b6ba4f15
             fourWinGamesService.OnGameStarted += fourWinGameEventHandler.OnGameStarted;
             fourWinGamesService.OnWaitingListUpdated += fourWinGameEventHandler.OnWaitingListUpdated;
             services.AddSingleton(fourWinGamesService);
@@ -58,7 +66,7 @@ namespace _4WinGame.RESTApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider, IConfiguration configuration)
         {
             if (env.IsDevelopment())
             {
@@ -79,7 +87,7 @@ namespace _4WinGame.RESTApi
                 endpoints.MapControllers();
             });
 
-            serviceProvider.GetService<FourWinGameEventHandler>().EventHandlerInitalize();
+            serviceProvider.GetService<FourWinGameEventHandler>().EventHandlerInitalize(configuration["HubUrl"]);
 
         }
     }

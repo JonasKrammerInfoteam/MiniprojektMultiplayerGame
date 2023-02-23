@@ -14,16 +14,14 @@ namespace _4WinGame.RESTApi.Services
     {
 
         private HubConnection hubConnection;
-        private string eventHandlerHubAddress;
         private ConnectionService connectionService;
 
-        public FourWinGameEventHandler(string eventHandlerHubAddress, ConnectionService connectionService)
+        public FourWinGameEventHandler(ConnectionService connectionService)
         {
-            this.eventHandlerHubAddress = eventHandlerHubAddress;
             this.connectionService = connectionService;
         }
 
-        public void EventHandlerInitalize()
+        public void EventHandlerInitalize(string eventHandlerHubAddress)
         {
             string serverAddress = eventHandlerHubAddress;
             Task initalizeTask = new Task(async() =>
