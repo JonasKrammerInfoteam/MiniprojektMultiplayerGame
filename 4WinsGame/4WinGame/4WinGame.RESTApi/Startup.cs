@@ -34,15 +34,7 @@ namespace _4WinGame.RESTApi
             ConnectionService connectionService = new ConnectionService();
             services.AddSingleton(connectionService);
             IFourWinGamesService fourWinGamesService = new FourWinGamesService();
-<<<<<<< HEAD
-<<<<<<< HEAD
-            FourWinGameEventHandler fourWinGameEventHandler = new FourWinGameEventHandler("https://localhost:90/fourwingamehub", connectionService);
-=======
             FourWinGameEventHandler fourWinGameEventHandler = new FourWinGameEventHandler(connectionService);
->>>>>>> d84240b7f3a2b69f02c6c92fb0898765b6ba4f15
-=======
-            FourWinGameEventHandler fourWinGameEventHandler = new FourWinGameEventHandler(connectionService);
->>>>>>> d84240b7f3a2b69f02c6c92fb0898765b6ba4f15
             fourWinGamesService.OnGameStarted += fourWinGameEventHandler.OnGameStarted;
             fourWinGamesService.OnWaitingListUpdated += fourWinGameEventHandler.OnWaitingListUpdated;
             services.AddSingleton(fourWinGamesService);
