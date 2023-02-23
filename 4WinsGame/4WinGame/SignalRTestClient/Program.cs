@@ -14,7 +14,7 @@ namespace SignalRTestClient
         private static async Task TestSignalRClient()
         {
             HubConnection hubConnection;
-            string serverAddress = "https://localhost:44362/fourwingamehub";
+            string serverAddress = "https://localhost:90/fourwingamehub";
             do
             {
                 await Task.Delay(3000);
@@ -22,7 +22,7 @@ namespace SignalRTestClient
                     .WithUrl(serverAddress)
                     .WithAutomaticReconnect()
                     .Build();
-                Console.WriteLine("try to connect to hub");
+                Console.WriteLine("try to connect to hub (in TestSignalRClient)");
                 try
                 {
                     await hubConnection.StartAsync();
