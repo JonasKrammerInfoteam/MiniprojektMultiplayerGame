@@ -71,14 +71,23 @@ namespace _4WinGame.RESTApi.Controllers
         public IActionResult JoinGame([FromBody] MyPlayer p1, [FromQuery] int waitingGameListIndex)
         {
             FourWinGamePlayer found = fourWinGameService.AllPlayers.Where(player => player.ID == p1.PlayerID).FirstOrDefault();
+            FourWinGamePlayer gameCreatedPlayer = fourWinGameService.WaitingGames.ElementAt(waitingGameListIndex);
             if (found==null) {
                 throw new PlayerNotFoundException();
             }
-            if(waitingGameListIndex > fourWinGameService.WaitingGames.Count)
+            if(waitingGameListIndex-1 > fourWinGameService.WaitingGames.Count)
             {
                 throw new WaitingListEntryNotFoundException();
             }
-            IFourWinGame fourWinGame = fourWinGameService.JoinWaitingGame(fourWinGameService.WaitingGames.ElementAt(waitingGameListIndex), found);
+            if(found.ID==gameCreatedPlayer.ID)
+            {
+                throw new PlayerAgainsItselfException();
+            }
+            /*if (fourWinGame.)
+            {
+                throw new PlayerAgainsItselfException();
+            }*/
+            IFourWinGame fourWinGame = fourWinGameService.JoinWaitingGame(gameCreatedPlayer, found);
             fourWinGame.OnGameStateChange += fourWinGameEventHandler.OnGameStateChange;
             fourWinGame.OnGameFinish += fourWinGameEventHandler.OnGameFinish;
             return Ok(new JoinGameResponse(fourWinGame.ID));
