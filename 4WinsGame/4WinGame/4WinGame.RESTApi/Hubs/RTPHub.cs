@@ -29,8 +29,7 @@ namespace _4WinGame.RESTApi.Hubs
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
-            string foundID;
-            connectionService.PlayerIDToConnectionIDlist.TryGetValue(Context.ConnectionId, out foundID);
+            string foundID=connectionService.PlayerIDToConnectionIDlist.Where(k=>k.Value==Context.ConnectionId).FirstOrDefault().Key;
             if(foundID!=null)
             {
                 IFourWinGame fourWinGame = fourWinGamesService.Games.Where(g => g.Player1.ID == foundID || g.Player2.ID == foundID).FirstOrDefault();
@@ -74,7 +73,6 @@ namespace _4WinGame.RESTApi.Hubs
         {
            await Clients.All.SendAsync(message);
         }
-
 
         private async Task SendMessage(string gameID, string message, object data)
         {
