@@ -19,7 +19,7 @@ export class SignalRService {
   public notifyGameFinished: EventEmitter<Player> = new EventEmitter();
 
   constructor() {
-    this.hubUrl = "https://localhost:44362";
+    this.hubUrl = "http://192.168.2.20:90";
     this.connectionId = "";
     console.log(['hub url: ', this.hubUrl]);
     this.hubProxy = new signalR.HubConnectionBuilder()

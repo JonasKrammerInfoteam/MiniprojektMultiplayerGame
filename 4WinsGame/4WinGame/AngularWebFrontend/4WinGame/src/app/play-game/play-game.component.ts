@@ -129,6 +129,9 @@ export class PlayGameComponent implements OnInit, AfterViewInit {
         {
           this.isGameOver = true;
           this.snackBar.openSnackBar("Draw");
+          console.log(this.isGameOver);
+          console.log("isDraw: " + isDraw);
+          console.log(this.board);
         }
 
       },
