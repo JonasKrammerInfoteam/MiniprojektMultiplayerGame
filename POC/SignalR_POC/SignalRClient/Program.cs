@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 
 Console.WriteLine("Hello, World!");
 var _hubConnection = new HubConnectionBuilder()
-                .WithUrl("https://localhost:7075/test", (opts) =>
+                .WithUrl("https://localhost:44362/fourwingamehub", (opts) =>
                 {
                     opts.HttpMessageHandlerFactory = (message) =>
                     {
@@ -26,6 +26,7 @@ _hubConnection.On("SendMessageToUser", actionOnMessage);
 try
 {
     await _hubConnection.StartAsync();
+    Console.WriteLine(_hubConnection.ConnectionID);
 }
 catch (Exception ex)
 {

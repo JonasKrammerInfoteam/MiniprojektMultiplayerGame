@@ -1,5 +1,4 @@
 import { Component, Injectable } from "@angular/core";
-import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class APIUriBuilder {
@@ -7,7 +6,7 @@ export class APIUriBuilder {
         this.APIController = apiController;
         this.TargetServerURL = window.location.origin + "/api/";//environment.apiEndpoint;
     }
-    APIController:String;
+    APIController:String;   
 
     TargetServerURL:String;
 
@@ -27,7 +26,7 @@ export class APIUriBuilder {
         return resApiRes;
     }
 
-    ngOnInit(): void {
-
-    }
 }
+
+
+

@@ -1,0 +1,21 @@
+body {
+  background-color: #000;
+}
+
+#button-submit {
+  background-color: #883338;
+  color: #fff;
+}
+
+mat-card {
+  width: 20%;
+  margin-left: 40%;
+
+  height: 20%;
+  margin-top: 10%;
+}
+
+
+.input-container {
+  margin: 50px;
+}

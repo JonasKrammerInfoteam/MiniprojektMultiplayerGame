@@ -1,0 +1,36 @@
+﻿body {
+    background-color : cornflowerblue
+}
+.Board{
+    background-color : #2B3945;
+
+}
+.SquareElement{
+    height : 100px;
+    width : 100px;
+    background-color : #161D23;
+    border-color : #FFFFFF;
+    border-style : solid;
+    border-radius : 50%;
+    border-width : 5px;
+    margin: 7px;
+}
+.ColumnCounter{
+    color : #FFFFFF;
+    font-size : 30px;
+    font-family : Verdana;
+    margin-top : 20px;
+    margin-bottom : 10px;
+    text-align : center;
+}
+.ColumnButton {
+    font-size: 20px;
+    box-sizing: content-box;
+    margin: 7px;
+    padding: 5px;
+    width: 100px;
+    text-align: center;
+    display: inline-block;
+    border-radius: 10px;
+  
+}

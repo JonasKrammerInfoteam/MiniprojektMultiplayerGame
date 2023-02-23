@@ -1,3 +1,7 @@
+using _4WinGame.BusinessLogic;
+using _4WinGame.BusinessLogic.Contracts.Interfaces;
+using _4WinGame.RESTApi.Hubs;
+using _4WinGame.RESTApi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,16 +30,35 @@ namespace _4WinGame.RESTApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
+            ConnectionService connectionService = new ConnectionService();
+            services.AddSingleton(connectionService);
+            IFourWinGamesService fourWinGamesService = new FourWinGamesService();
+            FourWinGameEventHandler fourWinGameEventHandler = new FourWinGameEventHandler(connectionService);
+            fourWinGamesService.OnGameStarted += fourWinGameEventHandler.OnGameStarted;
+            fourWinGamesService.OnWaitingListUpdated += fourWinGameEventHandler.OnWaitingListUpdated;
+            services.AddSingleton(fourWinGamesService);
+            services.AddSingleton(fourWinGameEventHandler);
+            
+            services.AddSignalR();
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "_4WinGame.RESTApi", Version = "v1" });
             });
+            services.AddCors(options => options.AddPolicy("CorsPolicy",
+                builder =>
+                {
+                    builder.AllowAnyHeader()
+                           .AllowAnyMethod()
+                           .SetIsOriginAllowed((host) => true)
+                           .AllowCredentials();
+                }));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider, IConfiguration configuration)
         {
             if (env.IsDevelopment())
             {
@@ -44,7 +67,7 @@ namespace _4WinGame.RESTApi
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "_4WinGame.RESTApi v1"));
             }
 
-            app.UseHttpsRedirection();
+            app.UseCors("CorsPolicy");
 
             app.UseRouting();
 
@@ -52,8 +75,12 @@ namespace _4WinGame.RESTApi
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<RTPHub>("/fourwingamehub");
                 endpoints.MapControllers();
             });
+
+            serviceProvider.GetService<FourWinGameEventHandler>().EventHandlerInitalize(configuration["HubUrl"]);
+
         }
     }
 }
