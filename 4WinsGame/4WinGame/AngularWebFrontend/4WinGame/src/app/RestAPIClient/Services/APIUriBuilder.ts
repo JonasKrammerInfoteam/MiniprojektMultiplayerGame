@@ -6,7 +6,7 @@ import { Component, Injectable } from "@angular/core";
 export class APIUriBuilder {
     constructor(apiController:String) {
         this.APIController = apiController;
-        this.TargetServerURL = "http://192.168.2.20:90/";//environment.apiEndpoint;
+        this.TargetServerURL = "https://p00260jkr.info.team:44445/";//environment.apiEndpoint;
     }
     APIController:String;
 
