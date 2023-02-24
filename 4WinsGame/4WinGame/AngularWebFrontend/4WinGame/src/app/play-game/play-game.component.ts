@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GameInfo, GameInfoResponse, MyPlayer, Player, WaitingGamesResponse } from '../RestAPIClient/Contracts/RestAPI.Contracts';
@@ -15,7 +15,7 @@ import { SignalRService } from '../SignalRClient/signal-r.service';
   styleUrls: ['./play-game.component.css']
 })
 export class PlayGameComponent implements OnInit, AfterViewInit {
-  constructor(private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBarComponent, private route: ActivatedRoute, private loginHolder: LoginHolder, private router: Router, private signalRService:SignalRService) { }
+  constructor(private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBarComponent, private route: ActivatedRoute, private loginHolder: LoginHolder, private router: Router, private signalRService:SignalRService, private ref: ChangeDetectorRef) { }
   ngAfterViewInit(): void {
     this.GetGameInfo();
   }
@@ -112,25 +112,8 @@ export class PlayGameComponent implements OnInit, AfterViewInit {
         this.gameData = res.gameInfo;
         this.board = this.gameData.board;
         this.opponent = this.gameData.opponent;
-        this.yourMove = this.gameData.yourMove;    
-        
-        let isDraw = true;
-        for (let row = 0; row < 6; row++) {
-          for (let column = 0; column < 7; column++)
-          {
-            if (this.board[row][column] == 0)
-            {
-              isDraw = false;
-              break;
-            }
-          }
-        }
-        if (isDraw)
-        {
-          this.isGameOver = true;
-          this.snackBar.openSnackBar("Draw");
-        }
-
+        this.yourMove = this.gameData.yourMove;
+        this.ref.detectChanges();    
       },
       error: (error: any) => {
         console.error(error);

@@ -12,7 +12,6 @@ export class AppComponent implements OnInit {
   constructor(private hubService:SignalRService, public loginHolder:LoginHolder, private router: Router) { }
   ngOnInit(): void {
     this.hubService.startConnection();
-    //this.router.navigate(['/login']);
     if(this.loginHolder.isLoggedIn) {
       this.router.navigate(['/lobby']);
     } else {
