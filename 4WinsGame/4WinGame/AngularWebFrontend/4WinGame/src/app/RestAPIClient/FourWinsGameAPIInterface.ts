@@ -69,4 +69,9 @@ export class FourWinsGameAPIInterface implements IFourWinsGameAPIInterface {
         ));
     }
 
+    public PlayerHasAlreadyWaitingGame(p: MyPlayer): Observable<boolean>
+    {
+        return this.apiHttpRequest.Get(this._apiUriBuilder.GetAPIUri("PlayerHasAlreadyWaitingGame", new Map().set("playerID", p.playerID)));
+    }
+
 }

@@ -1,0 +1,15 @@
+.footerRow{
+    margin-bottom: 0;
+    background-color: #168A46;
+    height: 30px;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.footerRow a {
+    color: #ffdd4a;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-decoration: none;
+    font-size: 1.3em;
+}

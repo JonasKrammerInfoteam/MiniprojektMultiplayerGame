@@ -1,0 +1,32 @@
+.headerRow{
+    background-color: #141414;
+    height: 120px;
+    margin-top: 0;
+}
+
+#headerContent{
+    padding-left: 12.5%;
+}
+
+#headerLine{
+    background-color: #168A46;
+    border-radius: 15%;
+    width: 10px;
+    overflow: hidden;
+    float: left;
+    height: 100px;
+    margin-top: 10px;
+}
+
+#headerText{
+    font-size: 70px;
+    padding-left: 5px;
+    overflow: hidden;
+    color: #ffdd4a;
+    font-family: 'Space Mono', monospace;
+    font-weight: bold;
+    width: max-content;
+    padding-bottom: 1%;
+    padding-top: 1%;
+    float: left;
+}

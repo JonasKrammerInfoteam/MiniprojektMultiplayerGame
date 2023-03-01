@@ -53,13 +53,13 @@
     width: 660px;
     background-color: #2B3945;
     height: 566px;
-    padding-bottom: 0 !important;
+    padding-bottom: 0;
 }
 
 .number-list {
     width: 660px;
     height: 93px;
-    padding-bottom: 0px !important;
+    padding-bottom: 0px;
     background-color: #2B3945;
     color: #FFF;
     font-size : 30px;

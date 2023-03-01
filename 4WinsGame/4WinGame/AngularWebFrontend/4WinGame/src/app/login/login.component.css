@@ -1,21 +1,39 @@
-body {
-  background-color: #000;
-}
-
 #button-submit {
-  background-color: #883338;
+  background-color: #168A46;
   color: #fff;
+}
+.RegisterView{
+  padding-left: 12.5%;
+  padding-top: 0.5%;
+  padding-bottom: 1.5%;
+  background-color: #161D23;
 }
 
 mat-card {
   width: 20%;
-  margin-left: 40%;
-
+  margin-left: 47.5%;
   height: 20%;
-  margin-top: 10%;
+  background-color: darkslategray;
+  border-radius: 7.5%;
+}
+.boomImage{
+  padding-left: 5%;
+  position: absolute;
+  width: 1150px;
+  float: left;
 }
 
-
 .input-container {
-  margin: 50px;
+  margin: 40px;
+}
+
+p{
+  float:left;
+  font-family: 'Handlee', sans-serif;
+  color: indianred;
+  font-size: 60px;
+  font-weight: 900;
+  padding-right: 57.5px;
+  text-decoration: indianred wavy underline;
+  text-decoration-thickness: 5px;
 }

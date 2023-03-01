@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, Output } from '@angular/core';
 import { JoinGameResponse, WaitingGame, WaitingGamesResponse } from '../RestAPIClient/Contracts/RestAPI.Contracts';
 import { FourWinsGameAPIInterface } from '../RestAPIClient/FourWinsGameAPIInterface';
 import { LoginHolder } from '../Services/loginHolder';
@@ -70,6 +70,24 @@ export class JoinGameComponent implements OnInit, AfterViewInit{
         next: (response: any) => {
           let res: JoinGameResponse = response as JoinGameResponse
           console.log(res.gameID);
+        },
+        error: (error: any) => {
+          console.error(error);
+          this.snackBar.openSnackBar(error.message);
+        },
+        complete: () => {
+  
+        }
+      });
+    }
+  }
+
+  PlayerHasAlreadyWaitingGame() {
+    if(this.loginHolder.loggedInPlayer!=undefined) {
+      this.fourWinGameAPIInterface.PlayerHasAlreadyWaitingGame(this.loginHolder.loggedInPlayer).subscribe({
+        next: (response: any) => {
+          let res: boolean = response as boolean
+          console.log(res.valueOf());
         },
         error: (error: any) => {
           console.error(error);

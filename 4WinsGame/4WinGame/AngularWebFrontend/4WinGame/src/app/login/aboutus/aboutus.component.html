@@ -1,0 +1,58 @@
+<div class="aboutUs">
+    <div class="verticalLine"></div>
+    <h2>Über die Entwicklung</h2>
+    <p>Das infoteam-Vier-Gewinnt-Spiel ist ein <strong>Azubi</strong>-Projekt und wurde in einem
+        <strong>Workshop</strong> umgesetzt und entwickelt.<br>
+        Unser Ziel war es, ein <strong>Softwareprojekt</strong> komplett selbstständig durchzuführen - inkl. der
+        vorangehenden <strong>Planung</strong>.<br>
+        Dabei erhielten wir <strong>Unterstützung</strong> vom ehemaligen Azubi <strong>Jonas Krammer</strong>, der nun
+        bei infoteam als Software-Developer tätig ist.<br>
+        Am Anfang diskutierten wir über die Idee und planten die Umsetzung durch Erstellung von
+        <strong>Klassendiagrammen</strong>.<br>
+        Nachdem wir unsere Grundlage geschaffen hatten, setzten wir die <strong>Entwicklungsumgebung</strong> auf und
+        installierten alle notwendigen Tools.<br>
+        Wir nutzten <strong>Visual Studio</strong> zur Umsetzung des <strong>Backends</strong>, also vereinfacht gesagt
+        die gesamte Spiellogik, die auf dem Server läuft,<br>
+        <strong>Visual Studio Code</strong> für die Umsetzung des <strong>Frontend</strong>, also all das, was der
+        Benutzer auf der Website sehen kann, <br>
+        sowie <strong>git</strong> als Tool für die <strong>Versionsverwaltung</strong>, damit wir gemeinsam an
+        verschiedenen Baustellen arbeiten konnten.
+    </p>
+    <details>
+        <summary class="teamDescription">
+            Das Entwicklerteam mit Tätigkeiten:
+        </summary>
+        <div class="teamMembers">
+            <div *ngFor="let developer of developerList; let indexOfElement=index;">
+                <div class="userElement">
+                    <div *ngIf="developer.GetPictureLeft()">
+                        <div class="profilepicture"
+                            style="float: left; margin-right: 70px; background-image: url('{{developer.GetProfilePictureUrl()}}');">
+                        </div>
+                        <div class="text" style="width: 650px;">
+                            <h3>{{developer.GetDevname()}}</h3>
+                            <ul style="list-style-type: none;">
+                                <div *ngFor="let activity of developer.GetProjectActivites()" class="listElement">
+                                    <li>► {{activity}}</li>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+                    <div *ngIf="!developer.GetPictureLeft()">
+                        <div class="text" style="float: left; margin-right: 70px; text-align: right;">
+                            <h3 style="text-align: right;">{{developer.GetDevname()}}</h3>
+                            <ul style="list-style-type: none;">
+                                <div *ngFor="let activity of developer.GetProjectActivites()" class="listElement">
+                                    <li>► {{activity}}</li>
+                                </div>
+                            </ul>
+                        </div>
+                        <div class="profilepicture"
+                            style="margin-top: 10px; background-image: url('{{developer.GetProfilePictureUrl()}}');"></div>
+                    </div>
+                </div>
+                <div *ngIf="!(indexOfElement==developerList.length-1)" class="line"></div>
+            </div>
+        </div>
+    </details>
+</div>

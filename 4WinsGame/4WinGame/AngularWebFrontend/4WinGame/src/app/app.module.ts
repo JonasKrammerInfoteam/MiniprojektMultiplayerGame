@@ -15,6 +15,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { HeaderComponent } from './basic-layout/header/header.component';
+import { FooterComponent } from './basic-layout/footer/footer.component';
+import { GamerulesComponent } from './login/gamerules/gamerules.component';
+import { AboutusComponent } from './login/aboutus/aboutus.component';
+import { BasicLayoutComponent } from './basic-layout/basic-layout.component';
 
 
 @NgModule({
@@ -22,7 +27,12 @@ import {MatGridListModule} from '@angular/material/grid-list';
     AppComponent,
     LoginComponent,
     JoinGameComponent,
-    PlayGameComponent
+    PlayGameComponent,
+    HeaderComponent,
+    FooterComponent,
+    GamerulesComponent,
+    AboutusComponent,
+    BasicLayoutComponent
   ],
   imports: [
     BrowserModule,

@@ -21,8 +21,7 @@ export class LoginComponent {
         console.log(response);
         let res: RegisterPlayerResponse = response as RegisterPlayerResponse;
         this.snackBarService.openSnackBar("Welcome:" + res.registeredPlayer.playerName);
-        this.loginHolder.Login(res.registeredPlayer);
-        
+        this.loginHolder.Login(res.registeredPlayer);        
       },
       error: (error: any) => {
         console.error(error);
