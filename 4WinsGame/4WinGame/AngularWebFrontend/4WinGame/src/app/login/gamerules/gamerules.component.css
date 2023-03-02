@@ -1,26 +1,46 @@
-.gameRulesBox{
+.gameRulesBox {
     padding-left: 12.5%;
     padding-top: 0.5%;
     padding-bottom: 0.5%;
     background-color: #1F2833;
 }
 
-.description{
+.description {
     font-size: 1.5em;
     color: #ffdd4a;
     padding-left: 15px;
     font-family: 'Space Mono', monospace;
 }
 
-.innerContent{
+.innerContent {
     padding-left: 50px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    display: flex;
 }
 
-.line{
-    margin-top: 20px;
+.line {
     margin-left: 40px;
     width: 875px;
     height: 2px;
     background-color: #168A46;
+}
+
+.path {
+    background-color: indianred;
+    width: 10px;
+    height: 30px;
+    margin: auto;
+}
+
+.number {
+    font-size: 75px;
+    margin: auto;
+    font-family: fantasy;
+    color: #ffffff;
+    background-color: #0F66DD;
+    border-radius: 25%;
+    height: max-content;
+    width: 90px;
+    height: 90px;
+    text-align: center;
 }
