@@ -25,30 +25,30 @@
         <div class="teamMembers">
             <div *ngFor="let developer of developerList; let indexOfElement=index;">
                 <div class="userElement">
-                    <div *ngIf="developer.GetPictureLeft()">
+                    <div *ngIf="developer.isPictureLeft">
                         <div class="profilepicture"
-                            style="float: left; margin-right: 70px; background-image: url('{{developer.GetProfilePictureUrl()}}');">
+                            style="float: left; margin-right: 70px; background-image: url('{{developer.profilePictureUrl}}');">
                         </div>
                         <div class="text" style="width: 650px;">
-                            <h3>{{developer.GetDevname()}}</h3>
+                            <h3>{{developer.devName}}</h3>
                             <ul style="list-style-type: none;">
-                                <div *ngFor="let activity of developer.GetProjectActivites()" class="listElement">
+                                <div *ngFor="let activity of developer.projectActivities" class="listElement">
                                     <li>► {{activity}}</li>
                                 </div>
                             </ul>
                         </div>
                     </div>
-                    <div *ngIf="!developer.GetPictureLeft()">
+                    <div *ngIf="!developer.isPictureLeft">
                         <div class="text" style="float: left; margin-right: 70px; text-align: right;">
-                            <h3 style="text-align: right;">{{developer.GetDevname()}}</h3>
+                            <h3 style="text-align: right;">{{developer.devName}}</h3>
                             <ul style="list-style-type: none;">
-                                <div *ngFor="let activity of developer.GetProjectActivites()" class="listElement">
+                                <div *ngFor="let activity of developer.projectActivities" class="listElement">
                                     <li>► {{activity}}</li>
                                 </div>
                             </ul>
                         </div>
                         <div class="profilepicture"
-                            style="margin-top: 10px; background-image: url('{{developer.GetProfilePictureUrl()}}');"></div>
+                            style="margin-top: 10px; background-image: url('{{developer.profilePictureUrl}}');"></div>
                     </div>
                 </div>
                 <div *ngIf="!(indexOfElement==developerList.length-1)" class="line"></div>

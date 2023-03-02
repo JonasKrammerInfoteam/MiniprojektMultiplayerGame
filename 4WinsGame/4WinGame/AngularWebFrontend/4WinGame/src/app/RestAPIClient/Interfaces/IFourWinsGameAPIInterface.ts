@@ -20,5 +20,4 @@ export interface IFourWinsGameAPIInterface{
     GetGameInfo(gameID: string, playerID: string): Observable<GameInfoResponse>;
   
 
-
 }

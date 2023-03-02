@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Developer } from './developer';
+import { Developer } from './developerInterface';
 
 @Component({
   selector: 'app-aboutus',
@@ -11,14 +11,15 @@ export class AboutusComponent implements OnInit {
   private pictureLeft : boolean = true;
 
   public ngOnInit() : void {
-    this.AddDeveloper(new Developer("Jonas Krammer", ["Tätigkeit als Projektleiter", "Unterstützung bei Fragen & Problemen"], this.pictureLeft));
-    this.AddDeveloper(new Developer("Judith Semenyo", ["Schreiben und Durchführen von Unit-Tests", "Aufsetzen eines kleinen Netzwerkes"], this.pictureLeft));
-    this.AddDeveloper(new Developer("Jakob Leistner", ["Entwicklung der BusinessLogic", "Umsetzung des Frontends mit Angular"], this.pictureLeft));
-    this.AddDeveloper(new Developer("Simon Rösch", ["Entwicklung des RTPHub & der RestAPI", "Umsetzung & Weiterentwicklung des Frontends mit Angular"], this.pictureLeft, "../../assets/SimonPicture.jpg"));
+
+    this.AddDeveloper("Jonas Krammer", ["Tätigkeit als Projektleiter", "Unterstützung bei Fragen & Problemen"]);
+    this.AddDeveloper("Judith Semenyo", ["Schreiben und Durchführen von Unit-Tests", "Aufsetzen eines kleinen Netzwerkes"]);
+    this.AddDeveloper("Jakob Leistner", ["Entwicklung der BusinessLogic", "Umsetzung des Frontends mit Angular"]);
+    this.AddDeveloper("Simon Rösch", ["Entwicklung des RTPHub & der RestAPI", "Umsetzung & Weiterentwicklung des Frontends mit Angular"], "../../assets/SimonPicture.jpg");
   }
 
-  private AddDeveloper(developer : Developer) : void {
-      this.developerList.push(developer);
+  private AddDeveloper(name : string, activites : string[], profileURL : string = "../../assets/UnknownProfile.svg") : void {
+      this.developerList.push({ devName : name, projectActivities : activites, isPictureLeft : this.pictureLeft, profilePictureUrl : profileURL });
       this.pictureLeft = !this.pictureLeft;
   }
 

@@ -1,0 +1,54 @@
+.joinGameBox{
+    padding-left: 12.5%;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    background-color: #06110A;
+}
+
+.queue{
+    width: 600px;
+    margin-left: 100px;
+    padding-bottom: 25px;
+}
+
+.tableLine{
+    height: 5px;
+    width: 100%;
+    background-color: #168A46;
+}
+
+.waitingGameElement{
+    display: flex;
+    justify-content: center;
+}
+
+.waitingGameplayername{
+    margin: 0;
+    margin-right: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 295px;
+    text-align: right;
+}
+
+.joinButton{
+    color: #ffffff;
+    background-color: #168A46;
+    border-radius: 25%;
+    font-family: 'Space Mono', monospace;
+    font-size: 1.25em;
+    height: max-content;
+    margin-left: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.columnLine{
+    height: 2;
+    width: 5px;
+    background-color: #168A46;
+}
+
+.joinButton:hover{
+    background-color: #167A46;
+}

@@ -1,0 +1,45 @@
+<div *ngIf="loginHolder.isLoggedIn"> 
+    <div class="joinGameBox">
+        <div class="verticalLine"></div>
+        <h2>Vorhandenem Spiel beitreten</h2>
+        <p>In der <strong>Warteschlange</strong> findest du alle Spieler, die ein Spiel erstellt haben<br>
+        und noch auf einen <strong>Gegner</strong> warten.<br>
+        Such dir einfach deinen <strong>Wunschgegner</strong> in der Liste aus und klicke auf <strong>Join</strong>.<br>
+        Und schon bist du dabei! <strong>Lasst die Spiele beginnen!</strong></p>
+        <div class="queue">
+            <h2 style="margin-bottom: 0px; padding: 0">Wartende Spieler:</h2>
+            <div class="tableLine"></div>
+            <div *ngFor="let waitingGame of data, let i=index">
+                <div class="waitingGameElement">
+                    <p class="waitingGameplayername">{{waitingGame.playerName}}</p>
+                    <div class="columnLine"></div>
+                    <div style="align-items: center; justify-content: center; width: 295px;">
+                        <button type="button" class="joinButton" (click)="JoinGame(i)">Join Game</button>
+                    </div>
+                </div>
+            </div>
+
+           <!--- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                Note that these columns can be defined in any order.
+                    The actual rendered columns are set as a property on the row definition"
+            
+                Name Column
+                <ng-container matColumnDef="PlayerName">
+                <th mat-header-cell *matHeaderCellDef>PlayerName</th>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                        <strong>{{element.playerName}}</strong>
+                        <button mat-stroked-button class="joinGameButton" color="primary" (click)="JoinGame(i)">Join Game</button>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>-->
+            
+            
+            <!--<div *ngFor="let waitingGame of ??">
+
+            </div>-->
+        </div>
+    </div>
+</div>
