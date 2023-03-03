@@ -1,0 +1,13 @@
+<div class="welcomePlayerBox">
+    <div class="verticalLine"></div>
+    <h2>Herzlich Willkommen{{", " + loginHolder.loggedInPlayer?.playerName}}!</h2>
+    <div style="display: flex;">
+        <p>
+            <strong>Jetzt wird´s ernst! Nur noch einen Schritt und du bist im Spiel!</strong><br>
+            Du hast nun <strong>zwei</strong> Möglichkeiten:<br>
+            Tritt einem bereits Vorhandenem Spiel in der <strong>Warteschlange</strong> bei<br>
+            Erstelle <strong>dein eigenes</strong> Spiel und spiele gegen deine Freunde
+        </p>
+            <button class="logOutButton" type="button" (click)="Logout()">Logout</button>
+    </div>
+</div>

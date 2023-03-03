@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { JoinGameComponent } from './join-game/join-game.component';
 import { PlayGameComponent } from './play-game/play-game.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -20,16 +19,16 @@ import { FooterComponent } from './basic-layout/footer/footer.component';
 import { GamerulesComponent } from './login/gamerules/gamerules.component';
 import { AboutusComponent } from './login/aboutus/aboutus.component';
 import { BasicLayoutComponent } from './basic-layout/basic-layout.component';
-import { WelcomeUsernameComponent } from './join-game/welcome-username/welcome-username.component';
-import { CreateGameComponent } from './join-game/create-game/create-game.component';
-import { JoinWaitingGameComponent } from './join-game/join-waiting-game/join-waiting-game.component';
+import { WelcomeUsernameComponent } from './lobby/welcome-username/welcome-username.component';
+import { CreateGameComponent } from './lobby/create-game/create-game.component';
+import { JoinWaitingGameComponent } from './lobby/join-waiting-game/join-waiting-game.component';
+import { LobbyComponent } from './lobby/lobby.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    JoinGameComponent,
     PlayGameComponent,
     HeaderComponent,
     FooterComponent,
@@ -38,7 +37,8 @@ import { JoinWaitingGameComponent } from './join-game/join-waiting-game/join-wai
     BasicLayoutComponent,
     WelcomeUsernameComponent,
     CreateGameComponent,
-    JoinWaitingGameComponent
+    JoinWaitingGameComponent,
+    LobbyComponent
   ],
   imports: [
     BrowserModule,

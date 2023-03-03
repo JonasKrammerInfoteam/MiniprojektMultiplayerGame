@@ -79,23 +79,4 @@ export class JoinWaitingGameComponent implements OnInit, AfterViewInit{
       });
     }
   }
-
-  PlayerHasAlreadyWaitingGame() {
-    if(this.loginHolder.loggedInPlayer!=undefined) {
-      this.fourWinGameAPIInterface.PlayerHasAlreadyWaitingGame(this.loginHolder.loggedInPlayer).subscribe({
-        next: (response: any) => {
-          let res: boolean = response as boolean
-          console.log(res.valueOf());
-        },
-        error: (error: any) => {
-          console.error(error);
-          this.snackBar.openSnackBar(error.message);
-        },
-        complete: () => {
-  
-        }
-      });
-    }
-  }
-
 }

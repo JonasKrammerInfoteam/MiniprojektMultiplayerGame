@@ -6,8 +6,6 @@ import { snackBarComponent } from '../../Services/snackBar';
 import { FourWinsGameAPIInterface } from 'src/app/RestAPIClient/FourWinsGameAPIInterface';
 import { Router } from '@angular/router';
 
-const data: WaitingGame[] = [];
-
 @Component({
   selector: 'app-create-game',
   templateUrl: './create-game.component.html',
@@ -16,12 +14,11 @@ const data: WaitingGame[] = [];
 
 export class CreateGameComponent implements OnInit, AfterViewInit{
   
-  dataSource = data;
+  private hasAlreadyWaitingGame = false;
 
   constructor(private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBarComponent, public loginHolder : LoginHolder, private signalRService: SignalRService, private router: Router) {}
 
   ngAfterViewInit(): void {
-    this.LoadWaitingGames();
     this.signalRService.notifyGameStart.subscribe({
       next: (resgameId: string) => {
         console.log("GameID: " + resgameId);
@@ -36,8 +33,6 @@ export class CreateGameComponent implements OnInit, AfterViewInit{
       },
       complete: () => {}
     });
-
-    this.signalRService.notifyWaitingListUpdated.subscribe(() => { console.log("LoadWaitingList..."); this.LoadWaitingGames()});
   }
 
   ngOnInit(): void {
@@ -49,33 +44,42 @@ export class CreateGameComponent implements OnInit, AfterViewInit{
     
   }
 
-  LoadWaitingGames(){
-    this.fourWinGameAPIInterface.GetWaitingGames().subscribe({
-      next: (response: any) => {
-        let res: WaitingGamesResponse = response as WaitingGamesResponse;
-        this.dataSource = res.waitingGames;
-        console.log("Loaded list");
-      },
-      error: (error: any) => {
-        console.error(error);
-        this.snackBar.openSnackBar(error.message);
-      },
-      complete: () => {
-
-      }
-    });
+  PlayerHasAlreadyWaitingGame()  {
+    if(this.loginHolder.loggedInPlayer!=undefined) {
+      this.fourWinGameAPIInterface.PlayerHasAlreadyWaitingGame(this.loginHolder.loggedInPlayer).subscribe({
+        next: (response: any) => {
+          let res: boolean = response as boolean
+          this.hasAlreadyWaitingGame = response;
+          console.log(res.valueOf());
+        },
+        error: (error: any) => {
+          console.error(error);
+          this.snackBar.openSnackBar(error.message);
+        },
+        complete: () => {
+  
+        }
+      });
+    }
   }
 
   CreateGame(): void {
     if(this.loginHolder.loggedInPlayer!=undefined) {
-    this.fourWinGameAPIInterface.CreateGame(this.loginHolder.loggedInPlayer).subscribe({
-      next: (response: any) => {
-        this.snackBar.openSnackBar("Game was created successfully!");     
-        this.fourWinGameAPIInterface.GetWaitingGames().subscribe({
+      if(this.hasAlreadyWaitingGame==false) {
+        this.fourWinGameAPIInterface.CreateGame(this.loginHolder.loggedInPlayer).subscribe({
           next: (response: any) => {
-            let res: WaitingGamesResponse = response as WaitingGamesResponse;
-            this.dataSource = res.waitingGames;
-            
+            this.snackBar.openSnackBar("Game was created successfully!");     
+            this.fourWinGameAPIInterface.GetWaitingGames().subscribe({
+              next: () => {            
+              },
+              error: (error: any) => {
+                console.error(error);
+                this.snackBar.openSnackBar(error.message);
+              },
+              complete: () => {
+        
+              }
+            });
           },
           error: (error: any) => {
             console.error(error);
@@ -85,16 +89,10 @@ export class CreateGameComponent implements OnInit, AfterViewInit{
     
           }
         });
-      },
-      error: (error: any) => {
-        console.error(error);
-        this.snackBar.openSnackBar(error.message);
-      },
-      complete: () => {
-
+      } else {
+        console.error("Player created already waiting game!");
+        this.snackBar.openSnackBar("You have already created a game and you are now in waiting queue");
       }
-    });
-  }
-
+    }
   }
 }

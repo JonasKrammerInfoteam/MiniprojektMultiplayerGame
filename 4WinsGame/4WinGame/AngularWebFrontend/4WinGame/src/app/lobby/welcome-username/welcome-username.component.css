@@ -1,0 +1,23 @@
+.welcomePlayerBox{
+    padding-left: 12.5%;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    background-color: #1F2833;
+}
+
+.logOutButton{
+    color: #ffffff;
+    background-color: indianred;
+    border-radius: 25%;
+    font-family: 'Space Mono', monospace;
+    font-size: 2em;
+    height: max-content;
+    margin-left: 450px;
+    margin-top: -155px;
+    display: flex;
+}
+
+.logOutButton:hover{
+    filter: drop-shadow(5px 5px 10px indianred);
+    background-color: rgb(190, 90, 90);
+}
