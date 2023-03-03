@@ -50,5 +50,17 @@
 }
 
 .joinButton:hover{
+    filter: drop-shadow(5px 5px 10px #168A46);
     background-color: #167A46;
+}
+
+.waitingPicture{
+
+    
+    margin-left: 125px;
+    height: 250px;
+    width: 250px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    background-image: url(../../../assets/hourglass.svg);
 }

@@ -4,3 +4,36 @@
     padding-bottom: 0.5%;
     background-color: #161D23;
 }
+
+.createGameButton{
+    color: #ffffff;
+    background-color: #168A46;
+    border-radius: 25%;
+    font-family: 'Space Mono', monospace;
+    font-size: 4em;
+    height: max-content;
+    margin-left: 80px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.createGameButton:hover{
+    filter: drop-shadow(5px 5px 10px #168A46);
+    background-color: #167A46;
+}
+
+p{
+    float:left;
+    margin-left: 50px;
+    margin-top: 0px;
+    margin-bottom: 25px;
+    font-family: 'Handlee', sans-serif;
+    color: indianred;
+    font-size: 60px;
+    font-weight: 900;
+    padding-right: 57.5px;
+    text-decoration: indianred wavy underline;
+    text-decoration-thickness: 5px;
+    text-shadow: 3px 3px darkred;
+    filter: drop-shadow(5px 5px 10px crimson);
+  }

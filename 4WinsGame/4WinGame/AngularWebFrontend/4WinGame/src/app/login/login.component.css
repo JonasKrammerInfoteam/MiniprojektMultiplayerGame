@@ -2,6 +2,12 @@
   background-color: #168A46;
   color: #fff;
 }
+
+#button-submit:hover {
+  filter: drop-shadow(5px 5px 10px #168A46);
+  background-color: #167A46;
+}
+
 .RegisterView{
   padding-left: 12.5%;
   padding-top: 0.5%;
@@ -22,6 +28,7 @@ mat-card {
   width: 1150px;
   float: left;
   box-shadow: 10px, 10px, grey;
+  filter: drop-shadow(5px 5px 10px crimson);
 }
 
 .input-container {
