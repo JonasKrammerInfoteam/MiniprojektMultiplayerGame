@@ -1,0 +1,105 @@
+.gameBoardBox{
+    padding-left: 12.5%;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    background-color: #161D23;
+}
+
+.ColumnButton {
+    font-size: 20px;
+    box-sizing: content-box;
+    margin: 7px;
+    padding: 5px;
+    width: 66px;
+    text-align: center;
+    display: inline-block;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.ColumnButton:hover:enabled {
+    background-color: #c6c7c7;
+}
+
+.ColumnButton:disabled {
+    cursor: not-allowed;
+}
+.SquareElement{
+    height : 70px;
+    width : 70px;
+    background-color : #161D23;
+    border-color : #FFFFFF;
+    border-style : solid;
+    border-radius : 50%;
+    border-width : 5px;
+    margin: 7px;
+    padding-right: 0px;
+}
+.ColumnCounter{
+    color : #FFFFFF;
+    font-size : 30px;
+    font-family : Verdana;
+    margin-top : 20px;
+    margin-bottom : 10px;
+    text-align : center;
+}
+.ColumnButton {
+    font-size: 20px;
+    box-sizing: content-box;
+    margin: 7px;
+    padding: 5px;
+    width: 66px;
+    text-align: center;
+    display: inline-block;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.ColumnButton:hover:enabled {
+    background-color: #c6c7c7;
+}
+
+.ColumnButton:disabled {
+    cursor: not-allowed;
+}
+
+.button-list {
+    width: 660px;
+}
+
+.board-list {
+    width: 660px;
+    height: calc(6px*100); /* Value after 6px: height of one row */
+    padding-bottom: 0;
+}
+
+.number-list {
+    width: 660px;
+    height: 75px;
+    padding-bottom: 0px;
+    color: #FFF;
+    font-size : 30px;
+    font-family : Verdana;
+}
+
+.square-empty {
+    background-color: #161D23;
+}
+
+.square-orange {
+    background-color: #E57A00;
+}
+
+.square-blue {
+    background-color: #0561AF;
+}
+
+.gameBoardContent{
+    margin-left: 12.5%;
+    background-color: #2B3945;
+    border-radius: 25px;
+    width: max-content;
+    padding: 10px;
+    margin-bottom: 20px;
+    box-shadow: 5px 5px 20px black;
+}

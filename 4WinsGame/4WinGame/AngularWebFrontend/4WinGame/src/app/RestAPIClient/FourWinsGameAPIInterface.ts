@@ -74,4 +74,10 @@ export class FourWinsGameAPIInterface implements IFourWinsGameAPIInterface {
         return this.apiHttpRequest.Get(this._apiUriBuilder.GetAPIUri("PlayerHasAlreadyWaitingGame", new Map().set("playerID", p.playerID)));
     }
 
+    public GetPlayerListIndexInGame(p: MyPlayer, gameID: string): Observable<number> {
+        return this.apiHttpRequest.Get(this._apiUriBuilder.GetAPIUri("GetPlayerListIndexInGame", new Map()
+        .set("playerID", p.playerID)
+        .set("gameID", gameID)));
+    }
+
 }

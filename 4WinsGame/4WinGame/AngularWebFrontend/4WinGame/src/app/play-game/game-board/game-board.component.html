@@ -1,0 +1,23 @@
+<div class="gameBoardBox">
+    <div class="verticalLine"></div>
+    <h2>Spielfeld</h2>
+    <div class="gameBoardContent">
+        <mat-grid-list class="button-list" rowHeight="fit" cols="7">
+            <button *ngFor="let var of [].constructor(7); let i = index" title="Stein legen" [disabled]="!yourMove||isGameOver||board[0][i]!=0" (click)="DoMove(i+1)" type="button" class="ColumnButton">Drop here</button>
+        </mat-grid-list>
+        
+        <mat-grid-list class="board-list" rowHeight="fit" cols="7">
+            <mat-grid-tile *ngFor="let var of [].constructor(42); let i = index" class="tile">
+                <div *ngIf="board[FloorDivision(i,7)][i%7]==0"class="SquareElement square-empty"></div>
+                <div *ngIf="board[FloorDivision(i,7)][i%7]==1"class="SquareElement square-orange"></div>
+                <div *ngIf="board[FloorDivision(i,7)][i%7]==2"class="SquareElement square-blue"></div>
+            </mat-grid-tile>
+        </mat-grid-list>
+        
+        <mat-grid-list class="number-list" rowHeight="fit" cols="7">
+            <mat-grid-tile *ngFor="let var of [].constructor(7); let i = index">
+                <p style="margin: 0; padding-top: 20px">{{i}}</p>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </div>
+</div>

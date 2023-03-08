@@ -5,19 +5,11 @@
     background-color: #1F2833;
 }
 
-.logOutButton{
-    color: #ffffff;
-    background-color: indianred;
-    border-radius: 25%;
-    font-family: 'Space Mono', monospace;
-    font-size: 2em;
-    height: max-content;
-    margin-left: 450px;
-    margin-top: -155px;
-    display: flex;
-}
-
-.logOutButton:hover{
-    filter: drop-shadow(5px 5px 10px indianred);
-    background-color: rgb(190, 90, 90);
+.welcomePicture{
+    margin-left: 125px;
+    height: 250px;
+    width: 250px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    background-image: url(../../../assets/hourglass.svg);
 }

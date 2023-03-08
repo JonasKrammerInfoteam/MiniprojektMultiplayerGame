@@ -1,0 +1,25 @@
+.gameRulesBox{
+    padding-left: 12.5%;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    background-color: #06110A;
+}
+
+.ruleImage{
+    width: 200px;
+    height: 200px;
+    background-image: url(../../../assets/rules.svg);
+    margin-left: 10%;
+    background-color: #ffffff;
+    border-radius: 50%;
+}
+
+.ruleContent{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+p{
+    margin-bottom: 0;
+}

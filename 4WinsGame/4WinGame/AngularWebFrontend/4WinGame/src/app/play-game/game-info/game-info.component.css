@@ -1,0 +1,37 @@
+
+.leaveGameButton{    
+    color: #ffffff;
+    background-color: indianred;
+    border-radius: 25%;
+    font-family: 'Space Mono', monospace;
+    font-size: 2em;
+    height: max-content;
+    margin-left: 1250px;
+    display: flex;
+    cursor: pointer;
+}
+
+.tableRow{
+    display: flex;
+}
+
+.tableCol{
+    width: 50%;
+}
+
+.gameInfoBox p{
+    margin: 0;
+}
+
+.gameInfoBox{
+    padding-left: 12.5%;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    padding-right: 25%;
+    background-color: #1F2833;
+}
+
+.leaveGameButton:hover{
+    filter: drop-shadow(5px 5px 10px indianred);
+    background-color: rgb(190, 90, 90);
+}

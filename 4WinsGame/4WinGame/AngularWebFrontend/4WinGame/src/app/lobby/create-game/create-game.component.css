@@ -15,6 +15,7 @@
     margin-left: 80px;
     margin-top: 5px;
     margin-bottom: 5px;
+    cursor: pointer;
 }
 
 .createGameButton:hover{
@@ -22,7 +23,7 @@
     background-color: #167A46;
 }
 
-p{
+#createGameText{
     float:left;
     margin-left: 50px;
     margin-top: 0px;
@@ -36,4 +37,4 @@ p{
     text-decoration-thickness: 5px;
     text-shadow: 3px 3px darkred;
     filter: drop-shadow(5px 5px 10px crimson);
-  }
+}

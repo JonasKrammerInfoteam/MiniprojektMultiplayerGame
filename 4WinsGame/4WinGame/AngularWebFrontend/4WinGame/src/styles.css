@@ -27,8 +27,26 @@ p{
   font-size: 1.25em;
   color: #ffdd4a;
   line-height: 150%;
+  margin-top: 0;
 }
 
 strong{
   color: #168A46;
+}
+
+.topHeaderButton{
+  color: #ffffff;
+  background-color: indianred;
+  border-radius: 25%;
+  font-family: 'Space Mono', monospace;
+  font-size: 2em;
+  height: max-content;
+  margin-left: 1250px;
+  display: flex;
+  cursor: pointer;
+}
+
+.topHeaderButton:hover{
+  filter: drop-shadow(5px 5px 10px indianred);
+  background-color: rgb(190, 90, 90);
 }

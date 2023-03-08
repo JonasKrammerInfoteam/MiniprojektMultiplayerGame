@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, OnInit, } from '@angular/core';
 import { LoginHolder } from 'src/app/Services/loginHolder';
 import { SignalRService } from 'src/app/SignalRClient/signal-r.service';
-import {  WaitingGame, WaitingGamesResponse } from '../../RestAPIClient/Contracts/RestAPI.Contracts';
 import { snackBarComponent } from '../../Services/snackBar';
 import { FourWinsGameAPIInterface } from 'src/app/RestAPIClient/FourWinsGameAPIInterface';
 import { Router } from '@angular/router';
@@ -68,7 +67,8 @@ export class CreateGameComponent implements OnInit, AfterViewInit{
       if(this.hasAlreadyWaitingGame==false) {
         this.fourWinGameAPIInterface.CreateGame(this.loginHolder.loggedInPlayer).subscribe({
           next: (response: any) => {
-            this.snackBar.openSnackBar("Game was created successfully!");     
+            this.snackBar.openSnackBar("Game was created successfully!");  
+            this.hasAlreadyWaitingGame = true;   
             this.fourWinGameAPIInterface.GetWaitingGames().subscribe({
               next: () => {            
               },

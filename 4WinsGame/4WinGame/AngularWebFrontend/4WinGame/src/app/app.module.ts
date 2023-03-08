@@ -23,6 +23,9 @@ import { WelcomeUsernameComponent } from './lobby/welcome-username/welcome-usern
 import { CreateGameComponent } from './lobby/create-game/create-game.component';
 import { JoinWaitingGameComponent } from './lobby/join-waiting-game/join-waiting-game.component';
 import { LobbyComponent } from './lobby/lobby.component';
+import { GameinfoComponent } from './play-game/game-info/game-info.component';
+import { GameboardComponent } from './play-game/game-board/game-board.component';
+import { GameRulesComponent } from './play-game/game-rules/game-rules.component';
 
 
 @NgModule({
@@ -38,7 +41,10 @@ import { LobbyComponent } from './lobby/lobby.component';
     WelcomeUsernameComponent,
     CreateGameComponent,
     JoinWaitingGameComponent,
-    LobbyComponent
+    LobbyComponent,
+    GameinfoComponent,
+    GameboardComponent,
+    GameRulesComponent
   ],
   imports: [
     BrowserModule,

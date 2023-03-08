@@ -1,10 +1,13 @@
+<app-game-info></app-game-info>
+<app-game-board></app-game-board>
+<app-game-rules></app-game-rules>
 
-<div *ngIf="gameID!=''&&gameID!=undefined" class="board-container">
+<!--<div *ngIf="gameID!=''&&gameID!=undefined" class="board-container">
     <h2>4WinGame</h2>
-    <!-- Test-Names
+    Test-Names
     <span *ngIf="true" [style.color]="(yourMove) ? '#4BD800' : '#000000'" [style.font-weight]="(yourMove) ? 'bold' : 'normal'">Player 1: {{myPlayerTest}}</span>
     <span *ngIf="true" style="margin-left: 100px;" [style.color]="(!yourMove) ? '#4BD800' : '#000000'" [style.font-weight]="(!yourMove) ? 'bold' : 'normal'">Player 2: {{opponentTest}}</span>
-    -->
+    
     <span *ngIf="myPlayer!=undefined" [style.color]="(yourMove) ? '#4BD800' : '#FFFFFF'" [style.font-weight]="(yourMove) ? 'bold' : 'normal'">Player 1: {{myPlayer.playerName}}</span>
     <span *ngIf="opponent!=undefined" style="margin-left: 100px;" [style.color]="(!yourMove) ? '#4BD800' : '#FFFFFF'" [style.font-weight]="(!yourMove) ? 'bold' : 'normal'">Player 2: {{opponent.playerName}}</span>
     <span *ngIf="winnerName!=undefined" style="margin-left: 100px;color:#FFFFFF"><b>Winner: {{winnerName}}</b></span>
@@ -29,6 +32,4 @@
         <mat-grid-tile>6</mat-grid-tile>
         <mat-grid-tile>7</mat-grid-tile>
     </mat-grid-list>
-
-    <button type="submit" class="button-leave" (click)="LeaveGame()">Leave Game</button>
-</div>
+</div> -->
