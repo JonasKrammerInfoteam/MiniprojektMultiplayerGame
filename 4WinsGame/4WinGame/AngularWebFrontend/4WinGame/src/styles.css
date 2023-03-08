@@ -50,3 +50,15 @@ strong{
   filter: drop-shadow(5px 5px 10px indianred);
   background-color: rgb(190, 90, 90);
 }
+
+.backgroundFirstBox{
+  background-color: #1F2833;
+}
+
+.backGroundSecondBox{
+  background-color: #161D23;
+}
+
+.backgroundThirdBox{
+  background-color: #06110A;
+}

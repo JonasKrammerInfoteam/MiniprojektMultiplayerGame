@@ -193,10 +193,18 @@ namespace _4WinGame.RESTApi.Controllers
             {
                 throw new _4WinGame.RESTApi.Contracts.Exceptions.PlayerNotInGameException();
             }
+            int playerNumber = 0;
+            if(fourWinGame.Player1.ID == playerID)
+            {
+                playerNumber = 1;
+            } else
+            {
+                playerNumber = 2;
+            }
             bool yourmove = (playerID==fourWinGame.GetCurrentPlayer().ID) ? true : false;
             FourWinGamePlayer fourWinGamePlayerOpponent = fourWinGame.GetOpponent(found);
             MyPlayer opponent = connectionService.AllPlayers.Where(p => p.PlayerID == fourWinGamePlayerOpponent.ID).FirstOrDefault();
-            return Ok(new GameInfoResponse(new GameInfo(fourWinGame.Board, (Player)opponent, yourmove)));
+            return Ok(new GameInfoResponse(new GameInfo(fourWinGame.Board, (Player)opponent, yourmove, playerNumber)));
         }    
         
         [HttpGet("PlayerHasAlreadyWaitingGame")]

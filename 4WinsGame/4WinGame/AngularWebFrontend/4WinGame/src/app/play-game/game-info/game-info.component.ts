@@ -6,16 +6,17 @@ import { LoginHolder } from 'src/app//Services/loginHolder';
 import { snackBarComponent } from 'src/app/Services/snackBar';
 import { SignalRService } from 'src/app/SignalRClient/signal-r.service';
 
-
-
 @Component({
   selector: 'app-game-info',
   templateUrl: './game-info.component.html',
   styleUrls: ['./game-info.component.css']
 })
+
 export class GameinfoComponent implements OnInit, AfterViewInit {
   
-  constructor(private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBarComponent, private route: ActivatedRoute, private loginHolder: LoginHolder, private router: Router, private signalRService:SignalRService, private ref: ChangeDetectorRef) { }
+  constructor(private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBarComponent, private route: ActivatedRoute, private loginHolder: LoginHolder, private router: Router, private signalRService:SignalRService, private ref: ChangeDetectorRef) {
+    console.log("Constructor");
+  }
   
   ngAfterViewInit(): void {
     this.GetGameInfo();
@@ -36,39 +37,7 @@ export class GameinfoComponent implements OnInit, AfterViewInit {
   myPlayer: MyPlayer = this.loginHolder.loggedInPlayer as MyPlayer;
   isGameOver: boolean = false;
   winnerName: string | undefined;
-  playerIndexGameList: number = 0;
-
-  public FloorDivision(n: number, divider: number): number
-  {
-    return (n - n % divider) / divider as number;
-  }
-
-  public GetCurrentPlayerName() : string | undefined {
-    if(this.yourMove) {
-      return this.myPlayer.playerName; 
-    } else {
-      return this.opponent?.playerName;
-    }
-  }
-
-  public DoMove(column: number): void {
-   
-    if (!this.isGameOver)
-    {
-      this.fourWinGameAPIInterface.DoMove(column, this.gameID, this.myPlayer).subscribe({
-        next: (response: any) => {
-          console.log("Placed in column: " + column);
-        },
-        error: (error: any) => {
-          console.error(error);
-          this.snackBar.openSnackBar(error.message);
-        },
-        complete: () => {
-  
-        }
-      });
-    }
-  }
+  playerIndexOfList : number = 0;
 
   public LeaveGame(): void {
     console.log("LeaveGame() called");
@@ -120,7 +89,15 @@ export class GameinfoComponent implements OnInit, AfterViewInit {
         this.board = this.gameData.board;
         this.opponent = this.gameData.opponent;
         this.yourMove = this.gameData.yourMove;
-        this.ref.detectChanges();    
+        this.playerIndexOfList = this.gameData.playerNumber;
+        this.ref.detectChanges();
+        console.log("GetGameInfo() was called");
+
+        console.log("opponent: " + this.opponent);
+        console.log("yourMove: " + this.yourMove);
+        console.log("playerNumber: " + this.playerIndexOfList);
+        console.log("playerNumber: " + this.gameData.playerNumber);
+
       },
       error: (error: any) => {
         console.error(error);

@@ -24,11 +24,13 @@ export class GameInfo
     board: number[][];
     opponent: Player;
     yourMove: Boolean;
-    constructor(board: number[][], opponent: Player, yourMove: Boolean)
+    playerNumber : number;
+    constructor(board: number[][], opponent: Player, yourMove: Boolean, playerNumber: number)
     {
         this.board = board;
         this.opponent = opponent;
         this.yourMove = yourMove;
+        this.playerNumber = playerNumber;
     }
 }
 

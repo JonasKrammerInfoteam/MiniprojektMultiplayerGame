@@ -21,7 +21,7 @@
         <div class="tableRow">
         <div class="tableCol" style="display: flex;">
             <p>Dein Spielstein: </p>
-            <div [style.background-color]="(playerIndexGameList==1) ? '#E57A00' : '#0561AF'" style="border-radius: 50px; width: 25px; height: 25px; margin-left: 10px; margin-top: 2.5px"></div>
+            <div [style.background-color]="(playerIndexOfList==1) ? '#E57A00' : '#0561AF'" style="border-radius: 50px; width: 25px; height: 25px; margin-left: 10px; margin-top: 2.5px"></div>
             </div>
         <div class="tableCol" class="currentMove">
             <div *ngIf="yourMove else opponentsMove">

@@ -1,6 +1,4 @@
 import { Observable } from "rxjs";
-import { LoginModel } from "src/app/Models/LoginModel";
-import { UserReturnModel } from "src/app/Models/UserReturnModel";
 import { GameInfoResponse, JoinGameResponse, MyPlayer, RegisterPlayerResponse, WaitingGamesResponse } from "../Contracts/RestAPI.Contracts";
 
 export interface IFourWinsGameAPIInterface{

@@ -61,24 +61,6 @@ export class GameboardComponent {
     }
   }
 
-  public LeaveGame(): void {
-    console.log("LeaveGame() called");
-    this.router.navigate(['/lobby']);
-    if (!this.isGameOver)
-    {
-      this.fourWinGameAPIInterface.LeaveGame(this.myPlayer, this.gameID).subscribe({
-        next: (response: any) => {
-          console.log("Game leave");
-        },
-        error: (error: any) => {
-          console.error(error);
-          this.snackBar.openSnackBar(error.message);
-        },
-        complete: () => { }
-      });
-    }
-  }
-
   ngOnInit(): void {
     this.route.queryParams.subscribe(
       params => {
