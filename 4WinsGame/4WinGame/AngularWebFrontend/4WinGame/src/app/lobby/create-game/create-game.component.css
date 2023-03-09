@@ -20,8 +20,24 @@
 
 .createGameButton:hover{
     filter: drop-shadow(5px 5px 10px #168A46);
-    background-color: #167A46;
 }
+
+.animation:hover{
+    background-color: #167A46;
+    animation: buttonZoom 2s infinite;
+}
+  
+  @keyframes buttonZoom {
+    0% {
+      transform: scale(1, 1);
+    }
+    50% {
+      transform: scale(1.25, 1.25);
+    }
+    100% {
+      transform: scale(1, 1);
+    }
+  }
 
 #createGameText{
     float:left;
@@ -37,4 +53,8 @@
     text-decoration-thickness: 5px;
     text-shadow: 3px 3px darkred;
     filter: drop-shadow(5px 5px 10px crimson);
+}
+
+#createGameText:hover{
+    cursor: pointer;
 }

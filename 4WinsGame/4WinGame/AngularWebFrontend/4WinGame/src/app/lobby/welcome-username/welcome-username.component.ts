@@ -20,8 +20,11 @@ export class WelcomeUsernameComponent implements OnInit{
   }
 
   Logout() : void{
-    this.router.navigate(['/login']);
-    this.snackBar.openSnackBar("You are logged out now!");
+
+    if(confirm("Möchtest du dich wirklich abmelden?")) {
+      this.router.navigate(['/login']);
+      this.snackBar.openSnackBar("You are logged out now!");
+    }
   }
 
 }

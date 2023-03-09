@@ -7,6 +7,25 @@
     display: flex;
 }
 
+.animation:hover{
+    animation-name: rotateProfilePicture;
+    animation-iteration-count: 1;
+    animation-duration: 3s;
+    transition-timing-function: ease-in-out;
+}
+
+@keyframes rotateProfilePicture {
+    0% {
+      transform: rotate3d(0, 0, 0, 0deg);
+    }
+    50% {
+        transform: rotate3d(0, 10, 0, 90deg);
+    }
+    100% {
+        transform: rotate3d(0, 0, 0, 180deg);
+    }
+  }
+
 .text{
     margin-top: -20px;
     color: indianred;

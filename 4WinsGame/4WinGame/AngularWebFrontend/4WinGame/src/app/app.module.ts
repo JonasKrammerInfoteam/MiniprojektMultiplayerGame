@@ -26,6 +26,7 @@ import { LobbyComponent } from './lobby/lobby.component';
 import { GameinfoComponent } from './play-game/game-info/game-info.component';
 import { GameboardComponent } from './play-game/game-board/game-board.component';
 import { GameRulesComponent } from './play-game/game-rules/game-rules.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import { GameRulesComponent } from './play-game/game-rules/game-rules.component'
     MatInputModule,
     MatButtonModule,
     MatCardModule,
+    MatSlideToggleModule,
     MatTableModule,
     MatSnackBarModule,
     BrowserAnimationsModule,

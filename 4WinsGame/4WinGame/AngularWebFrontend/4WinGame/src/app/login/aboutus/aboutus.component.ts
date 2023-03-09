@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalConstants } from 'src/app/common/globalconstants';
 import { Developer } from './developerInterface';
 
 @Component({
@@ -9,6 +10,10 @@ import { Developer } from './developerInterface';
 export class AboutusComponent implements OnInit {
   public developerList : Developer[] = [];
   private pictureLeft : boolean = true;
+
+  public animationsEnabled() : boolean {
+    return GlobalConstants.EnableAnimations;
+  }
 
   public ngOnInit() : void {
 

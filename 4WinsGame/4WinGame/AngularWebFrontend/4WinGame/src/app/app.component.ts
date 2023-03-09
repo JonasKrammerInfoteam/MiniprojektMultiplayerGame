@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginHolder } from './Services/loginHolder';
 import { SignalRService } from './SignalRClient/signal-r.service';
+import { GlobalConstants } from './common/globalconstants';
 
 @Component({
   selector: 'app-root',
@@ -18,5 +19,5 @@ export class AppComponent implements OnInit {
       this.router.navigate(['/login']);
     }
   }
-  title = '4WinGame';
+  title = GlobalConstants.PageTitle;
 }

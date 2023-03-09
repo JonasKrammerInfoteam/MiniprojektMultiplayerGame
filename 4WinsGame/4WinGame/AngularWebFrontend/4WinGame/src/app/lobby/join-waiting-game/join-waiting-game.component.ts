@@ -5,6 +5,7 @@ import { LoginHolder } from '../../Services/loginHolder';
 import { snackBarComponent } from '../../Services/snackBar';
 import { SignalRService } from '../../SignalRClient/signal-r.service';
 import { Router } from '@angular/router';
+import { GlobalConstants } from 'src/app/common/globalconstants';
 
 @Component({
   selector: 'app-join-waiting-game',
@@ -42,6 +43,10 @@ export class JoinWaitingGameComponent implements OnInit, AfterViewInit{
     }
 
     
+  }
+
+  animationsEnabled() : boolean {
+    return GlobalConstants.EnableAnimations;
   }
 
   LoadWaitingGames(){

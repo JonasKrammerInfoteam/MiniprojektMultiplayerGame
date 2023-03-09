@@ -1,35 +1,3 @@
 <app-game-info></app-game-info>
 <app-game-board></app-game-board>
 <app-game-rules></app-game-rules>
-
-<!--<div *ngIf="gameID!=''&&gameID!=undefined" class="board-container">
-    <h2>4WinGame</h2>
-    Test-Names
-    <span *ngIf="true" [style.color]="(yourMove) ? '#4BD800' : '#000000'" [style.font-weight]="(yourMove) ? 'bold' : 'normal'">Player 1: {{myPlayerTest}}</span>
-    <span *ngIf="true" style="margin-left: 100px;" [style.color]="(!yourMove) ? '#4BD800' : '#000000'" [style.font-weight]="(!yourMove) ? 'bold' : 'normal'">Player 2: {{opponentTest}}</span>
-    
-    <span *ngIf="myPlayer!=undefined" [style.color]="(yourMove) ? '#4BD800' : '#FFFFFF'" [style.font-weight]="(yourMove) ? 'bold' : 'normal'">Player 1: {{myPlayer.playerName}}</span>
-    <span *ngIf="opponent!=undefined" style="margin-left: 100px;" [style.color]="(!yourMove) ? '#4BD800' : '#FFFFFF'" [style.font-weight]="(!yourMove) ? 'bold' : 'normal'">Player 2: {{opponent.playerName}}</span>
-    <span *ngIf="winnerName!=undefined" style="margin-left: 100px;color:#FFFFFF"><b>Winner: {{winnerName}}</b></span>
-    <mat-grid-list class="button-list" cols="7" rowHeight="1:1">
-        <button *ngFor="let var of [].constructor(7); let i = index" [disabled]="!yourMove||isGameOver||board[0][i]!=0" (click)="DoMove(i+1)" type="button" class="ColumnButton">Drop here</button>
-    </mat-grid-list>
-    
-    <mat-grid-list class="board-list" cols="7" rowHeight="1:1">
-        <mat-grid-tile *ngFor="let var of [].constructor(42); let i = index" class="tile">
-            <div *ngIf="board[FloorDivision(i,7)][i%7]==0"class="SquareElement square-empty"></div>
-            <div *ngIf="board[FloorDivision(i,7)][i%7]==1"class="SquareElement square-orange"></div>
-            <div *ngIf="board[FloorDivision(i,7)][i%7]==2"class="SquareElement square-blue"></div>
-        </mat-grid-tile>
-    </mat-grid-list>
-    
-    <mat-grid-list class="number-list" cols="7" rowHeight="1:1">
-        <mat-grid-tile>1</mat-grid-tile>
-        <mat-grid-tile>2</mat-grid-tile>
-        <mat-grid-tile>3</mat-grid-tile>
-        <mat-grid-tile>4</mat-grid-tile>
-        <mat-grid-tile>5</mat-grid-tile>
-        <mat-grid-tile>6</mat-grid-tile>
-        <mat-grid-tile>7</mat-grid-tile>
-    </mat-grid-list>
-</div> -->

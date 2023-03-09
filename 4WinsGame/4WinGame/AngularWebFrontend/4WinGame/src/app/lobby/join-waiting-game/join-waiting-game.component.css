@@ -53,7 +53,20 @@
 .joinButton:hover{
     filter: drop-shadow(5px 5px 10px #168A46);
     background-color: #167A46;
-}
+    animation: buttonZoom 2s infinite;
+  }
+  
+  @keyframes buttonZoom {
+    0% {
+      transform: scale(1, 1);
+    }
+    50% {
+      transform: scale(1.25, 1.25);
+    }
+    100% {
+      transform: scale(1, 1);
+    }
+  }
 
 .waitingPicture{
 
@@ -64,4 +77,23 @@
     background-color: #ffffff;
     border-radius: 50%;
     background-image: url(../../../assets/hourglass.svg);
+}
+
+.animation{
+    animation-name: RotateCircle;
+    animation-duration: 10s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+@keyframes RotateCircle{
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }

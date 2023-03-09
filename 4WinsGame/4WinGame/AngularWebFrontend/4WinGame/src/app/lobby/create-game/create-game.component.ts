@@ -4,6 +4,7 @@ import { SignalRService } from 'src/app/SignalRClient/signal-r.service';
 import { snackBarComponent } from '../../Services/snackBar';
 import { FourWinsGameAPIInterface } from 'src/app/RestAPIClient/FourWinsGameAPIInterface';
 import { Router } from '@angular/router';
+import { GlobalConstants } from 'src/app/common/globalconstants';
 
 @Component({
   selector: 'app-create-game',
@@ -43,6 +44,11 @@ export class CreateGameComponent implements OnInit, AfterViewInit{
     
   }
 
+  public animationsEnabled() : boolean {
+    return GlobalConstants.EnableAnimations;
+  }
+
+
   PlayerHasAlreadyWaitingGame()  {
     if(this.loginHolder.loggedInPlayer!=undefined) {
       this.fourWinGameAPIInterface.PlayerHasAlreadyWaitingGame(this.loginHolder.loggedInPlayer).subscribe({
@@ -60,6 +66,10 @@ export class CreateGameComponent implements OnInit, AfterViewInit{
         }
       });
     }
+  }
+
+  ClickCreateGameNow() : void {
+    this.snackBar.openSnackBar("Klicke auf den grünen Button, um ein Spiel zu erstellen");
   }
 
   CreateGame(): void {

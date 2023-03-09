@@ -1,11 +1,25 @@
 #button-submit {
   background-color: #168A46;
   color: #fff;
+
 }
 
 #button-submit:hover {
   filter: drop-shadow(5px 5px 10px #168A46);
   background-color: #167A46;
+  animation: buttonZoom 2s infinite;
+}
+
+@keyframes buttonZoom {
+  0% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.25, 1.25);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
 }
 
 .RegisterView{
@@ -22,6 +36,8 @@ mat-card {
   background-color: darkslategray;
   border-radius: 7.5%;
 }
+
+
 .boomImage{
   padding-left: 5%;
   position: absolute;
@@ -31,19 +47,48 @@ mat-card {
   filter: drop-shadow(5px 5px 10px crimson);
 }
 
-.input-container {
-  margin: 40px;
+@keyframes imageZoom {
+  0% {
+    transform: scale(1, 1);
+    rotate: 0deg;
+  }
+  25%{
+    rotate: -20deg;
+  }
+  50% {
+    transform: scale(1.25, 1.25);
+    rotate: 10deg;
+  }
+  75%{
+    rotate: 30deg;
+  }
+  100% {
+    transform: scale(1, 1);
+    rotate: 0deg;
+  }
 }
 
-p{
+.boomImagePicture:hover{
+  animation: imageZoom 2s infinite;
+}
+
+#playNowText {
   float:left;
   font-family: 'Handlee', sans-serif;
   color: indianred;
   font-size: 60px;
   font-weight: 900;
-  padding-right: 57.5px;
-  padding-top: 70px;
+  margin-right: 57.5px;
+  margin-top: 70px;
   text-decoration: indianred wavy underline;
   text-decoration-thickness: 5px;
   text-shadow: 3px 3px darkred;
+}
+
+#playNowText {
+  cursor: pointer;
+}
+
+.input-container {
+  margin: 40px;
 }

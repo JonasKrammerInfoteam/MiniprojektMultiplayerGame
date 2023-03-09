@@ -26,7 +26,7 @@
             <div *ngFor="let developer of developerList; let indexOfElement=index;">
                 <div class="userElement">
                     <div *ngIf="developer.isPictureLeft">
-                        <div class="profilepicture"
+                        <div class="profilepicture" [class]="animationsEnabled()===true ? 'animation' : ''"
                             style="float: left; margin-right: 70px; background-image: url('{{developer.profilePictureUrl}}');">
                         </div>
                         <div class="text" style="width: 650px;">
@@ -47,7 +47,7 @@
                                 </div>
                             </ul>
                         </div>
-                        <div class="profilepicture"
+                        <div class="profilepicture" [class]="animationsEnabled()===true ? 'animation' : ''"
                             style="margin-top: 10px; background-image: url('{{developer.profilePictureUrl}}');"></div>
                     </div>
                 </div>
