@@ -4,7 +4,7 @@ import { SignalRService } from 'src/app/SignalRClient/signal-r.service';
 import { snackBarComponent } from '../../Services/snackBar';
 import { FourWinsGameAPIInterface } from 'src/app/RestAPIClient/FourWinsGameAPIInterface';
 import { Router } from '@angular/router';
-import { GlobalConstants } from 'src/app/common/globalconstants';
+import { GlobalConstants } from 'src/app/Services/globalVariables';
 
 @Component({
   selector: 'app-create-game',

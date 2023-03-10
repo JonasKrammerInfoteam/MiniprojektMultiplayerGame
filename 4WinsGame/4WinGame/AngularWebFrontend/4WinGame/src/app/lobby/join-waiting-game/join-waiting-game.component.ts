@@ -5,7 +5,7 @@ import { LoginHolder } from '../../Services/loginHolder';
 import { snackBarComponent } from '../../Services/snackBar';
 import { SignalRService } from '../../SignalRClient/signal-r.service';
 import { Router } from '@angular/router';
-import { GlobalConstants } from 'src/app/common/globalconstants';
+import { GlobalConstants } from 'src/app/Services/globalVariables';
 
 @Component({
   selector: 'app-join-waiting-game',

@@ -25,7 +25,7 @@
             </div>
         <div class="tableCol" class="currentMove">
             <div *ngIf="yourMove else opponentsMove">
-                <p>Aktueller Zug: <strong>{{myPlayer.playerName}}</strong></p>
+                <p [class]="animationsEnabled()&&winnerUnknown ? 'animation' : ''" >Aktueller Zug: <strong>{{myPlayer.playerName}}</strong></p>
             </div>
             <ng-template #opponentsMove>
                 <p>Aktueller Zug: <strong>{{opponent?.playerName}}</strong></p>
@@ -43,9 +43,5 @@
             <p>Spielstatus: <strong>Spiel läuft ...</strong></p>
         </ng-template>  
     </div>
-
-        <!--<span *ngIf="myPlayer!=undefined" [style.color]="(yourMove) ? '#4BD800' : '#FFFFFF'" [style.font-weight]="(yourMove) ? 'bold' : 'normal'">Player 1: {{myPlayer.playerName}}</span>
-        <span *ngIf="opponent!=undefined" style="margin-left: 100px;" [style.color]="(!yourMove) ? '#4BD800' : '#FFFFFF'" [style.font-weight]="(!yourMove) ? 'bold' : 'normal'">Player 2: {{opponent.playerName}}</span>
-        <span *ngIf="winnerName!=undefined" style="margin-left: 100px;color:#FFFFFF"><b>Winner: {{winnerName}}</b></span>-->
     </div>
 </div>

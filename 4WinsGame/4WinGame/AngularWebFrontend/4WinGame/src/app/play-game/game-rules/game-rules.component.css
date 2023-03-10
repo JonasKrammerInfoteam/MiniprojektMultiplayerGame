@@ -8,10 +8,11 @@
 .ruleImage{
     width: 200px;
     height: 200px;
-    background-image: url(../../../assets/rules.svg);
+    background-image: url(../../../assets/pictures/rules.svg);
     margin-left: 10%;
     background-color: #ffffff;
     border-radius: 50%;
+    background-size: cover;
 }
 
 .ruleContent{

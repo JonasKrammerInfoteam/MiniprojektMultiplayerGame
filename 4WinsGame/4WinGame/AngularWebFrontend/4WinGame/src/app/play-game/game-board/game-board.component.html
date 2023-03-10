@@ -1,23 +1,67 @@
 <div class="gameBoardBox">
     <div class="verticalLine"></div>
     <h2>Spielfeld</h2>
-    <div class="gameBoardContent">
+    <div *ngIf="winnerName == undefined" class="gameBoardContent">
         <mat-grid-list class="button-list" rowHeight="fit" cols="7">
-            <button *ngFor="let var of [].constructor(7); let i = index" title="Wenn du an der Reihe bist, kannst du mit Klick auf den Button in Reihe {{i}} einen Spielstein legen" [disabled]="!yourMove||isGameOver||board[0][i]!=0" (click)="DoMove(i+1)" type="button" class="ColumnButton">Stein legen</button>
+            <button *ngFor="let var of [].constructor(7); let i = index"
+                title="Wenn du an der Reihe bist, kannst du mit Klick auf den Button in Reihe {{i}} einen Spielstein legen"
+                [disabled]="!yourMove||isGameOver||board[0][i]!=0" (click)="DoMove(i+1)" type="button"
+                class="ColumnButton">Stein legen</button>
         </mat-grid-list>
-        
+
         <mat-grid-list class="board-list" rowHeight="fit" cols="7">
             <mat-grid-tile *ngFor="let var of [].constructor(42); let i = index" class="tile">
-                <div *ngIf="board[FloorDivision(i,7)][i%7]==0"class="SquareElement square-empty"></div>
-                <div *ngIf="board[FloorDivision(i,7)][i%7]==1"class="SquareElement square-orange"></div>
-                <div *ngIf="board[FloorDivision(i,7)][i%7]==2"class="SquareElement square-blue"></div>
+                <div *ngIf="board[FloorDivision(i,7)][i%7]==0" class="SquareElement square-empty"></div>
+                <div *ngIf="board[FloorDivision(i,7)][i%7]==1" class="SquareElement square-orange"></div>
+                <div *ngIf="board[FloorDivision(i,7)][i%7]==2" class="SquareElement square-blue"></div>
             </mat-grid-tile>
         </mat-grid-list>
-        
+
         <mat-grid-list class="number-list" rowHeight="fit" cols="7">
             <mat-grid-tile *ngFor="let var of [].constructor(7); let i = index">
-                <p style="margin: 0; padding-top: 20px">{{i}}</p>
+                <p style="margin: 0; padding-top: 20px">{{i+1}}</p>
             </mat-grid-tile>
         </mat-grid-list>
+    </div>
+    <div *ngIf="winnerName != undefined" class="fireworkWinnerKnown">
+        <div *ngIf="winnerName==myPlayer.playerName else opponentIsWinner;" style="display: flex;">
+            <div class="winnderKnownLeftSide">
+                <div class="winnerKnownPicture" style="background-image: url('../../../assets/pictures/winner.svg');">
+                </div>
+            </div>
+            <div class="winnerKnownRightSide">
+                <h3>Herzlichen Glückwunsch :)</h3>
+                <p>Auch wenn es knapp war! - Du hast <strong>gewonnen!</strong><br>
+                    Das ist ein Grund zur Freude, aber der nächste Gegner wartet schon!</p>
+                <div style="display: flex; 
+                margin-bottom: auto;
+                margin-top: auto;">
+                    <p>Hier kommst du zurück zur </p>
+                    <button type="button" class="backToLobby" onclick="LeaveGame()">Lobby</button>
+                </div>
+            </div>
+        </div>
+        <ng-template #opponentIsWinner>
+            <div class="winnderKnownLeftSide">
+                <div class="winnerKnownPicture" style="background-image: url('../../../assets/pictures/loser.svg');">
+                </div>
+            </div>
+            <div class="winnerKnownRightSide">
+                <h3>Ohhh neinnnn :(</h3>
+                <p>Schade, das war knapp war - Aber du hast <strong>verloren!</strong><br>
+                    Das ist ein Grund zur Sorge, denn das nächste Spiel (und der Sieg) warten schon!</p>
+                <div style="display: flex; 
+                margin-bottom: auto;
+                margin-top: auto;">
+                    <p>Hier kommst du zurück zur </p>
+                    <button type="button" class="backToLobby" onclick="LeaveGame()">Lobby</button>
+                </div>
+            </div>
+        </ng-template>
+        <!--
+            Ist noch kaputt!
+            <canvas id="canvas">
+            <script src="./fireworks.js"></script>
+        </canvas>-->
     </div>
 </div>

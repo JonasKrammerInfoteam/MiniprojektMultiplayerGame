@@ -35,3 +35,28 @@
     filter: drop-shadow(5px 5px 10px indianred);
     background-color: rgb(190, 90, 90);
 }
+
+.animation{
+    animation-name: zoomYourMove;
+    animation-iteration-count: infinite;
+    animation-duration: 3s;
+}
+
+@keyframes zoomYourMove {
+    0% {
+      transform: scale(1, 1);
+    }
+    25% {
+      transform: scale(1.25, 1.25);
+    }
+    50% {
+      transform: scale(0.75, 0.75);
+    }
+    75% {
+      transform: scale(1.25, 1.25);
+    }
+    100% {
+      transform: scale(1, 1);
+    }
+  }
+

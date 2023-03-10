@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginHolder } from './Services/loginHolder';
 import { SignalRService } from './SignalRClient/signal-r.service';
-import { GlobalConstants } from './common/globalconstants';
+import { GlobalConstants } from './Services/globalVariables';
 
 @Component({
   selector: 'app-root',

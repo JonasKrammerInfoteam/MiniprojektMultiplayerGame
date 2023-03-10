@@ -76,7 +76,8 @@
     width: 250px;
     background-color: #ffffff;
     border-radius: 50%;
-    background-image: url(../../../assets/hourglass.svg);
+    background-size: cover;
+    background-image: url(../../../assets/pictures/hourglass.svg);
 }
 
 .animation{

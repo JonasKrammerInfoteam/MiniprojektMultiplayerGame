@@ -1,6 +1,6 @@
 export interface Developer{
     devName : string;
     projectActivities : string[];
-    profilePictureUrl: string | "../../assets/UnknownProfile.svg";
+    profilePictureUrl: string | "../../assets/pictures/UnknownProfile.svg";
     isPictureLeft : boolean;
 }

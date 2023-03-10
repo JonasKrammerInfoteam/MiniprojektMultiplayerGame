@@ -103,3 +103,39 @@
     margin-bottom: 20px;
     box-shadow: 5px 5px 20px black;
 }
+
+.winnerKnownPicture {
+    height: 200px;
+    width: 200px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    background-size: cover;
+}
+
+.fireworkWinnerKnown{
+    padding-left: 5%;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.winnerKnownRightSide{
+    padding-left: 2.5%;
+    margin-bottom: auto;
+    margin-top: auto;
+}
+
+.backToLobby{
+    height: max-content;
+    width: max-content;
+}
+
+p{
+    margin: 0;
+}
+
+h3{
+    color: indianred;
+    font-family: 'Space Mono', monospace;
+    font-size: 2em;
+    margin: 0;
+}

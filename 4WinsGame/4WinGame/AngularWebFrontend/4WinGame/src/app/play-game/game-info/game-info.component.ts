@@ -5,6 +5,7 @@ import { FourWinsGameAPIInterface } from 'src/app/RestAPIClient/FourWinsGameAPII
 import { LoginHolder } from 'src/app//Services/loginHolder';
 import { snackBarComponent } from 'src/app/Services/snackBar';
 import { SignalRService } from 'src/app/SignalRClient/signal-r.service';
+import { GlobalConstants } from 'src/app/Services/globalVariables';
 
 @Component({
   selector: 'app-game-info',
@@ -39,8 +40,12 @@ export class GameinfoComponent implements OnInit, AfterViewInit {
   winnerName: string | undefined;
   playerIndexOfList : number = 0;
 
+  animationsEnabled() : boolean {
+    return GlobalConstants.EnableAnimations;
+  }
+
   public LeaveGame(): void {
-    if(confirm("Möchtest du wirklich das Spiel verlassen und zurück in die Lobby kehren?")) {
+    if(confirm("Möchtest du wirklich das Spiel verlassen und zurück in die Lobby kehren?") || this.winnerName!=undefined) {
       console.log("LeaveGame() called");
         this.router.navigate(['/lobby']);
         if (!this.isGameOver)

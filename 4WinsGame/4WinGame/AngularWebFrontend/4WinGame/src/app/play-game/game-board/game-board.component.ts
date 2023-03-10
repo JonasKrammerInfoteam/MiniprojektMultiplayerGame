@@ -1,11 +1,11 @@
-import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GameInfo, GameInfoResponse, MyPlayer, Player, WaitingGamesResponse } from 'src/app//RestAPIClient/Contracts/RestAPI.Contracts';
+import { GameInfo, GameInfoResponse, MyPlayer, Player } from 'src/app//RestAPIClient/Contracts/RestAPI.Contracts';
 import { FourWinsGameAPIInterface } from 'src/app/RestAPIClient/FourWinsGameAPIInterface';
 import { LoginHolder } from 'src/app//Services/loginHolder';
 import { snackBarComponent } from 'src/app//Services/snackBar';
 import { SignalRService } from 'src/app//SignalRClient/signal-r.service';
+import { GlobalConstants } from 'src/app/Services/globalVariables';
 
 @Component({
   selector: 'app-game-board',
@@ -37,6 +37,26 @@ export class GameboardComponent {
   isGameOver: boolean = false;
   winnerName: string | undefined;
 
+  public GetEmptyFieldsOfColumn(column : number) : number {
+    if(column < 0 || column > 6) {
+      let result : number = 7;
+      for(let row = 0; row < 7; row++) {
+        if(this.board[row][column] != 0) {
+          result--;
+        } else {
+          return result;
+        }
+      }
+    }
+    
+
+    return 0;
+  }
+
+  animationsEnabled() : boolean {
+    return GlobalConstants.EnableAnimations;
+  }
+
   public FloorDivision(n: number, divider: number): number
   {
     return (n - n % divider) / divider as number;
@@ -49,6 +69,9 @@ export class GameboardComponent {
       this.fourWinGameAPIInterface.DoMove(column, this.gameID, this.myPlayer).subscribe({
         next: (response: any) => {
           console.log("Placed in column: " + column);
+          if(this.animationsEnabled()) {
+            this.playAudio("../../../assets/sounds/placedGameToken.mp3");
+          }
         },
         error: (error: any) => {
           console.error(error);
@@ -59,6 +82,14 @@ export class GameboardComponent {
         }
       });
     }
+  }
+
+  
+  private playAudio(source : string):void{
+    let audio = new Audio();
+    audio.src = source;
+    audio.load();
+    audio.play();
   }
 
   ngOnInit(): void {
@@ -74,6 +105,13 @@ export class GameboardComponent {
         this.winnerName = winner.playerName;
         this.snackBar.openSnackBar("Winner: " + winner.playerName);
         this.isGameOver = true;
+        if(this.animationsEnabled()) {
+          if(this.opponent?.playerName==this.myPlayer.playerName) {
+            this.playAudio("../../../assets/sounds/winner.mp3");
+          } else {
+            this.playAudio("../../../assets/sounds/loser.mp3");
+          }
+        }
       },
       error: (error: any) => {
         console.error(error);

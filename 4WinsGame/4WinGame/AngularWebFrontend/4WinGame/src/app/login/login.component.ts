@@ -4,7 +4,7 @@ import { FourWinsGameAPIInterface } from '../RestAPIClient/FourWinsGameAPIInterf
 import { snackBarComponent } from '../Services/snackBar';
 import { SignalRService } from '../SignalRClient/signal-r.service';
 import { LoginHolder } from '../Services/loginHolder';
-import { GlobalConstants } from '../common/globalconstants';
+import { GlobalConstants } from '../Services/globalVariables';
 
 @Component({
   selector: 'app-login',
