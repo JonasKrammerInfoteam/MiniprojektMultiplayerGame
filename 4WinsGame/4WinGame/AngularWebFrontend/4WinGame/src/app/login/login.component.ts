@@ -11,9 +11,13 @@ import { GlobalConstants } from '../Services/globalVariables';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   constructor(private fourWinGameApiInterface:FourWinsGameAPIInterface, private signalRService:SignalRService, private snackBarService: snackBarComponent, private loginHolder: LoginHolder) {}
-  
+
+  ngOnInit(): void {
+    GlobalConstants.SetGameStateToLogin();
+  }
+
   public RegisterName: string = "";
 
   public animationsEnabled() : boolean {

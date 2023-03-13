@@ -24,7 +24,7 @@
         </mat-grid-list>
     </div>
     <div *ngIf="winnerName != undefined" class="fireworkWinnerKnown">
-        <div *ngIf="winnerName==myPlayer.playerName else opponentIsWinner;" style="display: flex;">
+        <div *ngIf="winnerName==myPlayer.playerName else opponentIsWinner;" style="display: flex; width: 100%;">
             <div class="winnderKnownLeftSide">
                 <div class="winnerKnownPicture" style="background-image: url('../../../assets/pictures/winner.svg');">
                 </div>
@@ -34,8 +34,7 @@
                 <p>Auch wenn es knapp war! - Du hast <strong>gewonnen!</strong><br>
                     Das ist ein Grund zur Freude, aber der nächste Gegner wartet schon!</p>
                 <div style="display: flex; 
-                margin-bottom: auto;
-                margin-top: auto;">
+                align-items: center;">
                     <p>Hier kommst du zurück zur </p>
                     <button type="button" class="backToLobby" onclick="LeaveGame()">Lobby</button>
                 </div>
@@ -49,10 +48,9 @@
             <div class="winnerKnownRightSide">
                 <h3>Ohhh neinnnn :(</h3>
                 <p>Schade, das war knapp war - Aber du hast <strong>verloren!</strong><br>
-                    Das ist ein Grund zur Sorge, denn das nächste Spiel (und der Sieg) warten schon!</p>
+                    Das ist kein Grund zur Sorge, denn das nächste Spiel (und der Sieg) warten schon!</p>
                 <div style="display: flex; 
-                margin-bottom: auto;
-                margin-top: auto;">
+                align-items: center;">
                     <p>Hier kommst du zurück zur </p>
                     <button type="button" class="backToLobby" onclick="LeaveGame()">Lobby</button>
                 </div>

@@ -24,11 +24,20 @@
             <div [style.background-color]="(playerIndexOfList==1) ? '#E57A00' : '#0561AF'" style="border-radius: 50px; width: 25px; height: 25px; margin-left: 10px; margin-top: 2.5px"></div>
             </div>
         <div class="tableCol" class="currentMove">
-            <div *ngIf="yourMove else opponentsMove">
-                <p [class]="animationsEnabled()&&winnerUnknown ? 'animation' : ''" >Aktueller Zug: <strong>{{myPlayer.playerName}}</strong></p>
+            <div *ngIf="winnerName===undefined else winnerKnown">
+                <div *ngIf="yourMove else opponentsMove">
+                    <p [class]="animationsEnabled()&&winnerName===undefined ? 'animation' : ''" >Aktueller Zug: <strong>{{myPlayer.playerName}}</strong></p>
+                    </div>
+                    <ng-template #opponentsMove>
+                        <p>Aktueller Zug: <strong>{{opponent?.playerName}}</strong></p>
+                    </ng-template>                
             </div>
-            <ng-template #opponentsMove>
-                <p>Aktueller Zug: <strong>{{opponent?.playerName}}</strong></p>
+            <ng-template #winnerKnown>
+
+                <div>
+                    <p>Aktueller Zug: <strong>- / -</strong></p>
+                </div>
+
             </ng-template>
         </div>
     </div>

@@ -6,6 +6,7 @@ import { LoginHolder } from 'src/app//Services/loginHolder';
 import { snackBarComponent } from 'src/app//Services/snackBar';
 import { SignalRService } from 'src/app//SignalRClient/signal-r.service';
 import { GlobalConstants } from 'src/app/Services/globalVariables';
+import { delay } from 'rxjs';
 
 @Component({
   selector: 'app-game-board',
@@ -21,7 +22,7 @@ export class GameboardComponent {
 
   gameData: GameInfo | undefined;
   gameID: string = "";
-  board: Number[][] = [
+  board: number[][] = [
     [0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0],
@@ -38,19 +39,21 @@ export class GameboardComponent {
   winnerName: string | undefined;
 
   public GetEmptyFieldsOfColumn(column : number) : number {
-    if(column < 0 || column > 6) {
-      let result : number = 7;
-      for(let row = 0; row < 7; row++) {
-        if(this.board[row][column] != 0) {
-          result--;
-        } else {
-          return result;
-        }
-      }
+    if(!(column >= 1 && column <= 7)) {
+      return -1;
     }
-    
 
-    return 0;
+    console.log(this.board);
+
+    let result : number = 6;
+    for(let row = 5; row > -1; row--) {
+      if(this.board[row][column-1] != 0) {
+        result--;
+      } else {
+        return result;
+      }
+    } 
+    return result;
   }
 
   animationsEnabled() : boolean {
@@ -62,16 +65,31 @@ export class GameboardComponent {
     return (n - n % divider) / divider as number;
   }
 
+
   public DoMove(column: number): void {
-   
-    if (!this.isGameOver)
-    {
+    this.yourMove = false;
+    var maxLength = this.GetEmptyFieldsOfColumn(column);
+    console.log(maxLength);
+
+    for(let i = 0; i < maxLength; i++) {
+      setTimeout(()=>{   
+        if(i > 0) {
+          this.board[i-1][column-1] = 0;
+        }
+        if(this.gameData?.playerNumber != undefined) {
+          this.board[i][column-1] = this.gameData.playerNumber;
+        } else {
+          this.board[i][column-1] = 0;
+        }
+        if(this.animationsEnabled()) {
+          this.playAudio("../../../assets/sounds/placedGameToken.mp3");
+        }
+      }, i*500);
+    }
+    setTimeout(()=>{
       this.fourWinGameAPIInterface.DoMove(column, this.gameID, this.myPlayer).subscribe({
         next: (response: any) => {
           console.log("Placed in column: " + column);
-          if(this.animationsEnabled()) {
-            this.playAudio("../../../assets/sounds/placedGameToken.mp3");
-          }
         },
         error: (error: any) => {
           console.error(error);
@@ -81,10 +99,9 @@ export class GameboardComponent {
   
         }
       });
-    }
+    }, (maxLength-1)*500);
   }
 
-  
   private playAudio(source : string):void{
     let audio = new Audio();
     audio.src = source;
@@ -122,6 +139,24 @@ export class GameboardComponent {
 
     this.signalRService.notifyGameUpdated.subscribe(() => { console.log("Game Updated..."); this.GetGameInfo(); });
 
+  }
+
+  LeaveGame(): void {
+        console.log("LeaveGame() called");
+        this.router.navigate(['/lobby']);
+        if (!this.isGameOver)
+        {
+          this.fourWinGameAPIInterface.LeaveGame(this.myPlayer, this.gameID).subscribe({
+            next: (response: any) => {
+              console.log("Game leave");
+            },
+            error: (error: any) => {
+              console.error(error);
+              this.snackBar.openSnackBar(error.message);
+            },
+            complete: () => { }
+          });
+        }
   }
 
   GetGameInfo():void{

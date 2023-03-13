@@ -127,7 +127,32 @@
 .backToLobby{
     height: max-content;
     width: max-content;
+    margin-left: 7px;
+    font-size: 1.5em;
+    color: #ffffff;
+    background-color: #168A46;
+    border-radius: 25%;
+    font-family: 'Space Mono', monospace;
 }
+
+.backToLobby:hover{
+    cursor: pointer;
+    filter: drop-shadow(5px 5px 10px #168A46);
+    background-color: #167A46;
+    animation: buttonZoom 2s infinite;
+  }
+  
+  @keyframes buttonZoom {
+    0% {
+      transform: scale(1, 1);
+    }
+    50% {
+      transform: scale(1.25, 1.25);
+    }
+    100% {
+      transform: scale(1, 1);
+    }
+  }
 
 p{
     margin: 0;
