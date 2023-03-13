@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GameInfo, GameInfoResponse, MyPlayer, Player } from 'src/app//RestAPIClient/Contracts/RestAPI.Contracts';
+import { GameInfo, GameInfoResponse, MyPlayer, Player } from 'src/app/RestAPIClient/Contracts/RestAPI.Contracts';
 import { FourWinsGameAPIInterface } from 'src/app/RestAPIClient/FourWinsGameAPIInterface';
 import { LoginHolder } from 'src/app//Services/loginHolder';
 import { snackBarComponent } from 'src/app//Services/snackBar';
@@ -30,6 +30,8 @@ export class GameboardComponent {
     [0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0]
   ];
+  lastBoard: number[][] = this.board;
+
   opponent: Player | undefined;
   yourMove: Boolean = false;
   opponentTest: string = "Gegner";
@@ -37,13 +39,14 @@ export class GameboardComponent {
   myPlayer: MyPlayer = this.loginHolder.loggedInPlayer as MyPlayer;
   isGameOver: boolean = false;
   winnerName: string | undefined;
+  gameTokenAnimationRunning: Boolean = false;
+
+  ANIMATION_TIME : number = 50;
 
   public GetEmptyFieldsOfColumn(column : number) : number {
     if(!(column >= 1 && column <= 7)) {
       return -1;
     }
-
-    console.log(this.board);
 
     let result : number = 6;
     for(let row = 5; row > -1; row--) {
@@ -65,44 +68,83 @@ export class GameboardComponent {
     return (n - n % divider) / divider as number;
   }
 
+  private getLastMoveColumn(): number
+  {
+    console.log("getLastMoveColumn() Board:\n");
+    console.log(this.board);
+    console.log("getLastMoveColumn() lastBoard:\n");
+    console.log(this.lastBoard);
+    for (let row = 0; row < 6; row++)
+    {
+      for (let column = 0; column < 7; column++)
+      {
+        if (this.board[row][column] != this.lastBoard[row][column])
+        {
+          console.log("Board at " + column + " " + row + ": " + this.board[row][column]);
+          console.log("lastBoard at " + column + " " + row + ": " + this.lastBoard[row][column]);
+          return column+1 as number;
+        }
+      }
+    }
+    return -1;
+  }
+
+  private animateBoard(column: number): void
+  {
+    this.gameTokenAnimationRunning = true;
+    for (let row = 0; row < 6; row++)
+    {
+      if(this.board[row][column-1] != 0)
+      {
+        this.board[row][column-1] = 0;
+        console.log("Removed at: " + row + " " + column);
+        break;
+      }
+    }
+    console.log("Animation Column: " + column);
+    var maxLength = this.GetEmptyFieldsOfColumn(column);
+    for(let i = 0; i < maxLength; i++) {
+      setTimeout(()=>{   
+        if(i > 0) {
+          this.board[i-1][column-1] = 0;
+        }
+        if(this.gameData?.playerNumber == undefined) return;
+
+        if(this.yourMove)
+        {
+          this.board[i][column-1] = (this.gameData?.playerNumber-3) * -1;
+        } else {
+          this.board[i][column-1] = this.gameData?.playerNumber;
+        }
+        if(this.animationsEnabled()) {
+          this.playAudio("../../../assets/sounds/placedGameToken.mp3");
+        }
+      }, i*this.ANIMATION_TIME);
+    }
+    setTimeout(()=>{ this.gameTokenAnimationRunning = false; }, (maxLength-1)*this.ANIMATION_TIME);
+    
+  }
 
   public DoMove(column: number): void {
     this.yourMove = false;
     var maxLength = this.GetEmptyFieldsOfColumn(column);
     console.log(maxLength);
 
-    for(let i = 0; i < maxLength; i++) {
-      setTimeout(()=>{   
-        if(i > 0) {
-          this.board[i-1][column-1] = 0;
-        }
-        if(this.gameData?.playerNumber != undefined) {
-          this.board[i][column-1] = this.gameData.playerNumber;
-        } else {
-          this.board[i][column-1] = 0;
-        }
-        if(this.animationsEnabled()) {
-          this.playAudio("../../../assets/sounds/placedGameToken.mp3");
-        }
-      }, i*500);
-    }
-    setTimeout(()=>{
-      this.fourWinGameAPIInterface.DoMove(column, this.gameID, this.myPlayer).subscribe({
-        next: (response: any) => {
-          console.log("Placed in column: " + column);
-        },
-        error: (error: any) => {
-          console.error(error);
-          this.snackBar.openSnackBar(error.message);
-        },
-        complete: () => {
-  
-        }
-      });
-    }, (maxLength-1)*500);
+    this.fourWinGameAPIInterface.DoMove(column, this.gameID, this.myPlayer).subscribe({
+      next: (response: any) => {
+        console.log("Placed in column: " + column);
+      },
+      error: (error: any) => {
+        console.error(error);
+        this.snackBar.openSnackBar(error.message);
+      },
+      complete: () => {
+
+      }
+    });
   }
 
-  private playAudio(source : string):void{
+  private playAudio(source : string): void{
     let audio = new Audio();
     audio.src = source;
     audio.load();
@@ -123,7 +165,7 @@ export class GameboardComponent {
         this.snackBar.openSnackBar("Winner: " + winner.playerName);
         this.isGameOver = true;
         if(this.animationsEnabled()) {
-          if(this.opponent?.playerName==this.myPlayer.playerName) {
+          if(this.winnerName == this.myPlayer.playerName) {
             this.playAudio("../../../assets/sounds/winner.mp3");
           } else {
             this.playAudio("../../../assets/sounds/loser.mp3");
@@ -142,21 +184,21 @@ export class GameboardComponent {
   }
 
   LeaveGame(): void {
-        console.log("LeaveGame() called");
-        this.router.navigate(['/lobby']);
-        if (!this.isGameOver)
-        {
-          this.fourWinGameAPIInterface.LeaveGame(this.myPlayer, this.gameID).subscribe({
-            next: (response: any) => {
-              console.log("Game leave");
-            },
-            error: (error: any) => {
-              console.error(error);
-              this.snackBar.openSnackBar(error.message);
-            },
-            complete: () => { }
-          });
-        }
+    console.log("LeaveGame() called");
+    this.router.navigate(['/lobby']);
+    if (!this.isGameOver)
+    {
+      this.fourWinGameAPIInterface.LeaveGame(this.myPlayer, this.gameID).subscribe({
+        next: (response: any) => {
+          console.log("Game leave");
+        },
+        error: (error: any) => {
+          console.error(error);
+          this.snackBar.openSnackBar(error.message);
+        },
+        complete: () => { }
+      });
+    }
   }
 
   GetGameInfo():void{
@@ -165,6 +207,8 @@ export class GameboardComponent {
         let res: GameInfoResponse = response as GameInfoResponse;
         this.gameData = res.gameInfo;
         this.board = this.gameData.board;
+        this.animateBoard(this.getLastMoveColumn());
+        this.lastBoard = this.board;
         this.opponent = this.gameData.opponent;
         this.yourMove = this.gameData.yourMove;
         this.ref.detectChanges();    
