@@ -1,11 +1,11 @@
 import { AfterViewInit, Component, OnInit, Output } from '@angular/core';
 import { JoinGameResponse, WaitingGame, WaitingGamesResponse } from '../../RestAPIClient/Contracts/RestAPI.Contracts';
 import { FourWinsGameAPIInterface } from '../../RestAPIClient/FourWinsGameAPIInterface';
-import { LoginHolder } from '../../Services/loginHolder';
-import { snackBarComponent } from '../../Services/snackBar';
+import { LoginHolder } from '../../Services/loginHolder.service';
+import { snackBar } from '../../Services/snackBar.service';
 import { SignalRService } from '../../SignalRClient/signal-r.service';
 import { Router } from '@angular/router';
-import { GlobalConstants } from 'src/app/Services/globalVariables';
+import { GlobalConstants } from 'src/app/Services/global.constants';
 
 @Component({
   selector: 'app-join-waiting-game',
@@ -13,9 +13,12 @@ import { GlobalConstants } from 'src/app/Services/globalVariables';
   styleUrls: ['./join-waiting-game.component.css']
 })
 export class JoinWaitingGameComponent implements OnInit, AfterViewInit{
+  headLine : string = "Vorhandenem Spiel beitreten";
+  buttonContent : string = "Spiel joinen";
+  playerWaiting : string = "Wartende Spieler:";
   displayedColumns: string[] = ["PlayerName"];
   data: WaitingGame[] = [];
-  constructor(private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBarComponent, public loginHolder : LoginHolder, private signalRService: SignalRService, private router: Router) { }
+  constructor(private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBar, public loginHolder : LoginHolder, private signalRService: SignalRService, private router: Router) { }
   ngAfterViewInit(): void {
     this.LoadWaitingGames();
     this.signalRService.notifyGameStart.subscribe({

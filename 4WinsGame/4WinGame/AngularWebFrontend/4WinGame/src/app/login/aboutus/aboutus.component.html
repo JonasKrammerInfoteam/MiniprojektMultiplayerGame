@@ -1,6 +1,6 @@
 <div class="aboutUs">
     <div class="verticalLine"></div>
-    <h2>Über die Entwicklung</h2>
+    <h2>{{headLine}}</h2>
     <p>Das infoteam-Vier-Gewinnt-Spiel ist ein <strong>Azubi</strong>-Projekt und wurde in einem
         <strong>Workshop</strong> umgesetzt und entwickelt.<br>
         Unser Ziel war es, ein <strong>Softwareprojekt</strong> komplett selbstständig durchzuführen - inkl. der
@@ -20,7 +20,7 @@
     </p>
     <details>
         <summary class="teamDescription">
-            Das Entwicklerteam mit Tätigkeiten:
+            {{teamDescription}}
         </summary>
         <div class="teamMembers">
             <div *ngFor="let developer of developerList; let indexOfElement=index;">
@@ -33,7 +33,7 @@
                             <h3>{{developer.devName}}</h3>
                             <ul style="list-style-type: none;">
                                 <div *ngFor="let activity of developer.projectActivities" class="listElement">
-                                    <li>► {{activity}}</li>
+                                    <li>{{bulledPoint}} {{activity}}</li>
                                 </div>
                             </ul>
                         </div>

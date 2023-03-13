@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { GlobalConstants } from 'src/app/Services/globalVariables';
+import { GlobalConstants } from 'src/app/Services/global.constants';
 
 @Component({
   selector: 'app-footer',
@@ -10,6 +10,8 @@ import { GlobalConstants } from 'src/app/Services/globalVariables';
 export class FooterComponent {
   
   public animationsEnabled : boolean = GlobalConstants.EnableAnimations;
+  websiteLink : string = "infoteam.de";
+  animations : string = "Animationen: ";
   
   changeAnimationsEnabled() : void {
     if(GlobalConstants.EnableAnimations == true) {

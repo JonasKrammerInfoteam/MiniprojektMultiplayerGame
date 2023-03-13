@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalConstants } from 'src/app/Services/globalVariables';
+import { GlobalConstants } from 'src/app/Services/global.constants';
 import { Developer } from './developerInterface';
 
 @Component({
@@ -8,6 +8,9 @@ import { Developer } from './developerInterface';
   styleUrls: ['./aboutus.component.css']
 })
 export class AboutusComponent implements OnInit {
+  teamDescription : string = "Das Entwicklerteam mit Tätigkeiten:";
+  headLine : string = "Über die Entwicklung";
+  bulledPoint : string = "► ";
   public developerList : Developer[] = [];
   private pictureLeft : boolean = true;
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginHolder } from 'src/app/Services/loginHolder';
-import { snackBarComponent } from 'src/app/Services/snackBar';
+import { LoginHolder } from 'src/app/Services/loginHolder.service';
+import { snackBar } from 'src/app/Services/snackBar.service';
 
 @Component({
   selector: 'app-welcome-username',
@@ -10,7 +10,10 @@ import { snackBarComponent } from 'src/app/Services/snackBar';
 })
 export class WelcomeUsernameComponent implements OnInit{
 
-  constructor(public loginHolder : LoginHolder, private snackBar: snackBarComponent, private router : Router) {}
+  headLine : string = "Herzlich Willkommen";
+  buttonContent : string = "Logout";
+
+  constructor(public loginHolder : LoginHolder, private snackBar: snackBar, private router : Router) {}
 
   ngOnInit(): void {
     if(!this.loginHolder.isLoggedIn) {

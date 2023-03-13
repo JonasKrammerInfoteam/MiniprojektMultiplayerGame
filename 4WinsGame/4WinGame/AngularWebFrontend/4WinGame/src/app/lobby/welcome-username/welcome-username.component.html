@@ -1,9 +1,9 @@
 <div style="margin-top: -80px; padding-bottom: 35px;">
-    <button class="topHeaderButton" type="button" (click)="Logout()">Logout</button>
+    <button class="topHeaderButton" type="button" (click)="Logout()">{{buttonContent}}</button>
 </div>
     <div class="welcomePlayerBox">
         <div class="verticalLine"></div>
-        <h2>Herzlich Willkommen{{", " + loginHolder.loggedInPlayer?.playerName}}!</h2>
+        <h2>{{headLine + ", " + loginHolder.loggedInPlayer?.playerName + "!"}}</h2>
         <div style="display: flex;">
                 <p>
                     <strong>Jetzt wird´s ernst! Nur noch einen Schritt und du bist im Spiel!</strong><br>

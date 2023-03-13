@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { GlobalConstants } from 'src/app/Services/globalVariables';
+import { GlobalConstants } from 'src/app/Services/global.constants';
 
 @Component({
   selector: 'app-header',
@@ -9,5 +9,6 @@ import { GlobalConstants } from 'src/app/Services/globalVariables';
 export class HeaderComponent {
 
   gameState : string = GlobalConstants.gameState.toString();
+  headerText : string = "Vier Gewinnt";
 
 }

@@ -1,7 +1,7 @@
 <div *ngIf="loginHolder.isLoggedIn">
     <div class="joinGameBox">
         <div class="verticalLine"></div>
-        <h2>Vorhandenem Spiel beitreten</h2>
+        <h2>{{headLine}}</h2>
         <div style="display: flex;">
             <div style="width: 800px;">
                 <p>In der <strong>Warteschlange</strong> findest du alle Spieler, die ein Spiel erstellt haben<br>
@@ -11,14 +11,14 @@
                     Und schon bist du dabei! <strong>Lasst die Spiele beginnen!</strong></p>
                 <div class="queue">
                     <div *ngIf="data.length>0">
-                        <h2 style="margin-bottom: 0px; padding: 0">Wartende Spieler:</h2>
+                        <h2 style="margin-bottom: 0px; padding: 0">{{playerWaiting}}</h2>
                         <div class="tableLine"></div>
                         <div *ngFor="let waitingGame of data, let i=index">
                             <div class="waitingGameElement">
                                 <p class="waitingGameplayername">{{waitingGame.playerName}}</p>
                                 <div class="columnLine"></div>
                                 <div style="align-items: center; justify-content: center; width: 295px;">
-                                    <button type="button" class="joinButton" (click)="JoinGame(i)">Join Game</button>
+                                    <button type="button" class="joinButton" (click)="JoinGame(i)">{{buttonContent}}</button>
                                 </div>
                             </div>
                         </div>
