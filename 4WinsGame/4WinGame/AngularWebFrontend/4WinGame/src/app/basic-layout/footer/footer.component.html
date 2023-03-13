@@ -1,10 +1,10 @@
 <div class="footerRow" style="display: flex;">
     <div style="width: 100%; margin: auto; padding-left: 10%;">
-        <a href="https://infoteam.de/ "target="_blank">infoteam.de</a>
+        <a href="https://infoteam.de/ "target="_blank">{{websiteLink}}</a>
     </div>
     <div class="animations" style="width: max-content; display: flex; padding-right: 7.5px; margin-right: 2%; background-color: #222222; border-radius: 10px;">
         <div>
-            <p>Animationen: </p>
+            <p>{{animations}}</p>
         </div>
         <div style="padding-left: 5%; margin: auto">
             <mat-slide-toggle (change)="changeAnimationsEnabled()" [(ngModel)]="animationsEnabled"></mat-slide-toggle>

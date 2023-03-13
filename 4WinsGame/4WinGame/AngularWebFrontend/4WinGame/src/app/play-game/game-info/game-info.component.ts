@@ -2,10 +2,10 @@ import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/co
 import { ActivatedRoute, Router } from '@angular/router';
 import { GameInfo, GameInfoResponse, MyPlayer, Player } from 'src/app/RestAPIClient/Contracts/RestAPI.Contracts';
 import { FourWinsGameAPIInterface } from 'src/app/RestAPIClient/FourWinsGameAPIInterface';
-import { LoginHolder } from 'src/app//Services/loginHolder';
-import { snackBarComponent } from 'src/app/Services/snackBar';
+import { LoginHolder } from 'src/app/Services/loginHolder.service';
+import { snackBar } from 'src/app/Services/snackBar.service';
 import { SignalRService } from 'src/app/SignalRClient/signal-r.service';
-import { GlobalConstants } from 'src/app/Services/globalVariables';
+import { GlobalConstants } from 'src/app/Services/global.constants';
 
 @Component({
   selector: 'app-game-info',
@@ -15,7 +15,20 @@ import { GlobalConstants } from 'src/app/Services/globalVariables';
 
 export class GameinfoComponent implements OnInit, AfterViewInit {
   
-  constructor(private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBarComponent, private route: ActivatedRoute, private loginHolder: LoginHolder, private router: Router, private signalRService:SignalRService, private ref: ChangeDetectorRef) {
+  buttonContent : string = "Leave game";
+  headLine : string = "Informationen zum aktuellen Spiel";
+  playerOne : string = "Spieler 1: ";
+  playerZero : string = "Spieler 2: ";
+  playerUnknown : string = "Unbekannt";
+  currentMove : string = "Aktueller Zug: ";
+  yourGameToken : string = "Dein Spielstein: ";
+  noGameToken : string = "- / -";
+  winner : string = "Gewinner: ";
+  gameState : string = "Spielstatus: ";
+  gameIsRunning : string = "Spiel läuft ...";
+  yourNickname : string = "Dein Nickname: ";
+
+  constructor(private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBar, private route: ActivatedRoute, private loginHolder: LoginHolder, private router: Router, private signalRService:SignalRService, private ref: ChangeDetectorRef) {
     console.log("Constructor");
   }
   

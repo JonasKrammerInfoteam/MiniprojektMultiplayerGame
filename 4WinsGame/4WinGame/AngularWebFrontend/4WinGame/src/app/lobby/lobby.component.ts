@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalConstants } from '../Services/globalVariables';
+import { GlobalConstants } from '../Services/global.constants';
 
 @Component({
   selector: 'app-lobby',

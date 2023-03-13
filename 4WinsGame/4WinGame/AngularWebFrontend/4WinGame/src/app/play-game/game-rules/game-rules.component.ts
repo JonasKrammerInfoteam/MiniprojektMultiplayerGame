@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
 })
 export class GameRulesComponent {
 
+  headLine : string = "Spielregeln";
+
 }

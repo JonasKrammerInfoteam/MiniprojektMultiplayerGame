@@ -1,11 +1,11 @@
 <div class="gameBoardBox">
     <div class="verticalLine"></div>
-    <h2>Spielfeld</h2>
+    <h2>{{headLine}}</h2>
     <div *ngIf="winnerName == undefined" class="gameBoardContent">
         <mat-grid-list class="button-list" rowHeight="fit" cols="7">
             <button *ngFor="let var of [].constructor(7); let i = index"
                 title="Wenn du an der Reihe bist, kannst du mit Klick auf den Button in Reihe {{i}} einen Spielstein legen"
-                [disabled]="!yourMove||gameTokenAnimationRunning||isGameOver||board[0][i]!=0" (click)="DoMove(i+1)" type="button"
+                [disabled]="!yourMove||isGameOver||board[0][i]!=0" (click)="DoMove(i+1)" type="button"
                 class="ColumnButton">Stein legen</button>
         </mat-grid-list>
 

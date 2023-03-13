@@ -27,6 +27,7 @@ import { GameinfoComponent } from './play-game/game-info/game-info.component';
 import { GameboardComponent } from './play-game/game-board/game-board.component';
 import { GameRulesComponent } from './play-game/game-rules/game-rules.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import { RegisterComponent } from './login/register/register.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle'
     LobbyComponent,
     GameinfoComponent,
     GameboardComponent,
-    GameRulesComponent
+    GameRulesComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

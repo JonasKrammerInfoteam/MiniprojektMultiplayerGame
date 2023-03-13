@@ -1,10 +1,11 @@
 import { AfterViewInit, Component, OnInit, } from '@angular/core';
-import { LoginHolder } from 'src/app/Services/loginHolder';
+import { LoginHolder } from 'src/app/Services/loginHolder.service';
 import { SignalRService } from 'src/app/SignalRClient/signal-r.service';
-import { snackBarComponent } from '../../Services/snackBar';
+import { snackBar } from '../../Services/snackBar.service';
 import { FourWinsGameAPIInterface } from 'src/app/RestAPIClient/FourWinsGameAPIInterface';
 import { Router } from '@angular/router';
-import { GlobalConstants } from 'src/app/Services/globalVariables';
+import { GlobalConstants } from 'src/app/Services/global.constants';
+import { AnimationService } from 'src/app/Services/animation.service';
 
 @Component({
   selector: 'app-create-game',
@@ -15,8 +16,10 @@ import { GlobalConstants } from 'src/app/Services/globalVariables';
 export class CreateGameComponent implements OnInit, AfterViewInit{
   
   private hasAlreadyWaitingGame = false;
+  headLine : string = "Neues Spiel erstellen";
+  buttonContent : string = "Spiel erstellen";
 
-  constructor(private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBarComponent, public loginHolder : LoginHolder, private signalRService: SignalRService, private router: Router) {}
+  constructor(private animationService : AnimationService, private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBar, public loginHolder : LoginHolder, private signalRService: SignalRService, private router: Router) {}
 
   ngAfterViewInit(): void {
     this.signalRService.notifyGameStart.subscribe({
@@ -45,6 +48,7 @@ export class CreateGameComponent implements OnInit, AfterViewInit{
   }
 
   public animationsEnabled() : boolean {
+
     return GlobalConstants.EnableAnimations;
   }
 

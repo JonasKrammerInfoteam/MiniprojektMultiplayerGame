@@ -2,11 +2,10 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GameInfo, GameInfoResponse, MyPlayer, Player } from 'src/app/RestAPIClient/Contracts/RestAPI.Contracts';
 import { FourWinsGameAPIInterface } from 'src/app/RestAPIClient/FourWinsGameAPIInterface';
-import { LoginHolder } from 'src/app//Services/loginHolder';
-import { snackBarComponent } from 'src/app//Services/snackBar';
+import { LoginHolder } from 'src/app/Services/loginHolder.service';
+import { snackBar } from 'src/app/Services/snackBar.service';
 import { SignalRService } from 'src/app//SignalRClient/signal-r.service';
-import { GlobalConstants } from 'src/app/Services/globalVariables';
-import { delay } from 'rxjs';
+import { GlobalConstants } from 'src/app/Services/global.constants';
 
 @Component({
   selector: 'app-game-board',
@@ -15,7 +14,11 @@ import { delay } from 'rxjs';
 })
 
 export class GameboardComponent {
-  constructor(private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBarComponent, private route: ActivatedRoute, private loginHolder: LoginHolder, private router: Router, private signalRService:SignalRService, private ref: ChangeDetectorRef) { }
+
+  headLine : string = "Spielfeld";
+  buttonContent : string = "Stein legen";
+
+  constructor(private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBar, private route: ActivatedRoute, private loginHolder: LoginHolder, private router: Router, private signalRService:SignalRService, private ref: ChangeDetectorRef) { }
   ngAfterViewInit(): void {
     this.GetGameInfo();
   }
