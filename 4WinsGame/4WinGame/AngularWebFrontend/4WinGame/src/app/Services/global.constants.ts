@@ -5,7 +5,6 @@ enum GameState {
 }
 
 export class GlobalConstants {
-    public static EnableAnimations : boolean = true;
     public static PageTitle : string = "4 Gewinnt";
     public static gameState : GameState = GameState.Login;
 

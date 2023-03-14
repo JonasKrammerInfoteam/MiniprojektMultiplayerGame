@@ -5,7 +5,8 @@ import { LoginHolder } from '../../Services/loginHolder.service';
 import { snackBar } from '../../Services/snackBar.service';
 import { SignalRService } from '../../SignalRClient/signal-r.service';
 import { Router } from '@angular/router';
-import { GlobalConstants } from 'src/app/Services/global.constants';
+import { Subject, takeUntil } from 'rxjs';
+import { AnimationService } from 'src/app/Services/animation.service';
 
 @Component({
   selector: 'app-join-waiting-game',
@@ -18,7 +19,16 @@ export class JoinWaitingGameComponent implements OnInit, AfterViewInit{
   playerWaiting : string = "Wartende Spieler:";
   displayedColumns: string[] = ["PlayerName"];
   data: WaitingGame[] = [];
-  constructor(private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBar, public loginHolder : LoginHolder, private signalRService: SignalRService, private router: Router) { }
+  animationsEnabled : boolean | undefined;
+  private destroy$ : Subject<boolean> = new Subject();
+
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+  }
+
+
+  constructor(private animationService : AnimationService, private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBar, public loginHolder : LoginHolder, private signalRService: SignalRService, private router: Router) { }
   ngAfterViewInit(): void {
     this.LoadWaitingGames();
     this.signalRService.notifyGameStart.subscribe({
@@ -40,16 +50,15 @@ export class JoinWaitingGameComponent implements OnInit, AfterViewInit{
   }
 
   ngOnInit(): void {
+    this.animationService.getAnimationsEnabled$().pipe(takeUntil(this.destroy$)).subscribe((value : boolean) => {
+      this.animationsEnabled = value;
+     });
     if(!this.loginHolder.isLoggedIn) {
       this.snackBar.openSnackBar("You are not logged in!");
       return;
     }
 
     
-  }
-
-  animationsEnabled() : boolean {
-    return GlobalConstants.EnableAnimations;
   }
 
   LoadWaitingGames(){
@@ -84,7 +93,7 @@ export class JoinWaitingGameComponent implements OnInit, AfterViewInit{
           let res: JoinGameResponse = response as JoinGameResponse
           console.log(res.gameID);
         
-          if(this.animationsEnabled()) {
+          if(this.animationsEnabled) {
             this.playAudio("../../../assets/sounds/gamestart.mp3");
           }
         },

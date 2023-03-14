@@ -5,7 +5,8 @@ import { FourWinsGameAPIInterface } from 'src/app/RestAPIClient/FourWinsGameAPII
 import { LoginHolder } from 'src/app/Services/loginHolder.service';
 import { snackBar } from 'src/app/Services/snackBar.service';
 import { SignalRService } from 'src/app//SignalRClient/signal-r.service';
-import { GlobalConstants } from 'src/app/Services/global.constants';
+import { Subject, takeUntil } from 'rxjs';
+import { AnimationService } from 'src/app/Services/animation.service';
 
 @Component({
   selector: 'app-game-board',
@@ -18,7 +19,7 @@ export class GameboardComponent {
   headLine : string = "Spielfeld";
   buttonContent : string = "Stein legen";
 
-  constructor(private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBar, private route: ActivatedRoute, private loginHolder: LoginHolder, private router: Router, private signalRService:SignalRService, private ref: ChangeDetectorRef) { }
+  constructor(private animationService : AnimationService, private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBar, private route: ActivatedRoute, private loginHolder: LoginHolder, private router: Router, private signalRService:SignalRService, private ref: ChangeDetectorRef) { }
   ngAfterViewInit(): void {
     this.GetGameInfo();
   }
@@ -46,6 +47,9 @@ export class GameboardComponent {
 
   ANIMATION_TIME : number = 50;
 
+  public animationsEnabled : boolean | undefined;
+  private destroy$ : Subject<boolean> = new Subject();
+
   public GetEmptyFieldsOfColumn(column : number) : number {
     if(!(column >= 1 && column <= 7)) {
       return -1;
@@ -60,10 +64,6 @@ export class GameboardComponent {
       }
     } 
     return result;
-  }
-
-  animationsEnabled() : boolean {
-    return GlobalConstants.EnableAnimations;
   }
 
   public FloorDivision(n: number, divider: number): number
@@ -119,7 +119,7 @@ export class GameboardComponent {
         } else {
           this.board[i][column-1] = this.gameData?.playerNumber;
         }
-        if(this.animationsEnabled()) {
+        if(this.animationsEnabled) {
           this.playAudio("../../../assets/sounds/placedGameToken.mp3");
         }
       }, i*this.ANIMATION_TIME);
@@ -167,7 +167,7 @@ export class GameboardComponent {
         this.winnerName = winner.playerName;
         this.snackBar.openSnackBar("Winner: " + winner.playerName);
         this.isGameOver = true;
-        if(this.animationsEnabled()) {
+        if(this.animationsEnabled) {
           if(this.winnerName == this.myPlayer.playerName) {
             this.playAudio("../../../assets/sounds/winner.mp3");
           } else {
@@ -183,7 +183,13 @@ export class GameboardComponent {
     });
 
     this.signalRService.notifyGameUpdated.subscribe(() => { console.log("Game Updated..."); this.GetGameInfo(); });
+    this.animationService.getAnimationsEnabled$().pipe(takeUntil(this.destroy$)).subscribe((value : boolean) => {
+      this.animationsEnabled = value;
+     });
+  }
 
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
   }
 
   LeaveGame(): void {

@@ -7,7 +7,7 @@
             <p>{{animations}}</p>
         </div>
         <div class="toggleSlideAnimations">
-            <mat-slide-toggle (change)="changeAnimationsEnabled()" [(ngModel)]="animationsEnabled"></mat-slide-toggle>
+            <mat-slide-toggle [checked]="true" (change)="changeAnimationsEnabled()"></mat-slide-toggle>
         </div>
     </div>
 </div>

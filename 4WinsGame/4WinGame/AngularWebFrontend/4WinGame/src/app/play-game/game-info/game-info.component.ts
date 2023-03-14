@@ -1,11 +1,12 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { GameInfo, GameInfoResponse, MyPlayer, Player } from 'src/app/RestAPIClient/Contracts/RestAPI.Contracts';
 import { FourWinsGameAPIInterface } from 'src/app/RestAPIClient/FourWinsGameAPIInterface';
+import { AnimationService } from 'src/app/Services/animation.service';
 import { LoginHolder } from 'src/app/Services/loginHolder.service';
 import { snackBar } from 'src/app/Services/snackBar.service';
 import { SignalRService } from 'src/app/SignalRClient/signal-r.service';
-import { GlobalConstants } from 'src/app/Services/global.constants';
 
 @Component({
   selector: 'app-game-info',
@@ -13,7 +14,7 @@ import { GlobalConstants } from 'src/app/Services/global.constants';
   styleUrls: ['./game-info.component.css']
 })
 
-export class GameinfoComponent implements OnInit, AfterViewInit {
+export class GameinfoComponent implements OnInit, AfterViewInit, OnDestroy {
   
   buttonContent : string = "Leave game";
   headLine : string = "Informationen zum aktuellen Spiel";
@@ -27,8 +28,10 @@ export class GameinfoComponent implements OnInit, AfterViewInit {
   gameState : string = "Spielstatus: ";
   gameIsRunning : string = "Spiel läuft ...";
   yourNickname : string = "Dein Nickname: ";
+  public animationsEnabled : boolean | undefined;
+  private destroy$ : Subject<boolean> = new Subject();
 
-  constructor(private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBar, private route: ActivatedRoute, private loginHolder: LoginHolder, private router: Router, private signalRService:SignalRService, private ref: ChangeDetectorRef) {
+  constructor(private animationService : AnimationService, private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBar, private route: ActivatedRoute, private loginHolder: LoginHolder, private router: Router, private signalRService:SignalRService, private ref: ChangeDetectorRef) {
     console.log("Constructor");
   }
   
@@ -52,10 +55,6 @@ export class GameinfoComponent implements OnInit, AfterViewInit {
   isGameOver: boolean = false;
   winnerName: string | undefined;
   playerIndexOfList : number = 0;
-
-  animationsEnabled() : boolean {
-    return GlobalConstants.EnableAnimations;
-  }
 
   public LeaveGame(): void {
     if(confirm("Möchtest du wirklich das Spiel verlassen und zurück in die Lobby kehren?") || this.winnerName!=undefined) {
@@ -99,6 +98,13 @@ export class GameinfoComponent implements OnInit, AfterViewInit {
     });
 
     this.signalRService.notifyGameUpdated.subscribe(() => { console.log("Game Updated..."); this.GetGameInfo(); });
+    this.animationService.getAnimationsEnabled$().pipe(takeUntil(this.destroy$)).subscribe((value : boolean) => {
+      this.animationsEnabled = value;
+     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
   }
 
   GetGameInfo():void{

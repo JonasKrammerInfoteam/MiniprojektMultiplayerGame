@@ -1,14 +1,20 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AnimationService {
 
-  public animationsEnabled : BehaviorSubject<boolean>;
+  private animationsEnabled : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
-  constructor() { 
-    this.animationsEnabled = new BehaviorSubject<boolean>(true);
+  public getAnimationsEnabled$() : Observable<boolean> {
+    return this.animationsEnabled.asObservable();
   }
+
+  public setAnimationsEnabled(value : boolean) : void {
+    this.animationsEnabled.next(value);
+  }
+
+
 }

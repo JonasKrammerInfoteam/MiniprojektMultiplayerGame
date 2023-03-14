@@ -29,7 +29,7 @@
             <div class="tableCol" class="currentMove">
                 <div *ngIf="winnerName===undefined else winnerKnown">
                     <div *ngIf="yourMove else opponentsMove">
-                        <p [class]="animationsEnabled()&&winnerName===undefined ? 'animation' : ''">
+                        <p [class]="animationsEnabled&&winnerName===undefined ? 'animation' : ''">
                             {{currentMove}}<strong>{{myPlayer.playerName}}</strong></p>
                     </div>
                     <ng-template #opponentsMove>
