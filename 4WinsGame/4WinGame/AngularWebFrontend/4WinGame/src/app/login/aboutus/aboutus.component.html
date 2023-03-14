@@ -31,24 +31,24 @@
                         </div>
                         <div class="text" style="width: 650px;">
                             <h3>{{developer.devName}}</h3>
-                            <ul style="list-style-type: none;">
+                            <ul class="listElementBox">
                                 <div *ngFor="let activity of developer.projectActivities" class="listElement">
                                     <li>{{bulledPoint}} {{activity}}</li>
                                 </div>
                             </ul>
                         </div>
                     </div>
-                    <div *ngIf="!developer.isPictureLeft">
+                    <div *ngIf="!developer.isPictureLeft" style="margin-top: 1%;">
                         <div class="text" style="float: left; margin-right: 70px; text-align: right;">
-                            <h3 style="text-align: right;">{{developer.devName}}</h3>
-                            <ul style="list-style-type: none;">
+                            <h3 class="headLineRight">{{developer.devName}}</h3>
+                            <ul class="listElementBox">
                                 <div *ngFor="let activity of developer.projectActivities" class="listElement">
                                     <li>► {{activity}}</li>
                                 </div>
                             </ul>
                         </div>
-                        <div class="profilepicture" [class]="animationsEnabled()===true ? 'animation' : ''"
-                            style="margin-top: 10px; background-image: url('{{developer.profilePictureUrl}}');"></div>
+                        <div class="pictureRight" class="profilepicture" [class]="animationsEnabled()===true ? 'animation' : ''"
+                            style="background-image: url('{{developer.profilePictureUrl}}');"></div>
                     </div>
                 </div>
                 <div *ngIf="!(indexOfElement==developerList.length-1)" class="line"></div>

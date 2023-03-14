@@ -4,3 +4,7 @@
     padding-bottom: 0.5%;
     background-color: #1F2833;
 }
+
+.contentBox{
+    display: flex;
+}

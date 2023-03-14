@@ -1,3 +1,14 @@
+p{
+    margin: 0;
+}
+
+h3{
+    color: indianred;
+    font-family: 'Space Mono', monospace;
+    font-size: 2em;
+    margin: 0;
+}
+
 .gameBoardBox{
     padding-left: 12.5%;
     padding-top: 0.5%;
@@ -124,6 +135,16 @@
     margin-top: auto;
 }
 
+.backToLobbyBox{
+    display: flex;
+    align-items: center;
+}
+
+.winnerKnownBox{
+    display: flex;
+    width: 100%;
+}
+
 .backToLobby{
     height: max-content;
     width: max-content;
@@ -133,6 +154,11 @@
     background-color: #168A46;
     border-radius: 25%;
     font-family: 'Space Mono', monospace;
+}
+
+.number-listElement{
+    margin: 0;
+    padding-top: 20px;
 }
 
 .backToLobby:hover{
@@ -153,14 +179,3 @@
       transform: scale(1, 1);
     }
   }
-
-p{
-    margin: 0;
-}
-
-h3{
-    color: indianred;
-    font-family: 'Space Mono', monospace;
-    font-size: 2em;
-    margin: 0;
-}

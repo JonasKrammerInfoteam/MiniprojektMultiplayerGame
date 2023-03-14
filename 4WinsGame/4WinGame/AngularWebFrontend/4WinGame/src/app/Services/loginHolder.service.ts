@@ -15,5 +15,4 @@ export class LoginHolder {
         this.loggedInPlayer = myplayer;
         console.log(myplayer);
     }
-
 }

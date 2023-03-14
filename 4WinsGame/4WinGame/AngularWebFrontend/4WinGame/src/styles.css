@@ -34,6 +34,11 @@ strong{
   color: #168A46;
 }
 
+.topHeaderButtonBox{
+  margin-top: -80px;
+  padding-bottom: 35px;
+}
+
 .topHeaderButton{
   color: #ffffff;
   background-color: indianred;

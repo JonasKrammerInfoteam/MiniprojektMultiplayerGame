@@ -1,10 +1,17 @@
-#button-submit {
+mat-card {
+  width: 20%;
+  margin-left: 47.5%;
+  height: 20%;
+  background-color: darkslategray;
+  border-radius: 7.5%;
+}
+
+.button-submit {
     background-color: #168A46;
-    color: #fff;
-  
+    color: #ffffff !important; 
   }
   
-  #button-submit:hover {
+  .button-submit:hover {
     filter: drop-shadow(5px 5px 10px #168A46);
     background-color: #167A46;
     animation: buttonZoom 2s infinite;
@@ -28,15 +35,6 @@
     padding-bottom: 2.5%;
     background-color: #161D23;
   }
-  
-  mat-card {
-    width: 20%;
-    margin-left: 47.5%;
-    height: 20%;
-    background-color: darkslategray;
-    border-radius: 7.5%;
-  }
-  
   
   .boomImage{
     padding-left: 5%;
@@ -72,7 +70,7 @@
     animation: imageZoom 2s infinite;
   }
   
-  #playNowText {
+  .playNowText {
     float:left;
     font-family: 'Handlee', sans-serif;
     color: indianred;
@@ -85,7 +83,7 @@
     text-shadow: 3px 3px darkred;
   }
   
-  #playNowText {
+  .playNowText {
     cursor: pointer;
   }
   
@@ -93,3 +91,11 @@
     margin: 40px;
   }
   
+  .boom{
+    height: 25%;
+    width: 25%;
+  }
+  
+  .usernameBox{
+    color:#168A46;
+  }

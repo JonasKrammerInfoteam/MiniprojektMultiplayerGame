@@ -1,56 +1,60 @@
-<div style="margin-top: -80px; padding-bottom: 35px;">
+<div class="topHeaderButtonBox">
     <button type="button" class="topHeaderButton" (click)="LeaveGame()">{{buttonContent}}</button>
 </div>
 <div class="gameInfoBox">
     <div class="verticalLine"></div>
     <h2>{{headLine}}</h2>
-    <div style="margin-bottom: 10px">
+    <div class="contentBox">
         <div class="tableRow">
             <div class="tableCol">
-            <p>{{playerOne}}<strong [style.color]="(yourMove) ? '#ffdd4a' : '#168A46'"
-                                  [style.background-color]="(yourMove) ? '#168A46' : 'inherit'" style="border-radius: 10px;"> {{myPlayer.playerName}}</strong></p>
+                <p>{{playerOne}}<strong [style.color]="(yourMove) ? '#ffdd4a' : '#168A46'"
+                        [style.background-color]="(yourMove) ? '#168A46' : 'inherit'" class="playerAndOpponentName">
+                        {{myPlayer.playerName}}</strong></p>
             </div>
             <div class="tableCol" *ngIf="opponent!=undefined; else opponentUnknown;">
                 <p>{{playerZero}}<strong [style.color]="(!yourMove) ? '#ffdd4a' : '#168A46'"
-                    [style.background-color]="(!yourMove) ? '#168A46' : 'inherit'" style="border-radius: 10px;">{{opponent.playerName}}</strong></p>
+                        [style.background-color]="(!yourMove) ? '#168A46' : 'inherit'"
+                        class="playerAndOpponentName">{{opponent.playerName}}</strong></p>
             </div>
             <ng-template #opponentUnknown class="player">
                 <p>{{playerZero}}<strong>{{playerUnknown}}</strong></p>
             </ng-template>
         </div>
         <div class="tableRow">
-        <div class="tableCol" style="display: flex;">
-            <p>{{yourGameToken}}</p>
-            <div [style.background-color]="(playerIndexOfList==1) ? '#E57A00' : '#0561AF'" style="border-radius: 50px; width: 25px; height: 25px; margin-left: 10px; margin-top: 2.5px"></div>
+            <div class="tableCol" style="display: flex;">
+                <p>{{yourGameToken}}</p>
+                <div [style.background-color]="(playerIndexOfList==1) ? '#E57A00' : '#0561AF'"
+                    class="gameTokenInnerBox"></div>
             </div>
-        <div class="tableCol" class="currentMove">
-            <div *ngIf="winnerName===undefined else winnerKnown">
-                <div *ngIf="yourMove else opponentsMove">
-                    <p [class]="animationsEnabled()&&winnerName===undefined ? 'animation' : ''" >{{currentMove}}<strong>{{myPlayer.playerName}}</strong></p>
+            <div class="tableCol" class="currentMove">
+                <div *ngIf="winnerName===undefined else winnerKnown">
+                    <div *ngIf="yourMove else opponentsMove">
+                        <p [class]="animationsEnabled()&&winnerName===undefined ? 'animation' : ''">
+                            {{currentMove}}<strong>{{myPlayer.playerName}}</strong></p>
                     </div>
                     <ng-template #opponentsMove>
                         <p>{{currentMove}}<strong>{{opponent?.playerName}}</strong></p>
-                    </ng-template>                
-            </div>
-            <ng-template #winnerKnown>
-
-                <div>
-                    <p>{{yourGameToken}}<strong>{{noGameToken}}</strong></p>
+                    </ng-template>
                 </div>
+                <ng-template #winnerKnown>
 
+                    <div>
+                        <p>{{yourGameToken}}<strong>{{noGameToken}}</strong></p>
+                    </div>
+
+                </ng-template>
+            </div>
+        </div>
+        <div class="tableRow">
+            <div class="tableCol">
+                <p>{{yourNickname}}<strong>{{myPlayer.playerName}}</strong></p>
+            </div>
+            <div class="tableCol" *ngIf="winnerName!=undefined; else winnerUnknown;">
+                <p>{{winner}}<strong>{{winnerName}}</strong></p>
+            </div>
+            <ng-template #winnerUnknown>
+                <p>{{gameState}}<strong>{{gameIsRunning}}</strong></p>
             </ng-template>
         </div>
-    </div>
-        <div class="tableRow">
-        <div class="tableCol">
-            <p>{{yourNickname}}<strong>{{myPlayer.playerName}}</strong></p>
-        </div>
-        <div class="tableCol" *ngIf="winnerName!=undefined; else winnerUnknown;">
-            <p>{{winner}}<strong>{{winnerName}}</strong></p>
-        </div>
-        <ng-template #winnerUnknown>
-            <p>{{gameState}}<strong>{{gameIsRunning}}</strong></p>
-        </ng-template>  
-    </div>
     </div>
 </div>
