@@ -98,7 +98,6 @@ export class JoinWaitingGameComponent implements OnInit, AfterViewInit{
       
         if(this.animationsEnabled) {
           this.playAudio("../../../assets/sounds/gamestart.mp3");
-          this.playAudio("../../../assets/sounds/draw.mp3");
         }
       },
       error: (error: any) => {
