@@ -2,8 +2,8 @@
     <div class="joinGameBox">
         <div class="verticalLine"></div>
         <h2>{{headLine}}</h2>
-        <div style="display: flex;">
-            <div style="width: 800px;">
+        <div class="contentBox">
+            <div class="widthBox">
                 <p>In der <strong>Warteschlange</strong> findest du alle Spieler, die ein Spiel erstellt haben<br>
                     und noch auf einen <strong>Gegner</strong> warten.<br>
                     Such dir einfach deinen <strong>Wunschgegner</strong> in der Liste aus und klicke auf
@@ -11,20 +11,20 @@
                     Und schon bist du dabei! <strong>Lasst die Spiele beginnen!</strong></p>
                 <div class="queue">
                     <div *ngIf="data.length>0">
-                        <h2 style="margin-bottom: 0px; padding: 0">{{playerWaiting}}</h2>
+                        <h2 class="playerWaiting">{{playerWaiting}}</h2>
                         <div class="tableLine"></div>
                         <div *ngFor="let waitingGame of data, let i=index">
                             <div class="waitingGameElement">
                                 <p class="waitingGameplayername">{{waitingGame.playerName}}</p>
                                 <div class="columnLine"></div>
-                                <div style="align-items: center; justify-content: center; width: 295px;">
+                                <div class="JoinButtonBox">
                                     <button type="button" class="joinButton" (click)="JoinGame(i)">{{buttonContent}}</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div div *ngIf="data.length==0">
-                        <p style="margin-bottom: 5px;"><strong>Zurzeit keine wartenden Spieler</strong><br> Sei der erste und erstelle dein Spiel oben mit Klick auf
+                        <p class="noWaitingPlayerText"><strong>Zurzeit keine wartenden Spieler</strong><br> Sei der erste und erstelle dein Spiel oben mit Klick auf
                             <strong>Create Game</strong></p>
                         <div class="tableLine"></div>
                     </div>

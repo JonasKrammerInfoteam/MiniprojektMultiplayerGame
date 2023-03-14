@@ -3,16 +3,16 @@
     <h2>{{headLine}}</h2>
     <div class="boomImage">
       <link href="https://fonts.googleapis.com/css?family=Handlee&v1" rel="stylesheet">
-      <p id="playNowText" (click)="ClickPlayNowText()">{{playContent}}</p>
-      <img src="../../assets/pictures/boom.png" [class]="animationsEnabled()===true ? 'boomImagePicture' : ''" height="25%" width="25%">
+      <p class="playNowText" (click)="ClickPlayNowText()">{{playContent}}</p>
+      <img src="../../assets/pictures/boom.png" [class]="animationsEnabled()===true ? 'boomImagePicture' : ''" class="boom">
     </div>
     <mat-card>
       <div class="input-container">
         <mat-form-field class="example-full-width">
-          <mat-label style="color:#168A46">{{username}}</mat-label>
-          <input matInput [(ngModel)]="RegisterName" placeholder="Your Name">
+          <mat-label class="usernameBox">{{username}}</mat-label>
+          <input matInput [(ngModel)]="RegisterName" placeholder={{yourname}}>
         </mat-form-field> 
-          <button mat-stroked-button color="primary" (click)="RegisterPlayer()" [routerLink]="['/lobby']" id="button-submit">Register</button>
+          <button mat-stroked-button class="button-submit" (click)="RegisterPlayer()" [routerLink]="['/lobby']">Register</button>
       </div>
     </mat-card>
   </div>

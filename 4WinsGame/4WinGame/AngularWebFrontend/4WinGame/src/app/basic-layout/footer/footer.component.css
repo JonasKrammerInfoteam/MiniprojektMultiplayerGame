@@ -5,11 +5,32 @@
     text-align: center;
     padding-top: 10px;
     padding-bottom: 10px;
+    display: flex;
 }
 
 .footerRow a {
     color: #ffdd4a;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-decoration: none;
-    font-size: 1.3em;
+    font-size:1.3em;
+}
+
+.enableAnimationsBox{
+    width: max-content;
+    display: flex;
+    padding-right: 7.5px;
+    margin-right: 2%;
+    background-color: #222222;
+    border-radius: 10px;
+}
+
+.toggleSlideAnimations{
+    padding-left: 5%;
+    margin: auto
+}
+
+.websiteLinkBox{
+    width: 100%;
+    margin: auto;
+    padding-left: 10%;
 }

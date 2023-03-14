@@ -1,62 +1,80 @@
-
-.leaveGameButton{    
-    color: #ffffff;
-    background-color: indianred;
-    border-radius: 25%;
-    font-family: 'Space Mono', monospace;
-    font-size: 2em;
-    height: max-content;
-    margin-left: 1250px;
-    display: flex;
-    cursor: pointer;
+.leaveGameButton {
+  color: #ffffff;
+  background-color: indianred;
+  border-radius: 25%;
+  font-family: 'Space Mono', monospace;
+  font-size: 2em;
+  height: max-content;
+  margin-left: 1250px;
+  display: flex;
+  cursor: pointer;
 }
 
-.tableRow{
-    display: flex;
+.tableRow {
+  display: flex;
 }
 
-.tableCol{
-    width: 50%;
+.tableCol {
+  width: 50%;
 }
 
-.gameInfoBox p{
-    margin: 0;
+.gameInfoBox p {
+  margin: 0;
 }
 
-.gameInfoBox{
-    padding-left: 12.5%;
-    padding-top: 0.5%;
-    padding-bottom: 0.5%;
-    padding-right: 25%;
-    background-color: #1F2833;
+.contentBox {
+  margin-bottom: 10px;
 }
 
-.leaveGameButton:hover{
-    filter: drop-shadow(5px 5px 10px indianred);
-    background-color: rgb(190, 90, 90);
+.playerAndOpponentName{
+  border-radius: 10px;
 }
 
-.animation{
-    animation-name: zoomYourMove;
-    animation-iteration-count: infinite;
-    animation-duration: 3s;
+.gameTokenInnerBox {
+  border-radius: 50px;
+  width: 25px;
+  height: 25px;
+  margin-left: 10px;
+  margin-top: 2.5px
+}
+
+.gameInfoBox {
+  padding-left: 12.5%;
+  padding-top: 0.5%;
+  padding-bottom: 0.5%;
+  padding-right: 25%;
+  background-color: #1F2833;
+}
+
+.leaveGameButton:hover {
+  filter: drop-shadow(5px 5px 10px indianred);
+  background-color: rgb(190, 90, 90);
+}
+
+.animation {
+  animation-name: zoomYourMove;
+  animation-iteration-count: infinite;
+  animation-duration: 3s;
 }
 
 @keyframes zoomYourMove {
-    0% {
-      transform: scale(1, 1);
-    }
-    25% {
-      transform: scale(1.25, 1.25);
-    }
-    50% {
-      transform: scale(0.75, 0.75);
-    }
-    75% {
-      transform: scale(1.25, 1.25);
-    }
-    100% {
-      transform: scale(1, 1);
-    }
+  0% {
+    transform: scale(1, 1);
   }
 
+  25% {
+    transform: scale(1.25, 1.25);
+  }
+
+  50% {
+    transform: scale(0.75, 0.75);
+  }
+
+  75% {
+    transform: scale(1.25, 1.25);
+  }
+
+  100% {
+    transform: scale(1, 1);
+  }
+}

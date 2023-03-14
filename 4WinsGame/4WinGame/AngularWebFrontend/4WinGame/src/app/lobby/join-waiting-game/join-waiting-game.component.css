@@ -5,6 +5,16 @@
     background-color: #06110A;
 }
 
+.noWaitingPlayerText{
+    margin-bottom: 5px;
+}
+
+.JoinButtonBox{
+    align-items: center;
+    justify-content: center;
+    width: 295px;
+}
+
 .queue{
     width: 600px;
     margin-left: 100px;
@@ -42,6 +52,19 @@
     margin-top: 5px;
     margin-bottom: 5px;
     cursor: pointer;
+}
+
+.contentBox{
+    display: flex;
+}
+
+.widthBox{
+    width: 800px;
+}
+
+.playerWaiting{
+    margin-bottom: 0px;
+    padding: 0;
 }
 
 .columnLine{

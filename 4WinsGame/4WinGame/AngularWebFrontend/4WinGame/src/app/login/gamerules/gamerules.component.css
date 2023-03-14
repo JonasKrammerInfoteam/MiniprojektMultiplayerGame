@@ -44,3 +44,19 @@
     height: 90px;
     text-align: center;
 }
+
+.gameRulesInnerBox{
+    padding-bottom: 10px;
+}
+
+.openedText{
+    width: 870px;
+}
+
+.detailsBox{
+    margin-top: 15px
+}
+
+.pathBox{
+    padding-left: 250px
+}

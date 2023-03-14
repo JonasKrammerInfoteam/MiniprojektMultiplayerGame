@@ -69,6 +69,13 @@ export class JoinWaitingGameComponent implements OnInit, AfterViewInit{
     });
   }
 
+  private playAudio(source : string): void{
+    let audio = new Audio();
+    audio.src = source;
+    audio.load();
+    audio.play();
+  }
+
   JoinGame(index : number): void {
     if(this.loginHolder.loggedInPlayer!=undefined) {
       
@@ -76,6 +83,10 @@ export class JoinWaitingGameComponent implements OnInit, AfterViewInit{
         next: (response: any) => {
           let res: JoinGameResponse = response as JoinGameResponse
           console.log(res.gameID);
+        
+          if(this.animationsEnabled()) {
+            this.playAudio("../../../assets/sounds/gamestart.mp3");
+          }
         },
         error: (error: any) => {
           console.error(error);

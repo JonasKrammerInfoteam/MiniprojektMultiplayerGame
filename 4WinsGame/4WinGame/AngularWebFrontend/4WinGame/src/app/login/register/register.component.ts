@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit {
   headLine : string = "Registrieren";
   username : string = "Name";
   playContent : string = "play now!";
+  yourname : string = "Dein Name";
   
   constructor(private fourWinGameApiInterface:FourWinsGameAPIInterface, private signalRService:SignalRService, private snackBarService: snackBar, private loginHolder: LoginHolder) {}
 
