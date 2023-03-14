@@ -43,6 +43,9 @@ export class GameboardComponent {
   winnerName: string | undefined;
   gameTokenAnimationRunning: Boolean = false;
 
+  
+  public animationsEnabled : boolean | undefined;
+  private destroy$ : Subject<boolean> = new Subject();
   ANIMATION_TIME: number = 20;
 
   public GetEmptyFieldsOfColumn(column : number) : number {

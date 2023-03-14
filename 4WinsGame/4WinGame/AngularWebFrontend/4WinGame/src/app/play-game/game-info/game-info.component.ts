@@ -31,7 +31,7 @@ export class GameinfoComponent implements OnInit, AfterViewInit, OnDestroy {
   public animationsEnabled : boolean | undefined;
   private destroy$ : Subject<boolean> = new Subject();
 
-  constructor(private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBar, private route: ActivatedRoute, private loginHolder: LoginHolder, private router: Router, private signalRService:SignalRService, private ref: ChangeDetectorRef) {
+  constructor(private animationService : AnimationService, private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBar, private route: ActivatedRoute, private loginHolder: LoginHolder, private router: Router, private signalRService:SignalRService, private ref: ChangeDetectorRef) {
     
   }
   

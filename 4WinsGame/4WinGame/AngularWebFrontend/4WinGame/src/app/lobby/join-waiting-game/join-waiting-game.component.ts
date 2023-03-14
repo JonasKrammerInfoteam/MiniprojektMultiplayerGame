@@ -94,7 +94,7 @@ export class JoinWaitingGameComponent implements OnInit, AfterViewInit{
         let res: JoinGameResponse = response as JoinGameResponse
         console.log(res.gameID);
       
-        if(this.animationsEnabled()) {
+        if(this.animationsEnabled) {
           this.playAudio("../../../assets/sounds/gamestart.mp3");
         }
       },
