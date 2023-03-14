@@ -58,21 +58,21 @@ export class GameinfoComponent implements OnInit, AfterViewInit {
   }
 
   public LeaveGame(): void {
+    console.log("\n\nisGameOver: " + this.isGameOver + " game-info\n\n");
     if(confirm("Möchtest du wirklich das Spiel verlassen und zurück in die Lobby kehren?") || this.winnerName!=undefined) {
-        this.router.navigate(['/lobby']);
-        if (!this.isGameOver)
-        {
-          this.fourWinGameAPIInterface.LeaveGame(this.myPlayer, this.gameID).subscribe({
-            next: (response: any) => {
-            },
-            error: (error: any) => {
-              console.error(error);
-              this.snackBar.openSnackBar(error.message);
-            },
-            complete: () => { }
-          });
-        }
-      }
+      this.router.navigate(['/lobby']);
+      if (this.isGameOver) return;
+
+      this.fourWinGameAPIInterface.LeaveGame(this.myPlayer, this.gameID).subscribe({
+        next: (response: any) => {
+        },
+        error: (error: any) => {
+          console.error(error);
+          this.snackBar.openSnackBar(error.message);
+        },
+        complete: () => { }
+      });
+    }
   }
 
   ngOnInit(): void {
