@@ -41,16 +41,14 @@ export class GameboardComponent {
   myPlayer: MyPlayer = this.loginHolder.loggedInPlayer as MyPlayer;
   isGameOver: boolean = false;
   winnerName: string | undefined;
-  gameTokenAnimationRunning: Boolean = false;
+  gameTokenAnimationRunning: boolean = false;
 
-  
-  public animationsEnabled : boolean | undefined;
+  public animationsEnabled : boolean | undefined; 
   private destroy$ : Subject<boolean> = new Subject();
   ANIMATION_TIME: number = 20;
 
-  public GetEmptyFieldsOfColumn(column : number) : number {
-    if(!(column >= 1 && column <= 7)) { return -1;
-    }
+  public GetEmptyFieldsOfColumn(column : number): number {
+    if(!(column >= 1 && column <= 7)) return -1;
 
     let result : number = 6;
     for(let row = 5; row > -1; row--) {
@@ -108,13 +106,14 @@ export class GameboardComponent {
         } else {
           this.board[i][column-1] = this.gameData?.playerNumber;
         }
-        if(this.animationsEnabled) {
-          this.playAudio("../../../assets/sounds/placedGameToken.mp3");
-        }
       }, i*this.ANIMATION_TIME);
     }
-    setTimeout(()=>{ this.gameTokenAnimationRunning = false; }, (maxLength-1)*this.ANIMATION_TIME);
-    
+    setTimeout(()=>{
+      this.gameTokenAnimationRunning = false;
+      if(this.animationsEnabled && maxLength != -1) {
+        this.playAudio("../../../assets/sounds/placedGameToken.mp3");
+      }
+    }, (maxLength-1)*this.ANIMATION_TIME);
   }
 
   public DoMove(column: number): void {
