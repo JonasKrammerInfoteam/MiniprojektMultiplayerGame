@@ -86,7 +86,7 @@ export class JoinWaitingGameComponent implements OnInit, AfterViewInit{
   }
 
   JoinGame(index : number): void {
-    console.log("loginHolder.loggedInPlayer" + this.loginHolder.loggedInPlayer);
+    console.log("JoinGame()\nloginHolder.loggedInPlayer.playerID" + this.loginHolder.loggedInPlayer?.playerID);
     if(this.loginHolder.loggedInPlayer == undefined) return;
     if(this.loginHolder.loggedInPlayer.playerID) {
 

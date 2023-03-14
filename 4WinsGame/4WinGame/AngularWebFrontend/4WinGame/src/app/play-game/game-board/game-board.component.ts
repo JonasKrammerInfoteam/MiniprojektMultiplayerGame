@@ -86,7 +86,6 @@ export class GameboardComponent {
   {
     for (let column = 0; column < 7; column++)
     {
-      console.log(this.board[0][column]);
       if (this.board[0][column] == 0) return false;
     }
     return true;
@@ -159,11 +158,13 @@ export class GameboardComponent {
       next: (winner: any) => {
         console.log("game finished");
         let res: Player = winner as Player
-        this.winnerName = winner.playerName;
+        setTimeout(() => {
+          this.winnerName = winner.playerName;
+        }, 5000);
         this.snackBar.openSnackBar("Winner: " + winner.playerName);
         this.isGameOver = true;
         if(this.animationsEnabled) {
-          if(this.winnerName == this.myPlayer.playerName) {
+          if(winner.playerName == this.myPlayer.playerName) {
             this.playAudio("../../../assets/sounds/winner.mp3");
           } else {
             this.playAudio("../../../assets/sounds/loser.mp3");
@@ -221,7 +222,6 @@ export class GameboardComponent {
           if (this.isBoardFull() && this.winnerName == undefined)
           {
             this.draw = true;
-            this.snackBar.openSnackBar("Draw");
             this.playAudio("../../../assets/sounds/draw.mp3");
           }
         }, (this.GetEmptyFieldsOfColumn(lastColumn)-1)*this.ANIMATION_TIME);

@@ -2,7 +2,15 @@
     <div class="verticalLine"></div>
     <h2>{{headLine}}</h2>
     <div *ngIf="draw else notDraw">
-        <h2>UNENTSCHIEDEN!!!</h2>
+        <div class="winnerKnownRightSide">
+            <h3>Unentschieden</h3>
+            <p>Nach einem spannenden Spiel ist das Brett voll und keiner hat gewonnen.<br>
+                Spiele ein weiteres Spiel!</p>
+            <div class="backToLobbyBox">
+                <p>Hier kommst du zurück zur </p>
+                <button type="button" class="backToLobby" (click)="LeaveGame()">Lobby</button>
+            </div>
+        </div>
     </div>
     <ng-template #notDraw>
         <div *ngIf="winnerName == undefined" class="gameBoardContent">

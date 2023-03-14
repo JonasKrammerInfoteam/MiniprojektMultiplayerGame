@@ -71,6 +71,7 @@ export class CreateGameComponent implements OnInit, AfterViewInit{
 
   CreateGame(): void {
     if(this.loginHolder.loggedInPlayer!=undefined) {
+      console.log("CreateGame()\nloginHolder.loggedInPlayer.playerID" + this.loginHolder.loggedInPlayer.playerID);
       if(this.hasAlreadyWaitingGame==false) {
         this.fourWinGameAPIInterface.CreateGame(this.loginHolder.loggedInPlayer).subscribe({
           next: (response: any) => {
