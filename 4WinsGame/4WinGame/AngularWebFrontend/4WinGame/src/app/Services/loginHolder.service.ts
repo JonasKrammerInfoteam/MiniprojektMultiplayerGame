@@ -10,7 +10,7 @@ export class LoginHolder {
     public isLoggedIn : boolean = false;    
     public loggedInPlayer : MyPlayer|undefined;
 
-    public Login(myplayer : MyPlayer) : void{
+    public Login(myplayer : MyPlayer): void {
         this.isLoggedIn = true;
         this.loggedInPlayer = myplayer;
         console.log(myplayer);
