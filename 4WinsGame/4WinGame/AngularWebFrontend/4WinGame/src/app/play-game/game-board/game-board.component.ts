@@ -40,6 +40,7 @@ export class GameboardComponent {
   yourMove: Boolean = false;
   myPlayer: MyPlayer = this.loginHolder.loggedInPlayer as MyPlayer;
   isGameOver: boolean = false;
+  draw: boolean = false;
   winnerName: string | undefined;
   gameTokenAnimationRunning: boolean = false;
 
@@ -79,6 +80,16 @@ export class GameboardComponent {
       }
     }
     return -1;
+  }
+
+  private isBoardFull(): boolean
+  {
+    for (let column = 0; column < 7; column++)
+    {
+      console.log(this.board[0][column]);
+      if (this.board[0][column] == 0) return false;
+    }
+    return true;
   }
 
   private animateBoard(column: number): void
@@ -199,12 +210,17 @@ export class GameboardComponent {
       next: (response: any) => {
         let res: GameInfoResponse = response as GameInfoResponse;
         this.gameData = res.gameInfo;
-        this.board = this.gameData.board;
-        this.animateBoard(this.getLastMoveColumn());
-        this.lastBoard = this.board;
         this.opponent = this.gameData.opponent;
         this.yourMove = this.gameData.yourMove;
-        this.ref.detectChanges();    
+        this.board = this.gameData.board;
+        this.animateBoard(this.getLastMoveColumn());
+        this.ref.detectChanges();
+        this.lastBoard = this.board;
+        if (this.isBoardFull() && this.winnerName == undefined)
+        {
+          this.draw = true;
+          this.snackBar.openSnackBar("Draw");
+        }     
       },
       error: (error: any) => {
         console.error(error);
