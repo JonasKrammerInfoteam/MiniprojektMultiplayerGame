@@ -44,7 +44,7 @@ export class GameboardComponent {
   winnerName: string | undefined;
   gameTokenAnimationRunning: Boolean = false;
 
-  ANIMATION_TIME : number = 50;
+  ANIMATION_TIME : number = 20;
 
   public GetEmptyFieldsOfColumn(column : number) : number {
     if(!(column >= 1 && column <= 7)) {
@@ -73,18 +73,12 @@ export class GameboardComponent {
 
   private getLastMoveColumn(): number
   {
-    console.log("getLastMoveColumn() Board:\n");
-    console.log(this.board);
-    console.log("getLastMoveColumn() lastBoard:\n");
-    console.log(this.lastBoard);
     for (let row = 0; row < 6; row++)
     {
       for (let column = 0; column < 7; column++)
       {
         if (this.board[row][column] != this.lastBoard[row][column])
         {
-          console.log("Board at " + column + " " + row + ": " + this.board[row][column]);
-          console.log("lastBoard at " + column + " " + row + ": " + this.lastBoard[row][column]);
           return column+1 as number;
         }
       }
@@ -100,11 +94,9 @@ export class GameboardComponent {
       if(this.board[row][column-1] != 0)
       {
         this.board[row][column-1] = 0;
-        console.log("Removed at: " + row + " " + column);
         break;
       }
     }
-    console.log("Animation Column: " + column);
     var maxLength = this.GetEmptyFieldsOfColumn(column);
     for(let i = 0; i < maxLength; i++) {
       setTimeout(()=>{   
@@ -119,23 +111,20 @@ export class GameboardComponent {
         } else {
           this.board[i][column-1] = this.gameData?.playerNumber;
         }
-        if(this.animationsEnabled()) {
-          this.playAudio("../../../assets/sounds/placedGameToken.mp3");
-        }
       }, i*this.ANIMATION_TIME);
     }
-    setTimeout(()=>{ this.gameTokenAnimationRunning = false; }, (maxLength-1)*this.ANIMATION_TIME);
-    
+    setTimeout(()=>{
+      this.gameTokenAnimationRunning = false;
+      if(this.animationsEnabled() && maxLength != -1) {
+        this.playAudio("../../../assets/sounds/placedGameToken.mp3");
+      }
+    }, (maxLength-1)*this.ANIMATION_TIME);    
   }
 
   public DoMove(column: number): void {
     this.yourMove = false;
-    var maxLength = this.GetEmptyFieldsOfColumn(column);
-    console.log(maxLength);
-
     this.fourWinGameAPIInterface.DoMove(column, this.gameID, this.myPlayer).subscribe({
       next: (response: any) => {
-        console.log("Placed in column: " + column);
       },
       error: (error: any) => {
         console.error(error);
@@ -158,7 +147,6 @@ export class GameboardComponent {
     this.route.queryParams.subscribe(
       params => {
         this.gameID = params["gameid"];
-        console.log(this.gameID);
       }
     );
     this.signalRService.notifyGameFinished.subscribe({
@@ -186,22 +174,21 @@ export class GameboardComponent {
 
   }
 
-  LeaveGame(): void {
-    console.log("LeaveGame() called");
+  public LeaveGame(): void {
     this.router.navigate(['/lobby']);
-    if (!this.isGameOver)
+    if (this.isGameOver)
     {
-      this.fourWinGameAPIInterface.LeaveGame(this.myPlayer, this.gameID).subscribe({
-        next: (response: any) => {
-          console.log("Game leave");
-        },
-        error: (error: any) => {
-          console.error(error);
-          this.snackBar.openSnackBar(error.message);
-        },
-        complete: () => { }
-      });
+      return;
     }
+    this.fourWinGameAPIInterface.LeaveGame(this.myPlayer, this.gameID).subscribe({
+      next: (response: any) => {
+      },
+      error: (error: any) => {
+        console.error(error);
+        this.snackBar.openSnackBar(error.message);
+      },
+      complete: () => { }
+    });
   }
 
   GetGameInfo():void{

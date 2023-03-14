@@ -29,7 +29,7 @@ export class GameinfoComponent implements OnInit, AfterViewInit {
   yourNickname : string = "Dein Nickname: ";
 
   constructor(private fourWinGameAPIInterface: FourWinsGameAPIInterface, private snackBar: snackBar, private route: ActivatedRoute, private loginHolder: LoginHolder, private router: Router, private signalRService:SignalRService, private ref: ChangeDetectorRef) {
-    console.log("Constructor");
+    
   }
   
   ngAfterViewInit(): void {
@@ -59,13 +59,11 @@ export class GameinfoComponent implements OnInit, AfterViewInit {
 
   public LeaveGame(): void {
     if(confirm("Möchtest du wirklich das Spiel verlassen und zurück in die Lobby kehren?") || this.winnerName!=undefined) {
-      console.log("LeaveGame() called");
         this.router.navigate(['/lobby']);
         if (!this.isGameOver)
         {
           this.fourWinGameAPIInterface.LeaveGame(this.myPlayer, this.gameID).subscribe({
             next: (response: any) => {
-              console.log("Game leave");
             },
             error: (error: any) => {
               console.error(error);
@@ -81,7 +79,6 @@ export class GameinfoComponent implements OnInit, AfterViewInit {
     this.route.queryParams.subscribe(
       params => {
         this.gameID = params["gameid"];
-        console.log(this.gameID);
       }
     );
     this.signalRService.notifyGameFinished.subscribe({
@@ -111,13 +108,6 @@ export class GameinfoComponent implements OnInit, AfterViewInit {
         this.yourMove = this.gameData.yourMove;
         this.playerIndexOfList = this.gameData.playerNumber;
         this.ref.detectChanges();
-        console.log("GetGameInfo() was called");
-
-        console.log("opponent: " + this.opponent);
-        console.log("yourMove: " + this.yourMove);
-        console.log("playerNumber: " + this.playerIndexOfList);
-        console.log("playerNumber: " + this.gameData.playerNumber);
-
       },
       error: (error: any) => {
         console.error(error);
