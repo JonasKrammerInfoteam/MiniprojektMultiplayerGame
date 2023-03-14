@@ -38,21 +38,15 @@ export class GameboardComponent {
 
   opponent: Player | undefined;
   yourMove: Boolean = false;
-  opponentTest: string = "Gegner";
-  myPlayerTest: string = "Spieler";
   myPlayer: MyPlayer = this.loginHolder.loggedInPlayer as MyPlayer;
   isGameOver: boolean = false;
   winnerName: string | undefined;
   gameTokenAnimationRunning: Boolean = false;
 
-  ANIMATION_TIME : number = 50;
-
-  public animationsEnabled : boolean | undefined;
-  private destroy$ : Subject<boolean> = new Subject();
+  ANIMATION_TIME: number = 20;
 
   public GetEmptyFieldsOfColumn(column : number) : number {
-    if(!(column >= 1 && column <= 7)) {
-      return -1;
+    if(!(column >= 1 && column <= 7)) { return -1;
     }
 
     let result : number = 6;
@@ -73,18 +67,12 @@ export class GameboardComponent {
 
   private getLastMoveColumn(): number
   {
-    console.log("getLastMoveColumn() Board:\n");
-    console.log(this.board);
-    console.log("getLastMoveColumn() lastBoard:\n");
-    console.log(this.lastBoard);
     for (let row = 0; row < 6; row++)
     {
       for (let column = 0; column < 7; column++)
       {
         if (this.board[row][column] != this.lastBoard[row][column])
         {
-          console.log("Board at " + column + " " + row + ": " + this.board[row][column]);
-          console.log("lastBoard at " + column + " " + row + ": " + this.lastBoard[row][column]);
           return column+1 as number;
         }
       }
@@ -100,11 +88,9 @@ export class GameboardComponent {
       if(this.board[row][column-1] != 0)
       {
         this.board[row][column-1] = 0;
-        console.log("Removed at: " + row + " " + column);
         break;
       }
     }
-    console.log("Animation Column: " + column);
     var maxLength = this.GetEmptyFieldsOfColumn(column);
     for(let i = 0; i < maxLength; i++) {
       setTimeout(()=>{   
@@ -130,12 +116,8 @@ export class GameboardComponent {
 
   public DoMove(column: number): void {
     this.yourMove = false;
-    var maxLength = this.GetEmptyFieldsOfColumn(column);
-    console.log(maxLength);
-
     this.fourWinGameAPIInterface.DoMove(column, this.gameID, this.myPlayer).subscribe({
       next: (response: any) => {
-        console.log("Placed in column: " + column);
       },
       error: (error: any) => {
         console.error(error);
@@ -147,7 +129,7 @@ export class GameboardComponent {
     });
   }
 
-  private playAudio(source : string): void{
+  private playAudio(source: string): void{
     let audio = new Audio();
     audio.src = source;
     audio.load();
@@ -158,11 +140,11 @@ export class GameboardComponent {
     this.route.queryParams.subscribe(
       params => {
         this.gameID = params["gameid"];
-        console.log(this.gameID);
       }
     );
     this.signalRService.notifyGameFinished.subscribe({
       next: (winner: any) => {
+        console.log("game finished");
         let res: Player = winner as Player
         this.winnerName = winner.playerName;
         this.snackBar.openSnackBar("Winner: " + winner.playerName);
@@ -192,25 +174,25 @@ export class GameboardComponent {
     this.destroy$.next(true);
   }
 
-  LeaveGame(): void {
-    console.log("LeaveGame() called");
+  public LeaveGame(): void {
+    console.log("\n\nisGameOver: " + this.isGameOver + " game-board\n\n");
     this.router.navigate(['/lobby']);
-    if (!this.isGameOver)
+    if (this.isGameOver)
     {
-      this.fourWinGameAPIInterface.LeaveGame(this.myPlayer, this.gameID).subscribe({
-        next: (response: any) => {
-          console.log("Game leave");
-        },
-        error: (error: any) => {
-          console.error(error);
-          this.snackBar.openSnackBar(error.message);
-        },
-        complete: () => { }
-      });
+      return;
     }
+    this.fourWinGameAPIInterface.LeaveGame(this.myPlayer, this.gameID).subscribe({
+      next: (response: any) => {
+      },
+      error: (error: any) => {
+        console.error(error);
+        this.snackBar.openSnackBar(error.message);
+      },
+      complete: () => { }
+    });
   }
 
-  GetGameInfo():void{
+  GetGameInfo(): void {
     this.fourWinGameAPIInterface.GetGameInfo(this.gameID, this.myPlayer.playerID).subscribe({
       next: (response: any) => {
         let res: GameInfoResponse = response as GameInfoResponse;

@@ -86,25 +86,31 @@ export class JoinWaitingGameComponent implements OnInit, AfterViewInit{
   }
 
   JoinGame(index : number): void {
-    if(this.loginHolder.loggedInPlayer!=undefined) {
+    console.log("loginHolder.loggedInPlayer" + this.loginHolder.loggedInPlayer);
+    if(this.loginHolder.loggedInPlayer == undefined) return;
       
-      this.fourWinGameAPIInterface.JoinGame(this.loginHolder.loggedInPlayer, index).subscribe({
-        next: (response: any) => {
-          let res: JoinGameResponse = response as JoinGameResponse
-          console.log(res.gameID);
-        
-          if(this.animationsEnabled) {
-            this.playAudio("../../../assets/sounds/gamestart.mp3");
-          }
-        },
-        error: (error: any) => {
-          console.error(error);
-          this.snackBar.openSnackBar(error.message);
-        },
-        complete: () => {
-  
+    this.fourWinGameAPIInterface.JoinGame(this.loginHolder.loggedInPlayer, index).subscribe({
+      next: (response: any) => {
+        let res: JoinGameResponse = response as JoinGameResponse
+        console.log(res.gameID);
+      
+        if(this.animationsEnabled()) {
+          this.playAudio("../../../assets/sounds/gamestart.mp3");
         }
-      });
-    }
+      },
+      error: (error: any) => {
+        if (error.status == 500)
+        {
+          this.snackBar.openSnackBar("It is not possible to play a game against yourself");
+          return;
+        }
+        console.error(error);
+        this.snackBar.openSnackBar(error.message);
+      },
+      complete: () => {
+
+      }
+    });
+    
   }
 }

@@ -4,8 +4,8 @@
     <div *ngIf="winnerName == undefined" class="gameBoardContent">
         <mat-grid-list class="button-list" rowHeight="fit" cols="7">
             <button *ngFor="let var of [].constructor(7); let i = index"
-                title="Wenn du an der Reihe bist, kannst du mit Klick auf den Button in Reihe {{i}} einen Spielstein legen"
-                [disabled]="!yourMove|| gameTokenAnimationRunning ||isGameOver||board[0][i]!=0" (click)="DoMove(i+1)" type="button"
+                title="Wenn du an der Reihe bist, kannst du mit Klick auf den Button in Reihe {{i+1}} einen Spielstein legen"
+                [disabled]="!yourMove||gameTokenAnimationRunning||isGameOver||board[0][i]!=0" (click)="DoMove(i+1)" type="button"
                 class="ColumnButton">{{buttonContent}}</button>
         </mat-grid-list>
 
@@ -35,7 +35,7 @@
                     Das ist ein Grund zur Freude, aber der nächste Gegner wartet schon!</p>
                 <div class="backToLobbyBox">
                     <p>Hier kommst du zurück zur </p>
-                    <button type="button" class="backToLobby" onclick="LeaveGame()">Lobby</button>
+                    <button type="button" class="backToLobby" (click)="LeaveGame()">Lobby</button>
                 </div>
             </div>
         </div>
@@ -50,7 +50,7 @@
                     Das ist kein Grund zur Sorge, denn das nächste Spiel (und der Sieg) warten schon!</p>
                     <div class="backToLobbyBox">
                     <p>Hier kommst du zurück zur </p>
-                    <button type="button" class="backToLobby" onclick="LeaveGame()">Lobby</button>
+                    <button type="button" class="backToLobby" (click)="LeaveGame()">Lobby</button>
                 </div>
             </div>
         </ng-template>
