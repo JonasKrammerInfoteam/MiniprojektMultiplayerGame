@@ -86,6 +86,7 @@ export class GameboardComponent {
   {
     for (let column = 0; column < 7; column++)
     {
+      console.log(this.board);
       console.log(this.board[0][column]);
       if (this.board[0][column] == 0) return false;
     }
@@ -213,14 +214,19 @@ export class GameboardComponent {
         this.opponent = this.gameData.opponent;
         this.yourMove = this.gameData.yourMove;
         this.board = this.gameData.board;
-        this.animateBoard(this.getLastMoveColumn());
+        let lastColumn = this.getLastMoveColumn();
+        this.animateBoard(lastColumn);
         this.ref.detectChanges();
         this.lastBoard = this.board;
-        if (this.isBoardFull() && this.winnerName == undefined)
+        setTimeout(() =>
         {
-          this.draw = true;
-          this.snackBar.openSnackBar("Draw");
-        }     
+          if (this.isBoardFull() && this.winnerName == undefined)
+          {
+            this.draw = true;
+            this.snackBar.openSnackBar("Draw");
+          }
+        }, (this.GetEmptyFieldsOfColumn(lastColumn)-1)*this.ANIMATION_TIME);
+        
       },
       error: (error: any) => {
         console.error(error);
