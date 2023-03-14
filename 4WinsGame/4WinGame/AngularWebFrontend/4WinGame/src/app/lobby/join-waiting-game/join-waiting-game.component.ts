@@ -88,7 +88,9 @@ export class JoinWaitingGameComponent implements OnInit, AfterViewInit{
   JoinGame(index : number): void {
     console.log("loginHolder.loggedInPlayer" + this.loginHolder.loggedInPlayer);
     if(this.loginHolder.loggedInPlayer == undefined) return;
-      
+    if(this.loginHolder.loggedInPlayer.playerID) {
+
+    }
     this.fourWinGameAPIInterface.JoinGame(this.loginHolder.loggedInPlayer, index).subscribe({
       next: (response: any) => {
         let res: JoinGameResponse = response as JoinGameResponse
