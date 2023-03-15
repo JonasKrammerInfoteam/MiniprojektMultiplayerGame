@@ -13,6 +13,5 @@ export class LoginHolder {
     public Login(myplayer : MyPlayer): void {
         this.isLoggedIn = true;
         this.loggedInPlayer = myplayer;
-        console.log(myplayer);
     }
 }

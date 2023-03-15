@@ -75,9 +75,10 @@ namespace _4WinGame.RESTApi.Services
         {
             GameWinnerEventArgs gameWinnerEvent = (GameWinnerEventArgs)e;
             IFourWinGame fourWinGame = (IFourWinGame)sender;
-            if(fourWinGame.GetWinner() == null)
+            if (fourWinGame.GetWinner() == null) // Game is a draw
             {
-                Task sendTask = new Task(async () => await hubConnection.SendAsync("GameFinished", null, fourWinGame.ID));
+                MyPlayer nullPlayer = new MyPlayer("", "0", "0"); //Player with name "" cannot be created when logging in, because if there is no name entered the name will be null instead
+                Task sendTask = new Task(async () => await hubConnection.SendAsync("GameFinished", nullPlayer, fourWinGame.ID));
                 sendTask.Start();
             }
             else

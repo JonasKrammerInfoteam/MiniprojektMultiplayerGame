@@ -48,7 +48,6 @@ namespace _4WinGame.BusinessLogic
                 throw new PlayerNotInGameException();
             }
             game.Resign(p);
-            Games.Remove(game);
         }
 
         public IFourWinGame GetGameByID(string gameID)

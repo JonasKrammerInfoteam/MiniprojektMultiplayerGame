@@ -77,19 +77,17 @@ namespace _4WinGame.BusinessLogic
 
         private bool isBoardFull()
         {
-            for (int row = 0; row < BoardHeight; row++)
+            for (int column = 0; column < BoardWidth; column++)
             {
-                for (int column = 0; column < BoardWidth; column++)
-                {
-                    if (Board[row][column] == 0)
-                        return false;
-                }
+                if (Board[0][column] == 0)
+                    return false;
             }
             return true;
         }
 
         public FourWinGamePlayer GetWinner()
         {
+ 
             // Horizontal
             for (int row = 0; row < BoardHeight; row++)
             {
@@ -159,9 +157,24 @@ namespace _4WinGame.BusinessLogic
 
         public void Resign(FourWinGamePlayer p)
         {
-            if (Player1.ID != p.ID && Player2.ID != p.ID)
-            {
+            int playerNum = 0;
+            if (Player1.ID == p.ID)
+                playerNum = 1;
+            if (Player2.ID == p.ID)
+                playerNum = 2;
+            if (playerNum == 0)
                 throw new PlayerNotInGameException();
+
+            // Fill the board to avoid a draw if a player leaves
+            for (int row = 0; row < BoardHeight; row++)
+            {
+                for (int column = 0; column < BoardWidth; column++)
+                {
+                    if (Board[row][column] == 0)
+                    {
+                        Board[row][column] = (playerNum - 1) * -1 + 2;
+                    }
+                }
             }
             InvokeGameFinished();
         }

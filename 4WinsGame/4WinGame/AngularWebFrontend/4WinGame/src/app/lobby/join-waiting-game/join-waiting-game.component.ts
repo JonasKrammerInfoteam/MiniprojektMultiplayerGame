@@ -53,12 +53,6 @@ export class JoinWaitingGameComponent implements OnInit, AfterViewInit{
     this.animationService.getAnimationsEnabled$().pipe(takeUntil(this.destroy$)).subscribe((value : boolean) => {
       this.animationsEnabled = value;
      });
-    if(!this.loginHolder.isLoggedIn) {
-      this.snackBar.openSnackBar("You are not logged in!");
-      return;
-    }
-
-    
   }
 
   LoadWaitingGames(){

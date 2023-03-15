@@ -7,6 +7,7 @@ import { GlobalConstants } from 'src/app/Services/global.constants';
 import { LoginHolder } from 'src/app/Services/loginHolder.service';
 import { snackBar } from 'src/app/Services/snackBar.service';
 import { SignalRService } from 'src/app/SignalRClient/signal-r.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -27,7 +28,7 @@ export class RegisterComponent implements OnInit {
   }
   
   
-  constructor(private animationService : AnimationService, private fourWinGameApiInterface:FourWinsGameAPIInterface, private signalRService:SignalRService, private snackBarService: snackBar, private loginHolder: LoginHolder) {}
+  constructor(private router: Router, private animationService: AnimationService, private fourWinGameApiInterface: FourWinsGameAPIInterface, private signalRService: SignalRService, private snackBarService: snackBar, private loginHolder: LoginHolder) {}
 
   ngOnInit(): void {
     GlobalConstants.SetGameStateToLogin();
@@ -42,12 +43,19 @@ export class RegisterComponent implements OnInit {
     this.snackBarService.openSnackBar("Gib deinen Nutzernamen ein und klicke auf Register");
   }
 
-  RegisterPlayer(){
+  RegisterPlayerOnEnter(event: { keyCode: number; })
+  {
+    if (event.keyCode == 13)
+    {
+      this.RegisterPlayer();
+    }
+  }
+
+  RegisterPlayer() {
     this.fourWinGameApiInterface.RegisterPlayer(this.RegisterName, this.signalRService.connectionId).subscribe({
       next: (response: any) => {
         console.log(response);
         let res: RegisterPlayerResponse = response as RegisterPlayerResponse;
-        this.snackBarService.openSnackBar("Welcome:" + res.registeredPlayer.playerName);
         this.loginHolder.Login(res.registeredPlayer);        
       },
       error: (error: any) => {
@@ -58,6 +66,7 @@ export class RegisterComponent implements OnInit {
 
       }
     });
+    this.router.navigate(['/lobby']);
   }
   
 }

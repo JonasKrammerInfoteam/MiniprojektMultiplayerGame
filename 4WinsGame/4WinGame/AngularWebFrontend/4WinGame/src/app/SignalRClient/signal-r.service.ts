@@ -40,9 +40,9 @@ export class SignalRService {
       console.log("WaitingListUpdated");
       this.notifyWaitingListUpdated.emit();
     });
-    this.hubProxy.on("GameUpdated", (gameid: any) => {
-      console.log("GameUpdated: " + gameid);
-      this.notifyGameUpdated.emit(gameid);
+    this.hubProxy.on("GameUpdated", (gameID: any) => {
+      console.log("GameUpdated: " + gameID);
+      this.notifyGameUpdated.emit(gameID);
     });
     this.hubProxy.on("GameFinished", (winner: any) => {
       console.log("GameFinished: " + winner.playerName);

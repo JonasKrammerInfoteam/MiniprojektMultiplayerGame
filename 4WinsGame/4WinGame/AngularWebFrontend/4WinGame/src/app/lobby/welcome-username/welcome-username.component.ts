@@ -15,12 +15,7 @@ export class WelcomeUsernameComponent implements OnInit{
 
   constructor(public loginHolder : LoginHolder, private snackBar: snackBar, private router : Router) {}
 
-  ngOnInit(): void {
-    if(!this.loginHolder.isLoggedIn) {
-      this.snackBar.openSnackBar("You are not logged in!");
-      return;
-    }
-  }
+  ngOnInit(): void { }
 
   Logout() : void{
     if(confirm("Möchtest du dich wirklich abmelden?")) {

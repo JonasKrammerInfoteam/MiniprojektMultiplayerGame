@@ -36,14 +36,7 @@ export class CreateGameComponent implements OnInit, AfterViewInit{
     });
   }
 
-  ngOnInit(): void {
-    if(!this.loginHolder.isLoggedIn) {
-      this.snackBar.openSnackBar("You are not logged in!");
-      return;
-    }
-
-    
-  }
+  ngOnInit(): void { }
 
 
   PlayerHasAlreadyWaitingGame()  {
@@ -71,7 +64,8 @@ export class CreateGameComponent implements OnInit, AfterViewInit{
 
   CreateGame(): void {
     if(this.loginHolder.loggedInPlayer!=undefined) {
-      console.log("CreateGame()\nloginHolder.loggedInPlayer.playerID" + this.loginHolder.loggedInPlayer.playerID);
+      console.log("CreateGame()");
+      console.log(this.loginHolder.loggedInPlayer);
       if(this.hasAlreadyWaitingGame==false) {
         this.fourWinGameAPIInterface.CreateGame(this.loginHolder.loggedInPlayer).subscribe({
           next: (response: any) => {

@@ -156,7 +156,6 @@ namespace _4WinGame.RESTApi.Controllers
                     throw new PlayerNotFoundException();
                 }
                 fourWinGameService.LeaveActiveGame(found, gameID);
-                connectionService.LeavePlayer(player.PlayerID);
             }
             catch (BusinessLogic.Contracts.Exceptions.PlayerNotInGameException)
             {

@@ -7,12 +7,12 @@
       <img src="../../assets/pictures/boom.png" [class]="animationsEnabled==true ? 'boomImagePicture' : ''" class="boom">
     </div>
     <mat-card>
-      <div class="input-container">
+      <div class="input-container" (keydown)="RegisterPlayerOnEnter($event)">
         <mat-form-field class="example-full-width">
           <mat-label class="usernameBox">{{username}}</mat-label>
           <input matInput [(ngModel)]="RegisterName" placeholder={{yourname}}>
         </mat-form-field> 
-          <button mat-stroked-button class="button-submit" (click)="RegisterPlayer()" [routerLink]="['/lobby']">Register</button>
+        <button mat-stroked-button class="button-submit" (click)="RegisterPlayer()">Register</button>
       </div>
     </mat-card>
   </div>

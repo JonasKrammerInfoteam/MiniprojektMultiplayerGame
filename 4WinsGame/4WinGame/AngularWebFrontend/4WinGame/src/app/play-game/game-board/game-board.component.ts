@@ -82,15 +82,6 @@ export class GameboardComponent {
     return -1;
   }
 
-  private isBoardFull(): boolean
-  {
-    for (let column = 0; column < 7; column++)
-    {
-      if (this.board[0][column] == 0) return false;
-    }
-    return true;
-  }
-
   private animateBoard(column: number): void
   {
     this.gameTokenAnimationRunning = true;
@@ -156,18 +147,32 @@ export class GameboardComponent {
     );
     this.signalRService.notifyGameFinished.subscribe({
       next: (winner: any) => {
-        console.log("game finished");
-        let res: Player = winner as Player
-        setTimeout(() => {
-          this.winnerName = winner.playerName;
-        }, 5000);
-        this.snackBar.openSnackBar("Winner: " + winner.playerName);
         this.isGameOver = true;
-        if(this.animationsEnabled) {
-          if(winner.playerName == this.myPlayer.playerName) {
-            this.playAudio("../../../assets/sounds/winner.mp3");
-          } else {
-            this.playAudio("../../../assets/sounds/loser.mp3");
+        if (winner.playerName == "") // Game is a draw
+        {
+          setTimeout(() => {
+            this.draw = true;
+          }, 5000);
+
+          if (this.animationsEnabled)
+          {
+            this.playAudio("../../../assets/sounds/draw.mp3");
+          }
+          this.snackBar.openSnackBar("Unentschieden");
+        }
+        else
+        {
+          setTimeout(() => {
+            this.winnerName = winner.playerName;
+          }, 5000);
+          this.snackBar.openSnackBar("Winner: " + winner.playerName);
+          
+          if (this.animationsEnabled) {
+            if (winner.playerName == this.myPlayer.playerName) {
+              this.playAudio("../../../assets/sounds/winner.mp3");
+            } else {
+              this.playAudio("../../../assets/sounds/loser.mp3");
+            }
           }
         }
       },
@@ -189,7 +194,6 @@ export class GameboardComponent {
   }
 
   public LeaveGame(): void {
-    console.log("\n\nisGameOver: " + this.isGameOver + " game-board\n\n");
     this.router.navigate(['/lobby']);
     if (this.isGameOver)
     {
@@ -218,13 +222,6 @@ export class GameboardComponent {
         this.animateBoard(lastColumn);
         this.ref.detectChanges();
         this.lastBoard = this.board;
-        setTimeout(() =>        {
-          if (this.isBoardFull() && this.winnerName == undefined)
-          {
-            this.draw = true;
-            this.playAudio("../../../assets/sounds/draw.mp3");
-          }
-        }, (this.GetEmptyFieldsOfColumn(lastColumn)-1)*this.ANIMATION_TIME);
       },
       error: (error: any) => {
         console.error(error);
