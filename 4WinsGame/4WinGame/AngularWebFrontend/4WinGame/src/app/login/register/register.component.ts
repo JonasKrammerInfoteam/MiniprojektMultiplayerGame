@@ -54,9 +54,8 @@ export class RegisterComponent implements OnInit {
   RegisterPlayer() {
     this.fourWinGameApiInterface.RegisterPlayer(this.RegisterName, this.signalRService.connectionId).subscribe({
       next: (response: any) => {
-        console.log(response);
         let res: RegisterPlayerResponse = response as RegisterPlayerResponse;
-        this.loginHolder.Login(res.registeredPlayer);        
+        this.loginHolder.Login(res.registeredPlayer);
       },
       error: (error: any) => {
         console.error(error);

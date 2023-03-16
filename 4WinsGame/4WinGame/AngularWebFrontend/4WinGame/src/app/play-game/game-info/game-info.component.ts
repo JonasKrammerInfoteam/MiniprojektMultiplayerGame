@@ -96,7 +96,6 @@ export class GameinfoComponent implements OnInit, AfterViewInit, OnDestroy {
       complete: () => {}
     });
 
-    this.signalRService.notifyGameUpdated.subscribe(() => { console.log("Game Updated..."); this.GetGameInfo(); });
     this.animationService.getAnimationsEnabled$().pipe(takeUntil(this.destroy$)).subscribe((value : boolean) => {
       this.animationsEnabled = value;
      });

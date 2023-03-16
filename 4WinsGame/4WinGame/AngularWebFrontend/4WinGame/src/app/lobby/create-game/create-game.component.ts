@@ -22,7 +22,6 @@ export class CreateGameComponent implements OnInit, AfterViewInit{
   ngAfterViewInit(): void {
     this.signalRService.notifyGameStart.subscribe({
       next: (resgameId: string) => {
-        console.log("GameID: " + resgameId);
         this.router.navigate(
           ['/play'],
           { queryParams: { gameid: resgameId } }
@@ -58,30 +57,28 @@ export class CreateGameComponent implements OnInit, AfterViewInit{
     }
   }
 
-  ClickCreateGameNow() : void {
+  ClickCreateGameNow(): void {
     this.snackBar.openSnackBar("Klicke auf den grünen Button, um ein Spiel zu erstellen");
   }
 
   CreateGame(): void {
     if(this.loginHolder.loggedInPlayer!=undefined) {
-      console.log("CreateGame()");
-      console.log(this.loginHolder.loggedInPlayer);
       if(this.hasAlreadyWaitingGame==false) {
         this.fourWinGameAPIInterface.CreateGame(this.loginHolder.loggedInPlayer).subscribe({
           next: (response: any) => {
             this.snackBar.openSnackBar("Game was created successfully!");  
             this.hasAlreadyWaitingGame = true;   
-            this.fourWinGameAPIInterface.GetWaitingGames().subscribe({
-              next: () => {            
-              },
-              error: (error: any) => {
-                console.error(error);
-                this.snackBar.openSnackBar(error.message);
-              },
-              complete: () => {
+            // this.fourWinGameAPIInterface.GetWaitingGames().subscribe({
+            //   next: () => {            
+            //   },
+            //   error: (error: any) => {
+            //     console.error(error);
+            //     this.snackBar.openSnackBar(error.message);
+            //   },
+            //   complete: () => {
         
-              }
-            });
+            //   }
+            // });
           },
           error: (error: any) => {
             console.error(error);

@@ -33,7 +33,6 @@ export class JoinWaitingGameComponent implements OnInit, AfterViewInit{
     this.LoadWaitingGames();
     this.signalRService.notifyGameStart.subscribe({
       next: (resgameId: string) => {
-        console.log("GameID: " + resgameId);
         this.router.navigate(
           ['/play'],
           { queryParams: { gameid: resgameId } }
@@ -46,7 +45,7 @@ export class JoinWaitingGameComponent implements OnInit, AfterViewInit{
       complete: () => {}
     });
 
-    this.signalRService.notifyWaitingListUpdated.subscribe(() => { console.log("LoadWaitingList..."); this.LoadWaitingGames()});
+    this.signalRService.notifyWaitingListUpdated.subscribe(() => { console.log("LoadWaitingList..."); this.LoadWaitingGames(); });
   }
 
   ngOnInit(): void {
@@ -60,7 +59,6 @@ export class JoinWaitingGameComponent implements OnInit, AfterViewInit{
       next: (response: any) => {
         let res: WaitingGamesResponse = response as WaitingGamesResponse;
         this.data = res.waitingGames;
-        console.log("Loaded list");
       },
       error: (error: any) => {
         console.error(error);
@@ -80,15 +78,11 @@ export class JoinWaitingGameComponent implements OnInit, AfterViewInit{
   }
 
   JoinGame(index : number): void {
-    console.log("JoinGame()\nloginHolder.loggedInPlayer.playerID" + this.loginHolder.loggedInPlayer?.playerID);
     if(this.loginHolder.loggedInPlayer == undefined) return;
-    if(this.loginHolder.loggedInPlayer.playerID) {
 
-    }
     this.fourWinGameAPIInterface.JoinGame(this.loginHolder.loggedInPlayer, index).subscribe({
       next: (response: any) => {
-        let res: JoinGameResponse = response as JoinGameResponse
-        console.log(res.gameID);
+        let res: JoinGameResponse = response as JoinGameResponse;
       
         if(this.animationsEnabled) {
           this.playAudio("../../../assets/sounds/gamestart.mp3");

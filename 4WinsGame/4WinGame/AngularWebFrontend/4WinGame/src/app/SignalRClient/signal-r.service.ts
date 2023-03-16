@@ -9,7 +9,7 @@ import { Player } from '../RestAPIClient/Contracts/RestAPI.Contracts';
 //npm install @microsoft/signalr
 
 export class SignalRService {
-  public connected: boolean = false
+  public connected: boolean = false;
   public hubProxy: any;
   public hubUrl: string;
   public connectionId : string;
@@ -21,31 +21,23 @@ export class SignalRService {
   constructor() {
     this.hubUrl = "https://localhost:44320";
     this.connectionId = "";
-    console.log(['hub url: ', this.hubUrl]);
     this.hubProxy = new signalR.HubConnectionBuilder()
     .withUrl(this.hubUrl + "/fourwingamehub")
     .withAutomaticReconnect()
     .build();
-
   }
 
   public startConnection = () => {
-    console.log("Hier ist startConnection.");
-
     this.hubProxy.on("GameStart", (gameID: any) => {
-      console.log("GameStarted: "+ gameID);
       this.notifyGameStart.emit(gameID);
     });
     this.hubProxy.on("WaitingListUpdated", () => {
-      console.log("WaitingListUpdated");
       this.notifyWaitingListUpdated.emit();
     });
     this.hubProxy.on("GameUpdated", (gameID: any) => {
-      console.log("GameUpdated: " + gameID);
       this.notifyGameUpdated.emit(gameID);
     });
     this.hubProxy.on("GameFinished", (winner: any) => {
-      console.log("GameFinished: " + winner.playerName);
       this.notifyGameFinished.emit(winner);
     });
 
